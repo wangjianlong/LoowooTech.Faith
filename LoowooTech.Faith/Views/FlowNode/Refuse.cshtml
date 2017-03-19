@@ -1,0 +1,89 @@
+﻿@{ 
+    Layout = null;
+    FlowNodeConduct model = ViewBag.Model;
+}
+
+<h3 class="text-center">审核不通过</h3>
+<form class="form-horizontal">
+    <div class="row">
+        <div class="col-md-12">
+            @{ 
+                Html.RenderPartial("_Message");
+            }
+            <div class="form-group">
+                <label class="control-label col-md-4">诚信等级：</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" value="@(model.Degree.GetDescription())"  readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">@(model.SystemData.GetDescription())名称：</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" value="@(model.ELName)" readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">项目名称：</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" value="@(model.LandName)" readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">环节：</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" value="@(model.Credit.GetDescription())" readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">诚信行为：</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" value="@(model.StandardName)" readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">扣分分值：</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" value="@(model.Score)" readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">原因：</label>
+                <div class="col-md-7">
+                    <textarea name="Reason" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-7 col-md-offset-4">
+                    <a href="/FlowNode/Verify?id=@(model.ID)&&isOK=false" class="btn btn-primary" name="Verify"><i class="glyphicon glyphicon-upload"></i>审核不通过</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp; 取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(function () {
+        $("a[name='Verify']").click(function () {
+            var reason = $("textarea[name='Reason']").val();
+            var href = $(this).attr("href");
+            if (reason != undefined) {
+                href += "&&reason=" + reason;
+            }
+            var btn = $(this);
+            btn.text("正在录入审核信息").attr("disabled", "disabled");
+            ShowMessage("正在录入审核信息，请稍等......");
+            $.request(href, null, function (json) {
+                if (json.result == 0) {
+                    ShowErrorMessage(json.content);
+                    btn.text("审核不通过").removeAttr("disabled");
+                } else {
+                    ShowSuccessMessage("操作成功");
+                    location.href = "/FlowNode/Index";
+                }
+            });
+            return false;
+        });
+    });
+</script>

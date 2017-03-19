@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "系统首页";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    long ECount = ViewBag.ECount;
+    long LCount = ViewBag.LCount;
+}
+
+<h2>欢迎页</h2>
+<div class="row">
+    <div class="col-md-6">
+        <blockquote >
+            <p><a href="/Enterprise/Index"><i class="glyphicon glyphicon-briefcase"></i>&nbsp;企业管理</a></p>
+            <footer>企业数量：@(ECount)</footer>
+        </blockquote>
+    </div>
+    <div class="col-md-6">
+        <blockquote>
+            <p><a href="/Lawyer/Index"><i class="glyphicon glyphicon-user"></i>&nbsp;自然人管理</a></p>
+            <footer>自然人数量：@(LCount)</footer>
+        </blockquote>
+    </div>
+    <div class="col-md-6">
+        <blockquote>
+            <p><a href="/Land/Index"><i class="glyphicon glyphicon-cloud"></i>&nbsp;供地管理</a></p>
+            <footer>供地数量：@(ViewBag.LandCount)</footer>
+        </blockquote>
+    </div>
+    <div class="col-md-6">
+        <blockquote>
+            <p><a href="/LandRecord/Index"><i class="glyphicon glyphicon-screenshot"></i>&nbsp; 违法用地管理</a></p>
+            <footer>违法用地记录：@(ViewBag.LandRecordCount)</footer>
+        </blockquote>
+    </div>
+    <div class="col-md-6">
+        <blockquote>
+            <p><a href="/Roll/Black"><i class="glyphicon glyphicon-paperclip"></i>&nbsp; 黑名单</a></p> 
+            <footer>黑名单数量：@(ViewBag.Black)</footer>
+        </blockquote>
+    </div>
+    <div class="col-md-6">
+        <blockquote>
+            <p><a href="/Roll/Red"><i class="glyphicon glyphicon-question-sign"></i>&nbsp; 异常名单</a></p>
+            <footer>异常名单数量：@(ViewBag.Red)</footer>
+        </blockquote>
+    </div>
+</div>
+

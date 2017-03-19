@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "违法用地管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<LandRecordView> list = ViewBag.List;
+    LandRecordViewParameter parameter = ViewBag.Parameter;
+}
+
+<h2>
+    &nbsp;违法用地管理
+    <a class="btn btn-primary" href="/LandRecord/File" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-file"></i>导入Excel文件</a>
+</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-2 well">
+            <fieldset><legend>查询设置</legend></fieldset>
+            <form method="get">
+                <div class="form-group">
+                    <label class="control-label">&nbsp;名称：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm" role="group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.ELName)?"success":"default")" name="ELName">全部</button>
+                            </div>
+                            <input type="text" name="ELName" class="form-control" placeholder="名称关键字" value="@(parameter.ELName)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;查处文号：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm" role="group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Code)?"success":"defalut")" name="Code">全部</button>
+                            </div>
+                            <input type="text" name="Code" class="form-control" placeholder="查处文号关键字" value="@(parameter.Code)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;应扣分值：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="MinScore" placeholder="最小值" class="form-control" value="@(parameter.MinScore.HasValue?parameter.MinScore.Value.ToString():"")" />
+                            <span class="input-group-addon">至</span>
+                            <input type="text" name="MaxScore" placeholder="最大值" class="form-control" value="@(parameter.MaxScore.HasValue?parameter.MaxScore.Value.ToString():"")" />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label class="control-label">&nbsp;查询:</label>
+                    <div class="col-md-12">
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-search"></i> 立即查询</button>
+                            <button type="button" class="btn btn-sm btn-default" onclick="history.back();"><i class="glyphicon glyphicon-arrow-left"></i>返回</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10">
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>企业名称</th>
+                        <th>查处文号</th>
+                        <th>违法用地面积【亩】</th>
+                        <th>合法用地面积【亩】</th>
+                        <th>百分比</th>
+                        <th>应扣分值</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in list)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/Detail?id="+item.ELID:"/Lawyer/Detail?id="+item.ELID)">@(item.ELName)</a> 
+                            </td>
+                            <td>@(item.Code)</td>
+                            <td>@(item.IllegalArea)</td>
+                            <td>@(item.Area)</td>
+                            <td>
+                                @(Math.Round(item.IllegalArea / item.Area * 100, 2))
+                            </td>
+                            <td>@(item.Score)</td>
+                            <td>
+                                <a href="/LandRecord/Create?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                                <a href="/LandRecord/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Check"><i class="glyphicon glyphicon-remove-circle"></i>删除</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @{ 
+                Html.RenderPartial("_pagination", parameter.Page as object);
+            }
+        </div>
+    </div>
+</div>
+

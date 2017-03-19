@@ -1,0 +1,154 @@
+﻿@{ 
+    Layout = null;
+    LandView land = ViewBag.Model;
+}
+
+<script>
+    function ShowResult(key) {
+        var systemdata = $("input[type='radio'][name='SystemData']").val();
+        if (systemdata == undefined) {
+            return;
+        }
+        var result = $("Select[name='Result']");
+        $.getJSON("/Conduct/Search?systemData=" + systemdata + "&&key=" + key, null, function (data) {
+            result.empty();
+            $.each(data, function (key, val) {
+                result.append('<option value="' + val.ID + '">' + val.Name + '</option>')
+            });
+        });
+    }
+    $(function () {
+
+        $("#input[name='SystemData']").change(function () {
+            $("input[name='sName']").val("");
+            $("select[name='Result']").empty();
+            $("input[name='ELID']").val("");
+        });
+
+        $("select[name='Result']").change(function () {
+            var id = $(this).val();
+            console.log(id);
+            var name = $(this).find("option:selected").text();
+            console.log(name);
+            $("input[name='ELID']").val(id);
+            $("input[name='sName']").val(name);
+            
+        });
+
+        $("#Land-form").submit(function () {
+            var button = $("#Land-form button[type='submit']");
+            button.text("正在保存").attr("disabled", "disabled");
+            ShowMessage("正在保存，请稍等......");
+            var data = $(this).serialize();
+            $.request("/Land/Create", data, function (json) {
+                if (json.result == 0) {
+
+                    ShowErrorMessage(json.content);
+                    button.text("保存").removeAttr("disabled");
+
+                } else {
+                    ShowSuccessMessage("成功保存");
+                    location.href = "/Land/Index";
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+<h3 class="text-center">&nbsp;录入供地信息</h3>
+<form class="form-horizontal" action="/Land/Create" method="post" id="Land-form">
+    @{ 
+        Html.RenderPartial("_Message");
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label col-md-4">项目名称:</label>
+                <div class="col-md-7">
+                    <input type="text" name="Name" class="form-control" placeholder="项目名称" value="@(land!=null?land.Name:"")" required />
+                </div>
+            </div>
+            @if (land != null)
+            {
+                <div class="form-group">
+                    <label class="control-label col-md-4">受让人：</label>
+                    <div class="col-md-7">
+                        <input type="hidden" name="ID" value="@(land.ID)" />
+                        <input type="hidden" name="ELID" value="@(land.ELID)" />
+                        <input type="hidden" name="SystemData" value="@(land.SystemData)" />
+                        <input type="text" class="form-control" readonly value="@(land.sName)" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label class="control-label col-md-4">企业/自然人：</label>
+                    <div class="col-md-7">
+                        @foreach (SystemData data in Enum.GetValues(typeof(SystemData)))
+                        {
+                            <labela class="radio-inline">
+                                <input type="radio" name="SystemData" value="@(data)" @(land != null && land.SystemData == data ? "checked=checked" : "") />@(data.GetDescription())
+                            </labela>
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">受让人：</label>
+                    <div class="col-md-7">
+                        <input type="hidden" name="ELID" value="@(land!=null?land.ELID:0)" />
+                        <input type="text" name="sName" class="form-control" placeholder="请输入受让人关键字" onkeyup="ShowResult(this.value)" value="@(land!=null)" />
+                        <br />
+                        <select multiple class="form-control" name="Result"></select>
+                    </div>
+                </div>
+            }
+
+
+            <div class="form-group">
+                <label class="control-label col-md-4">电子监管号：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Number" class="form-control" placeholder="电子监管号" value="@(land!=null?land.Number:"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">合同编号：</label>
+                <div class="col-md-7">
+                    <input type="text" name="ContractNumber" class="form-control" placeholder="合同编号" value="@(land!=null?land.ContractNumber:"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">宗地编号：</label>
+                <div class="col-md-7">
+                    <input type="text" name="LandNumber" class="form-control" placeholder="宗地编号" value="@(land!=null?land.LandNumber:"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">供应方式：</label>
+                <div class="col-md-7">
+                    <select name="Way" class="form-control">
+                        <option value="" @(land==null||land.Way.HasValue==false?"selected=selected":"")>请选择</option>
+                        @foreach(SoldWay way in Enum.GetValues(typeof(SoldWay)))
+                        {
+                            <option value="@(way)" @(land!=null&&land.Way.HasValue&&land.Way.Value==way?"selected=selected":"")>@(way.GetDescription())</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">批准文号：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Code" class="form-control" placeholder="批准文号" value="@(land!=null?land.Code:"")" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-7 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>&nbsp; 保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp; 取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

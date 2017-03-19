@@ -1,0 +1,157 @@
+﻿@{ 
+    Layout = null;
+    List<FlowNodeView> FlowNodeViews = ViewBag.List;
+    FlowNodeViewParameter parameter = ViewBag.Parameter;
+
+}
+
+<div class="row">
+    <div class="col-md-3 well">
+        <fieldset><legend>查询设置</legend></fieldset>
+        <form method="get">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">&nbsp;录入时间：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="StartTIme" class="form-control datetimepicker" placeholder="起始时间" value="@(parameter.StartTime.HasValue?parameter.StartTime.Value.ToString("yyyy-MM-dd"):"")" />
+                            <span class="input-group-addon">至</span>
+                            <input type="text" name="EndTime" class="form-control datetimepicker" placeholder="结束时间"  value="@(parameter.EndTime.HasValue?parameter.EndTime.Value.ToString("yyyy-MM-dd"):"")"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;诚信等级：</label>
+                    <div class="col-md-12">
+                        <select name="Degree" class="form-control">
+                            <option @(parameter.Degree.HasValue?"":"selected=selected") >全部</option>
+                            @foreach(CreditDegree degree in Enum.GetValues(typeof(CreditDegree)))
+                            {
+                                <option value="@(degree)" @(parameter.Degree.HasValue&&parameter.Degree.Value==degree?"selected=selected":"")>@(degree.GetDescription())</option>
+                            }
+                        </select>
+                       
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="SystemData" value="@(parameter.SystemData.HasValue?parameter.SystemData.Value.GetDescription():"")" />
+                    <label class="control-label">&nbsp;企业/自然人：</label>
+                    <div class="col-md-12">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-@(parameter.SystemData.HasValue?"default":"success")" name="SystemData">全部</button>
+                            @foreach(SystemData systemData in Enum.GetValues(typeof(SystemData)))
+                            {
+                                <button type="button" class="btn btn-@(parameter.SystemData.HasValue&&parameter.SystemData.Value==systemData?"success":"default")" name="SystemData">@(systemData.GetDescription())</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;企业名称/姓名：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm" role="group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Name)?"success":"default")" name="Name">全部</button>
+                            </div>
+                            <input type="text" name="Name" class="form-control" placeholder="关键字" value="@(parameter.Name)"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;环节：</label>
+                    <div class="col-md-12">
+                        <select name="Credit" class="form-control">
+                            <option @(parameter.Credit.HasValue?"":"selected=selected") >全部</option>
+                            @foreach(Credit credit in Enum.GetValues(typeof(Credit)))
+                            {
+                                <option value="@(credit)" @(parameter.Credit.HasValue&&parameter.Credit.Value==credit?"selected=selected":"")>@(credit.GetDescription())</option>
+                            }
+                        </select>
+                      
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;诚信行为：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.sName)?"success":"default")" name="sName">全部</button>
+                            </div>
+                            <input type="text" name="sName" class="form-control" placeholder="诚信行为关键字"  value="@(parameter.sName)"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;得分：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="MinScore" class="form-control" placeholder="最低分" value="@(parameter.MinScore.HasValue?parameter.MinScore.Value.ToString():"")" />
+                            <span class="input-group-addon">至</span>
+                            <input type="text" name="MaxScore" class="form-control" placeholder="最高分" value="@(parameter.MaxScore.HasValue?parameter.MaxScore.Value.ToString():"")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;审核状态：</label>
+                    <div class="col-md-12">
+                        <select name="State" class="form-control">
+                            <option @(parameter.State.HasValue?"":"selected=selected")>全部</option>
+                            @foreach(BaseState state in Enum.GetValues(typeof(BaseState)))
+                            {
+                                <option value="@(state)" @(parameter.State.HasValue&&parameter.State.Value==state?"selected=selected":"")>@(state.GetDescription())</option>
+                            }
+                        </select>
+
+                      
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp; 审核人：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.UserName)?"success":"default")" name="UserName">全部</button>
+                            </div>
+                           <input type="text" name="UserName" class="form-control" placeholder="审核人关键字" value="@(parameter.UserName)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;审核时间：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="StartUpdateTime" class="form-control datetimepicker" placeholder="审核起始时间" value="@(parameter.StartUpdateTime.HasValue?parameter.StartUpdateTime.Value.ToString("yyyy-MM-dd"):"")" />
+                            <span class="input-group-addon">至</span>
+                            <input type="text" name="EndUpdateTime" class="form-control datetimepicker" placeholder="审核结束时间" value="@(parameter.EndUpdateTime.HasValue?parameter.EndUpdateTime.Value.ToString("yyyy-MM-dd"):"")"/>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label class="control-label">&nbsp;查询:</label>
+                    <div class="col-md-12">
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-search"></i> 立即查询</button>
+                            <button type="button" class="btn btn-sm btn-default" onclick="history.back();"><i class="glyphicon glyphicon-arrow-left"></i>返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-9">
+        @{ 
+            Html.RenderPartial("_Message");
+            Html.RenderPartial("_ShowTable", FlowNodeViews as object);
+        }
+
+        @Html.Partial("_pagination", ViewBag.Page as object)
+    </div>
+</div>
+
+
+
+@*<div class="panel panel-default">
+    <div class="panel-heading">诚信行为列表<span class="badge">@(FlowNodeViews.Count)</span></div>
+    @{ Html.RenderPartial("Show", FlowNodeViews as object);}
+</div>*@

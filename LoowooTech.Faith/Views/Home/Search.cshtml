@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "诚信记录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@*<div class="row">
+    <div class="col-md-12">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/Home"><img alt="LoowooTech" src="~/loowootech2.png" /> </a>
+                    <a class="navbar-brand" href="/Home">&nbsp; 嘉善县土地市场诚信体系建设管理系统&nbsp;</a>
+                </div>
+            </div>
+
+        </nav>
+    </div>
+</div>*@
+
+<br />
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <br />
+            <div class="col-md-12">
+                <div class="col-md-10 col-md-offset-1">
+                    <ul class="nav nav-pills" role="tablist">
+                        <li role="presentation" class="active"><a href="#Enterprise"  role="tab" data-toggle="tab">&nbsp; 企&nbsp;&nbsp;&nbsp; 业</a></li>
+                        <li role="presentation"><a href="#Lawyer"  role="tab" data-toggle="tab">&nbsp;自&nbsp;&nbsp;&nbsp; 然&nbsp;&nbsp;&nbsp; 人</a></li>
+                    </ul>
+                </div>
+             
+                <br />
+                <br />
+                <br />
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="Enterprise" role="tabpanel">
+                            <form class="form-horizontal" action="/Home/SearchEnterprise" id="Enterprise-form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-10">
+                                            <div class="form-group form-group-lg">
+                                                <div class="col-md-12">
+                                                    <input type="text" name="Key" class="form-control input-lg" placeholder="请输入企业名称" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-search" ></i>&nbsp;立即查询</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="Lawyer" role="tabpanel">
+                            <form class="form-horizontal" action="/Home/SearchLawyer" id="Lawyer-form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-10">
+                                            <div class="form-group form-group-lg">
+                                                <div class="col-md-12">
+                                                    <input type="text" name="key" class="form-control input-lg" placeholder="请输入自然人姓名" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-search" name="Search"></i>&nbsp;立即查询</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                @{
+                    Html.RenderPartial("_Message");
+                }
+            </div>
+            <div class="col-md-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="" name="Result"></iframe>
+                </div>
+            </div>
+
+            <div class="col-md-12" id="Result">
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">失信异常名单</div>
+                @{ 
+                    Html.RenderAction("List","Roll", new { bREnum = BREnum.Red });
+                }
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-danger">
+                <div class="panel-heading">失信黑名单</div>
+                @{ 
+                    Html.RenderAction("List","Roll", new { bREnum = BREnum.Black });
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        $("#Enterprise-form").submit(function () {
+            var key = $("#Enterprise-form input[name='Key']").val();
+            if (key != undefined) {
+                $("iframe[name='Result']").attr("src","/Home/SearchEnterprise?key=" + key);
+            }
+            return false;
+        });
+
+        $("#Lawyer-form").submit(function () {
+            //var button = $("#Lawyer-form button[type='submit']");
+            //button.text("正在查询").attr("disabled", "disabled");
+            //ShowMessage("正在查询系统，请稍等......");
+            var key = $("#Lawyer-form input[name='key']").val();
+            if (key != undefined) {
+                $("iframe[name='Result']").attr("src","/Home/SearchLawyer?key=" + key);
+            }
+            return false;
+        });
+    });
+</script>
+
+

@@ -1,0 +1,45 @@
+﻿@{ 
+    Layout = null;
+    List<ConductStandard> list = ViewBag.List;
+    int landID = ViewBag.LandID;
+}
+
+<h3>&nbsp;诚信记录</h3>
+
+<a href="/Conduct/Save?LandID=@(landID)" class="btn btn-primary" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus-sign"></i>录入诚信记录</a>
+<hr />
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>录入时间</th>
+            <th>诚信等级</th>
+            <th>环节</th>
+            <th>诚信行为</th>
+            <th>扣分</th>
+            <th>状态</th>
+            <th>录入人员</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>@(item.CreateTime.ToString("yyyy-MM-dd"))</td>
+                <td>@(item.Degree.GetDescription())</td>
+                <td>@(item.Credit.GetDescription())</td>
+                <td>@(item.StandardName)</td>
+                <td>@(item.Score)</td>
+                <td>@(item.State.HasValue?item.State.Value.GetDescription():"草稿")</td>
+                <td>@(item.UserName)</td>
+                <td>
+                    @if (!item.State.HasValue || item.State.Value == BaseState.DisAgree)
+                    {
+                        <a class="btn btn-success btn-xs" href="/FlowNode/Create?infoId=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-upload"></i>提交审核</a>
+                        <a class="btn btn-primary btn-xs" href="/Conduct/save?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

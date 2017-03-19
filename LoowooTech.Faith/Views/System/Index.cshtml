@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "系统管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SystemEnum systemEnum = ViewBag.Enum;
+}
+
+<h3 class="text-center">&nbsp; 系统配置</h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked" role="tablist">
+                <li role="presentation" class="@(systemEnum==SystemEnum.Standard?"active":"")"><a href="#Standard" role="tab" data-toggle="tab">诚信行为管理</a></li>
+                <li role="presentation" class="@(systemEnum==SystemEnum.User?"active":"")"><a href="#User" role="tab" data-toggle="tab">用户管理</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            @{ 
+                Html.RenderPartial("_Message");
+            }
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane @(systemEnum==SystemEnum.Standard?"active":"")" id="Standard">
+                    @{ Html.RenderAction("StandardList");}
+                </div>
+                <div role="tabpanel" class="tab-pane @(systemEnum==SystemEnum.User?"active":"")" id="User">
+                    @{ Html.RenderAction("UserList");}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,72 @@
+﻿@{ 
+    if (Model == null)
+    {
+        return;
+    }
+    List<FlowNodeView> list = Model as List<FlowNodeView>;
+    if (list == null)
+    {
+        return;
+    }
+}
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>录入时间</th>
+            <th>企业/自然人</th>
+            <th>名称</th>
+            <th>环节</th>
+            <th>行为</th>
+            <th>诚信等级</th>
+            <th>扣分</th>
+            <th>备注</th>
+            <th>审核状态</th>
+            <th>审核人</th>
+            <th>审核时间</th>
+            <th>审核备注</th>
+            <th>快捷工具</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>@(item.CreateTime.ToString("yyyy-MM-dd"))</td>
+                <td>@(item.SystemData.GetDescription())</td>
+                <td>@(item.Name)</td>
+                <td>@(item.Credit.GetDescription())</td>
+                <td>@(item.sName)</td>
+                <td>@(item.Degree.GetDescription())</td>
+                <td>@(item.Score)</td>
+                <td>@(item.Remark)</td>
+                <td>@(item.State.HasValue?item.State.Value.GetDescription():"未提交")</td>
+                <td>@(item.UserName)</td>
+                <td>@(item.fCreateTime.HasValue?item.fCreateTime.Value.ToString("yyyy-MM-dd"):"/")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Content))
+                    {
+                        <button type="button" class="btn btn-danger btn-xs" data-container="body" data-toggle="popover" data-placement="top" data-content="@(item.Content)">
+                            理由
+                        </button>
+                    }
+                </td>
+                <td>
+                    <a href="/Conduct/DetailConduct?id=@(item.ID)" class="btn btn-xs btn-default"  data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;详情</a>
+                    @if (!item.State.HasValue || item.State.Value == BaseState.DisAgree)
+                    {
+
+                        <a class="btn btn-success btn-xs" href="/FlowNode/Create?infoId=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-upload"></i>提交审核</a>
+                        <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=@(item.DataId)&&systemdata=@(item.SystemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                        <a class="btn btn-danger btn-xs" href="/Conduct/Delete?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>撤销</a>
+                    }
+                    @if (item.State.HasValue && item.State.Value == BaseState.Argee)
+                    {
+                        <a class="btn btn-info btn-xs" href="/Conduct/Relieve?id=@(item.ID)" name="Relieve"><i class="glyphicon glyphicon-flag"></i>解除</a>
+                    }
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

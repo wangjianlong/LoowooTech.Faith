@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "名单管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    BREnum BRenum = ViewBag.BREnum;
+    string key = ViewBag.Key;
+}
+
+<h2>
+    &nbsp;名单管理&nbsp;
+    <a href="/Roll/Download" class="btn btn-primary"><i class="glyphicon glyphicon-download-alt"></i>下载表格</a>    
+</h2>
+
+<form class="form-inline" style="float:right" action="/Roll/Index">
+    <div class="form-group">
+        <label>&nbsp; 关键字：</label>
+        <input type="text" name="Key" class="form-control" placeholder="名单关键字" value="@key" />
+    </div>
+    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>立即查询</button>
+</form>
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="col-md-6">
+            <h4 >&nbsp;<strong> 黑名单</strong></h4>
+            @{ 
+                Html.RenderAction("List", new { bREnum = BREnum.Black,key=key });
+            }
+        </div>
+        <div class="col-md-6">
+            <h4>&nbsp; <strong>异常名单</strong></h4>
+            @{ 
+                Html.RenderAction("List",  new { bREnum = BREnum.Red,key=key });
+            }
+        </div>
+    </div>
+</div>

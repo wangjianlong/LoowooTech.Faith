@@ -1,0 +1,103 @@
+﻿@{ 
+    Lawyer lawyer = ViewBag.Lawyer;
+    Layout = null;
+    string url = ViewBag.URL ?? "/Lawyer/Index";
+}
+
+<h3 class="text-center">录入自然人</h3>
+<form class="form-horizontal" action="/Lawyer/create" method="post" id="Lawyer-form">
+    @{ 
+        Html.RenderPartial("_Message");
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <input type="hidden" name="ID" value="@(lawyer!=null?lawyer.ID:0)" />
+            <div class="form-group">
+                <label class="control-label col-md-4">姓名：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Name" placeholder="姓名" class="form-control" value="@(lawyer!=null?lawyer.Name:"")" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">性别：</label>
+                <div class="col-md-7">
+                   @foreach(Sex sex in Enum.GetValues(typeof(Sex)))
+                   {
+                       <label class="radio-inline">
+                           <input type="radio" name="Sex" value="@(sex)" @(lawyer!=null&&lawyer.Sex==sex?"checked=checked":"") />@(sex.GetDescription())
+                       </label>
+                   }
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">出生年月日：</label>
+                <div class="col-md-7">
+                    <input type="text" name="BornTime" placeholder="出生年月日" class="form-control" value="@(lawyer!=null?lawyer.BornTime:"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">证件类型：</label>
+                <div class="col-md-7">
+                    <select name="Credential" class="form-control">
+                        @foreach(Credential credential in Enum.GetValues(typeof(Credential)))
+                        {
+                            <option value="@(credential)" @(lawyer!=null&&lawyer.Credential==credential?"selected=selected":"")>@(credential.GetDescription())</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">证件编号:</label>
+                <div class="col-md-7">
+                    <input type="text" name="Number" placeholder="证件编号" class="form-control" value="@(lawyer!=null?lawyer.Number:"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">联系地址：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Address" placeholder="联系地址" class="form-control" value="@(lawyer!=null?lawyer.Address:"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">联系电话：</label>
+                <div class="col-md-7">
+                    <input type="text" name="TelPhone" placeholder="联系电话" class="form-control" value="@(lawyer!=null?lawyer.TelPhone:"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">电子邮箱：</label>
+                <div class="col-md-7">
+                    <input type="text" name="EMail" placeholder="电子邮箱" class="form-control" value="@(lawyer!=null?lawyer.EMail:"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-7 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp; 取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    $(function () {
+        $("#Lawyer-form").submit(function () {
+            var button = $("#Lawyer-form button[type='submit']");
+            ShowMessage("正在保存自热人信息，请稍等......");
+            button.text("正在保存").attr("disabled", "disabled");
+            var data = $(this).serialize();
+            $.request("/Lawyer/Create", data, function (json) {
+                if (json.result == 0) {
+                    ShowErrorMessage(json.content);
+                    button.text("保存").removeAttr("disabled");
+                } else {
+                    ShowSuccessMessage("成功保存自然人");
+                    location.href = "/Lawyer/Index";
+                }
+            });
+            return false;
+        });
+    })
+</script>

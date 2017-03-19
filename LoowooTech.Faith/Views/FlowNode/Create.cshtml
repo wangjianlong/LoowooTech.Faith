@@ -1,0 +1,57 @@
+﻿@{ 
+    Layout = null;
+    List<User> Managers = ViewBag.Managers;
+    Conduct conduct = ViewBag.Conduct;
+}
+
+<h3 class="text-center">&nbsp;提交审批</h3>
+<br />
+<form class="form-horizontal" method="post" id="FlowNode-form">
+    <div class="row">
+        <div class="col-md-12">
+            @{ 
+                Html.RenderPartial("_Message");
+            }
+            <input type="hidden" name="InfoID" value="@(conduct!=null?conduct.ID:0)" />
+            <div class="form-group">
+                <label class="control-label col-md-4">审核人员：</label>
+                <div class="col-md-7">
+                    @foreach(var item in Managers)
+                    {
+                        <label class="radio-inline">
+                            <input type="radio" name="UserId" value="@(item.ID)" />@(item.UserName)
+                        </label>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-7 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-upload"></i>提交</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp; 取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(function () {
+        $("#FlowNode-form").submit(function () {
+            var button = $("#FlowNode-form button[type='submit']");
+            button.text("正在提交").attr("disabled", "disabled");
+            ShowMessage("正在提交，请稍等......");
+            var data = $(this).serialize();
+            $.request("/FlowNode/Create", data, function (json) {
+                if (json.result == 0) {
+                    ShowErrorMessage(json.content);
+                    button.text("提交").removeAttr("disabled");
+                } else {
+                    ShowSuccessMessage("成功提交");
+                    location.href="/Land/Detail?id=@(conduct.LandID)";
+            
+                }
+            });
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,38 @@
+﻿@{ 
+    Layout = null;
+    ConductView conductView = ViewBag.Model;
+}
+
+
+<h3>&nbsp; 诚信行为详情</h3>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>&nbsp;名称</th>
+        <td>@(conductView.Name)</td>
+    </tr>
+    <tr>
+        <th>&nbsp;环节</th>
+        <td>@(conductView.Credit.GetDescription())</td>
+    </tr>
+    <tr>
+        <th>&nbsp;诚信行为</th>
+        <td>@(conductView.sName)</td>
+    </tr>
+    <tr>
+        <th>&nbsp;诚信等级</th>
+        <td>@(conductView.Degree.GetDescription())</td>
+    </tr>
+    <tr>
+        <th>&nbsp;扣分</th>
+        <td>@(conductView.Score)</td>
+    </tr>
+    <tr>
+        <th>&nbsp;备注</th>
+        <td>@(conductView.Remark)</td>
+    </tr>
+    <tr>
+        <th>&nbsp;审核状态</th>
+        <td>@(conductView.State.HasValue?conductView.State.Value.GetDescription():"草稿")</td>
+    </tr>
+</table>

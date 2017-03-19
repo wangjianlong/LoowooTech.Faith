@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "注册用户";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-md-6 col-md-offset-3">
+    <h2> 欢迎您注册！</h2>
+    <form method="post" id="Form_register" class="col-8">
+        @{
+            Html.RenderPartial("_Message");
+        }
+        <div class="form-group row">
+            <label class="col-2 col-form-label">登录名：</label>
+            <div class="col-10">
+                <input type="text" name="Name" placeholder="登录名" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">用户名：</label>
+            <div class="col-10">
+                <input type="text" name="DisplayName" placeholder="用户名" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">登录密码：</label>
+            <div class="col-10">
+                <input type="password" name="Password" placeholder="登录密码" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">确认密码：</label>
+            <div class="col-10">
+                <input type="password" name="CheckPassword" placeholder="确认密码" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">系统内部验证码：</label>
+            <div class="col-10">
+                <input type="text" name="Code" placeholder="系统内部验证码" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-10 offset-2">
+                <button type="submit" class="btn btn-primary">注册</button>
+                <a href="/User/Login" class="btn btn-success">已有账号，请登录</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    $(function () {
+        function CheckPasword() {
+            var one = $("input[name='Password']").val();
+            var two = $("input[name='CheckPassword']").val();
+            if (one == undefined || two == undefined || one == "" || two == "" || one != two) {
+                return false;
+            }
+            return true;
+        }
+
+        $("#Form_register").submit(function () {
+            if (!CheckPasword()) {
+                ShowErrorMessage("两次输入的密码不一致，请重新输入！");
+                $("input[name='Password']").val("");
+                $("input[name='CheckPassword']").val("");
+                return false;
+            }
+            var submit = $("#Form_register button[type='submit']");
+            ShowMessage("正在注册，请稍等......");
+            submit.text("正在注册，请稍等").attr("disabled", "disabled");
+            var data = $(this).serialize();
+            $.request("/User/Register", data, function (json) {
+                if (json.result == 0) {
+                    ShowErrorMessage(json.content);
+                    submit.text("注册").removeAttr("disabled");
+                } else {
+                    ShowSuccessMessage("成功注册用户");
+                    location.href = "/User/Login";
+                }
+            });
+            return false;
+        })
+    })
+</script>
+

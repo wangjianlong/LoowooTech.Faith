@@ -1,0 +1,165 @@
+﻿@{ 
+    if (Model == null)
+    {
+        return;
+    }
+    List<FlowNodeConduct> list = Model as List<FlowNodeConduct>;
+    if (list == null)
+    {
+        return;
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @foreach (var item in list)
+        {
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@(item.ELName)</h3>
+                    </div>
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>诚信等级</th>
+                                <td><strong><label class="label @(item.Degree==CreditDegree.Bad?"label-danger":item.Degree==CreditDegree.Good?"label-success":"label-warning")">@(item.Degree.GetDescription())</label> </strong></td>
+                            </tr>
+                            <tr>
+                                <th>提交审核时间</th>
+                                <td>@(item.CreateTime.ToString("yyyy-MM-dd"))</td>
+                            </tr>
+                            <tr>
+                                <th>@(item.SystemData.GetDescription())名称</th>
+                                <td>@(item.ELName)</td>
+                            </tr>
+                            <tr>
+                                <th>项目名称</th>
+                                <td>@(item.LandName)</td>
+                            </tr>
+                            <tr>
+                                <th>环节</th>
+                                <td>@(item.Credit.GetDescription())</td>
+                            </tr>
+                            <tr>
+                                <th>诚信行为</th>
+                                <td>@(item.StandardName)</td>
+                            </tr>
+                            <tr>
+                                <th>扣分分值</th>
+                                <td>@(item.Score)</td>
+                            </tr>
+                            <tr>
+                                <th>备注</th>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Remark) && item.Remark.Length > 20)
+                                    {
+                                        <abbr title="@(item.Remark)">@(item.Remark.Substring(0, 20))</abbr>
+                                    }
+                                    else
+                                    {
+                                        @(item.Remark)
+                                    }
+                                </td>
+                            </tr>
+                            @if (item.FlowNodeState == DoingState.None)
+                            {
+                                <tr>
+                                    <th>审核</th>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a href="/FlowNode/Verify?id=@(item.ID)&&isOk=true" class="btn btn-success btn-xs" name="Check"><i class="glyphicon glyphicon-ok-sign"></i>审核通过</a>
+                                            <a href="/FlowNode/Refuse?id=@(item.ID)" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-remove-circle"></i> 审核不通过</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <th>审核结果</th>
+                                    <td>
+                                        <label class="label @(item.FlowNodeState==DoingState.Done?"label-success":"label-danger")">@(item.FlowNodeState.GetDescription())</label>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+@*<ul class="list-group">
+    @foreach (var item in list)
+    {
+        <li class="list-group-item">
+            &nbsp;<strong><label class="label @(item.Degree==CreditDegree.Bad?"label-danger":item.Degree==CreditDegree.Good?"label-success":"label-warning")">@(item.Degree.GetDescription())</label> </strong>
+            &nbsp;时间：&nbsp;@(item.CreateTime.ToString("yyyy-MM-dd"))&nbsp;
+            <a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/Detail?id="+item.ELID:"/Lawyer/Detail?id="+item.ELID)">
+                @(item.SystemData.GetDescription()):
+                &nbsp; <strong>@(item.ELName)</strong>
+            </a>
+            &nbsp;&nbsp;项目：<a href="/Land/Detail?id=@(item.LandID)">@(item.LandName)</a>
+            &nbsp;&nbsp;@(item.Credit.GetDescription())
+            &nbsp;环节&nbsp;<strong>@(item.StandardName)</strong>&nbsp;
+            &nbsp;扣分：&nbsp;@(item.Score)
+            @if (!string.IsNullOrEmpty(item.Remark))
+            {
+                <text>&nbsp;备注:</text>
+                if (item.Remark.Length > 20)
+                {
+                    <abbr title="@(item.Remark)">@(item.Remark.Substring(0,20))</abbr>
+                }
+                else
+                {
+                    @(item.Remark)
+                }
+            }
+            @if (item.FlowNodeState == DoingState.None)
+            {
+                <div class="btn-group btn-group-sm" role="group" style="float:right;">
+                    <a href="/FlowNode/Verify?id=@(item.ID)&&isOk=true" class="btn btn-success btn-xs" name="Check"><i class="glyphicon glyphicon-ok-sign"></i>审核通过</a>
+                    <a href="/FlowNode/Verify?id=@(item.ID)&&isOk=false" class="btn btn-danger btn-xs" ><i class="glyphicon glyphicon-remove-circle"></i> 审核不通过</a>
+                </div>
+            }
+
+            @if (item.FlowNodeState.HasValue)
+                {
+                    if (item.fState.HasValue && item.fState.Value == DoingState.None)
+                    {
+                    <div class="input-group input-group-sm col-md-2" style="float:right;">
+                        <span class="input-group-btn">
+                            <a href="/FlowNode/Verify?id=@(item.ID)&&isOk=true" class="btn btn-success btn-xs" name="Check"><i class="glyphicon glyphicon-ok-sign"></i>审核通过</a>
+                        </span>
+                        <span class="input-group-btn">
+                            <a href="/FlowNode/Verify?id=@(item.ID)&&isOk=false" class="btn btn-danger btn-xs" name="Check"><i class="glyphicon glyphicon-remove-circle"></i> 审核不通过</a>
+                        </span>
+                        <input type="text" name="Reason" class="form-control" placeholder="不通过理由" />
+                     
+                    </div>
+                }
+                else
+                {
+                    if (item.fState.Value == DoingState.Roll&&!string.IsNullOrEmpty(item.Content))
+                    {
+                        <button type="button" class="btn btn-danger btn-xs" data-container="body" data-toggle="popover" data-placement="top" data-content="@(item.Content)">
+                            理由
+                        </button>
+                      
+                    }
+                    <text>&nbsp; 审核时间：</text><strong>@(item.UpdateTime.HasValue ? item.UpdateTime.Value.ToString("yyyy-MM-dd") : "")</strong>
+                }
+            }
+
+     
+        </li>
+
+    }
+</ul>*@
+

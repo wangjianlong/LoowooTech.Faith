@@ -1,0 +1,224 @@
+﻿using LoowooTech.Faith.Common;
+using LoowooTech.Faith.Models;
+using LoowooTech.Faith.Parameters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace LoowooTech.Faith.Managers
+{
+    /// <summary>
+    /// 企业管理
+    /// </summary>
+    public class EnterpriseManager:ManagerBase
+    {
+        /// <summary>
+        /// 作用：保存企业
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月6日11:21:34
+        /// </summary>
+        /// <param name="enterprise"></param>
+        /// <returns></returns>
+        public int Save(Enterprise enterprise)
+        {
+            Db.Enterprises.Add(enterprise);
+            Db.SaveChanges();
+            return enterprise.ID;
+        }
+        /// <summary>
+        /// 作用：编辑更新企业信息
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月6日11:22:39
+        /// </summary>
+        /// <param name="enterprise"></param>
+        /// <returns></returns>
+        public bool Edit(Enterprise enterprise)
+        {
+            var model = Db.Enterprises.Find(enterprise.ID);
+            if (model == null)
+            {
+                return false;
+            }
+            Db.Entry(model).CurrentValues.SetValues(enterprise);
+            Db.SaveChanges();
+            return true;
+        }
+        /// <summary>
+        /// 作用：获取企业
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月6日11:23:18
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Enterprise Get(int id)
+        {
+            if (id == 0)
+            {
+                return null;
+            }
+            return Db.Enterprises.Find(id);
+        }
+
+        /// <summary>
+        /// 作用：通过名称查询
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月16日20:13:41
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public Enterprise Get(string name)
+        {
+            var model = Db.Enterprises.FirstOrDefault(e => e.Name.ToLower() == name.ToLower());
+            return model;
+        }
+        /// <summary>
+        /// 作用：删除企业
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月6日11:26:03
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool Delete(int id)
+        {
+            var model = Db.Enterprises.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            Db.Enterprises.Remove(model);
+            Db.SaveChanges();
+            return true;
+        }
+        /// <summary>
+        /// 作用：查询企业
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月6日11:28:14
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public List<Enterprise> Search(EnterpriseParameter parameter)
+        {
+            var query = Db.Enterprises.AsQueryable();
+            if (!string.IsNullOrEmpty(parameter.Name))
+            {
+                query = query.Where(e => e.Name.ToLower().Contains(parameter.Name.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.OIBC))
+            {
+                query = query.Where(e => e.OIBC.ToLower().Contains(parameter.OIBC.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.USCC))
+            {
+                query = query.Where(e => e.USCC.ToLower().Contains(parameter.USCC.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.Address))
+            {
+                query = query.Where(e => e.Address.ToLower().Contains(parameter.Address.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.Lawyer))
+            {
+                query = query.Where(e => e.Lawyer.ToLower().Contains(parameter.Lawyer.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.LawNumber))
+            {
+                query = query.Where(e => e.LawNumber.ToLower().Contains(parameter.LawNumber.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.Number))
+            {
+                query = query.Where(e => e.Number.ToLower().Contains(parameter.Number.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.Scope))
+            {
+                query = query.Where(e => e.Scope.ToLower().Contains(parameter.Scope.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.Type))
+            {
+                query = query.Where(e => e.Type.ToLower().Contains(parameter.Type.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.Contact))
+            {
+                query = query.Where(e => e.Contact.ToLower().Contains(parameter.Contact.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(parameter.TelPhone))
+            {
+                query = query.Where(e => e.TelPhone.ToLower().Contains(parameter.TelPhone.ToLower()));
+            }
+            if (parameter.MinMoney.HasValue)
+            {
+                query = query.Where(e => e.Money >= parameter.MinMoney.Value);
+            }
+            if (parameter.MaxMoney.HasValue)
+            {
+                query = query.Where(e => e.Money <= parameter.MaxMoney.Value);
+            }
+            query = query.OrderBy(e => e.ID).SetPage(parameter.Page);
+            return query.ToList();
+        }
+        /// <summary>
+        /// 作用：以名字检索是否存在
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月6日15:04:53
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool Exist(string name)
+        {
+            return Db.Enterprises.Any(e => e.Name.ToLower() == name.ToLower());
+        }
+        public void AddRange(List<Enterprise> list, int userid)
+        {
+            var name = "文件导入企业";
+            var dailys = new List<Daily>();
+            foreach (var item in list)
+            {
+                Daily daily = null;
+                if (Exist(item.Name))
+                {
+                    daily = new Daily
+                    {
+                        Name = name,
+                        Description = string.Format("系统中已存在企业名称为{0}的记录了", item.Name),
+                        UserID = userid
+                    };
+                }
+                else
+                {
+                    try
+                    {
+                        var id = Save(item);
+                    } catch (Exception ex)
+                    {
+                        daily = new Daily
+                        {
+                            Name = name,
+                            Description = string.Format("导入企业{0}；发生错误{1}", item.Name, ex.Message),
+                            UserID = userid
+                        };
+                    }
+                }
+                if (daily != null && !string.IsNullOrEmpty(daily.Name))
+                {
+                    dailys.Add(daily);
+                }
+            }
+            if (dailys.Count > 0)
+            {
+                Core.DailyManager.AddRange(dailys);
+            }
+
+        }
+
+
+        /// <summary>
+        /// 作用：统计企业数量
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月16日16:08:33
+        /// </summary>
+        /// <returns></returns>
+        public long Count()
+        {
+            return Db.Enterprises.LongCount();
+        }
+    }
+}

@@ -1,0 +1,125 @@
+﻿@{ 
+    Layout = null;
+    Conduct conduct = ViewBag.Model;
+    List<Standard> standards = ViewBag.Standards;
+    LandView land = ViewBag.Land;
+}
+<script>
+    $(function () {
+        $("select[name='Credit']").change(function () {
+            var val = $(this).val();
+            var select = $("select[name='StandardId']");
+            $.getJSON("/Conduct/GetStandard?credit=" + val, null, function (data) {
+                var items = [];
+
+                select.empty().append('<option>请选择</option>');
+                $.each(data, function (key, val) {
+                    select.append('<option value="' + val.ID + '">' + val.Name + '</option>');
+                });
+            });
+        });
+
+        $("#Conduct-form").submit(function () {
+            var button = $("#Conduct-form button[type='submit']");
+            button.text("正在保存......").attr("disabled", "disabled");
+            ShowMessage("正在保存，请稍等......");
+            var data = $(this).serialize();
+            $.request("/Conduct/Save", data, function (json) {
+                if (json.result == 0) {
+                    ShowErrorMessage(json.content);
+                    button.text("保存").removeAttr("disabled");
+                } else {
+                    ShowSuccessMessage("成功保存");
+                    location.href = "/Land/Detail?id=" + json.data;
+                    
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+<h3 class="text-center">&nbsp;录入诚信记录</h3>
+<form class="form-horizontal" action="" method="post" id="Conduct-form">
+    <div class="row">
+        <div class="col-md-12">
+            @{ 
+                Html.RenderPartial("_Message");
+            }
+            <div class="form-group">
+                <label class="control-label col-md-4">项目名称：</label>
+                <div class="col-md-7">
+                    <input type="hidden" name="ID" value="@(conduct!=null?conduct.ID:0)" />
+                    <input type="hidden" name="UserID" value="@(Identity.UserID)" />
+                    <input type="hidden" name="LandID" value="@(conduct!=null?conduct.LandID:land!=null?land.ID:0)" />
+                    <input type="text" name="" class="form-control" value="@(land!=null?land.Name:"未获取供地信息,请刷新")" readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">受让人：</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" value="@(land!=null?land.sName:"未获取供地信息，请刷新")" readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">诚信行为等级：</label>
+                <div class="col-md-7">
+                    <select name="Degree" class="form-control">
+                        <option value="">请选择</option>
+                        @foreach (CreditDegree degree in Enum.GetValues(typeof(CreditDegree)))
+                        {
+                            <option value="@(degree)" @(conduct != null && conduct.Degree == degree ? "selected=selected" : "")>@(degree.GetDescription())</option>
+                        }
+                    </select>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">环节：</label>
+                <div class="col-md-7">
+                    <select name="Credit" class="form-control">
+                        <option value="">请选择</option>
+                        @foreach (Credit credit in Enum.GetValues(typeof(Credit)))
+                        {
+                            <option value="@(credit)" @(conduct != null && conduct.Credit == credit ? "selected=selected" : "")>@(credit.GetDescription())</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">诚信行为：</label>
+                <div class="col-md-7">
+                    <select name="StandardId" class="form-control">
+                        <option>请选择</option>
+                        @if (conduct != null && standards != null)
+                        {
+                            foreach (var item in standards)
+                            {
+                                <option value="@(item.ID)" @(conduct.StandardId == item.ID ? "selected=selected" : "")>@(item.Name)</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">分值：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Score" class="form-control" placeholder="分值" value="@(conduct!=null?conduct.Score.ToString():"")" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">备注：</label>
+                <div class="col-md-7">
+                    <textarea name="Remark" class="form-control" rows="3">@(conduct != null ? conduct.Remark : "")</textarea>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-7 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp; 取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

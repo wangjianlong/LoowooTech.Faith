@@ -1,0 +1,14 @@
+﻿@{ 
+    Layout = null;
+    List<FlowNodeConduct> list = ViewBag.List;
+}
+
+<h3>待审核：@(list.Count)</h3>
+
+<br />
+@{ 
+    Html.RenderPartial("Show", list as object);
+}
+
+
+

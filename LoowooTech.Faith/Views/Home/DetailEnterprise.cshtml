@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "企业";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Enterprise enterprise = ViewBag.Model;
+}
+
+@{ 
+    Html.RenderPartial("_showEnterprise", enterprise as object);
+    Html.RenderPartial("_Subject", enterprise as object);
+    Html.RenderAction("Detail", "Conduct", new { dataId = enterprise.ID, systemdata = SystemData.Enterprise, rows = 20 });
+}
+

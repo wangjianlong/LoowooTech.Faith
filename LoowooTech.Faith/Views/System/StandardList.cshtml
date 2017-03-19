@@ -1,0 +1,36 @@
+﻿@{ 
+    Layout = null;
+    Dictionary<Credit, List<Standard>> dict = ViewBag.Dict;
+}
+
+<a class="btn btn-primary" href="/System/CreateStandard" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus"></i>添加诚信行为</a>
+
+<br />
+<br />
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>环节名称</th>
+            <th>诚信行为</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var entry in dict)
+        {
+            <tr>
+                <td rowspan="@(entry.Value.Count+1)"><strong>@(entry.Key.GetDescription())</strong></td>
+            </tr>
+            foreach(var item in entry.Value)
+            {
+                <tr>
+                    <td>@(item.Name)</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="/System/CreateStandard?id=@(item.ID)"data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                        <a class="btn btn-danger btn-xs" href="/System/DeleteStandard?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>删除</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

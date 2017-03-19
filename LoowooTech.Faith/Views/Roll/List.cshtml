@@ -1,0 +1,24 @@
+﻿@{ 
+    Layout = null;
+    List<RollView> RollViews = ViewBag.List;
+    int serial = 1;
+}
+
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>名称</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in RollViews)
+        {
+            <tr>
+                <td>@(serial++)</td>
+                <td>@(item.Name)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,90 @@
+﻿using LoowooTech.Faith.Models;
+using NPOI.SS.UserModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace LoowooTech.Faith.Common
+{
+    public static class RollExcelManager
+    {
+        private static string _modelExcelName { get; set; }
+        private static string _modelExcelPath { get; set; }
+        static RollExcelManager()
+        {
+            _modelExcelName = System.Configuration.ConfigurationManager.AppSettings["Roll"] ?? "Roll.xls";
+            _modelExcelPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", _modelExcelName);
+        }
+        /// <summary>
+        /// 作用：生成表单
+        /// </summary>
+        /// <param name="rollViews"></param>
+        /// <returns></returns>
+        public static IWorkbook SaveRoll(List<RollView> rollViews)
+        {
+            if (!System.IO.File.Exists(_modelExcelPath))
+            {
+                return null;
+            }
+            IWorkbook workbook = _modelExcelPath.OpenExcel();
+            if (workbook == null)
+            {
+                return null;
+            }
+            ISheet sheet = workbook.GetSheetAt(0);
+            if (sheet != null)
+            {
+                var modelrow = sheet.GetRow(2);
+                WriteTime(ref sheet);
+                Write(rollViews.Where(e => e.BREnum == BREnum.Red).ToList(), ref sheet, modelrow);
+            }
+            ISheet sheet2 = workbook.GetSheetAt(1);
+            if (sheet2 != null)
+            {
+                var modelrow = sheet2.GetRow(2);
+                WriteTime(ref sheet2);
+                Write(rollViews.Where(e => e.BREnum == BREnum.Black).ToList(), ref sheet2, modelrow);
+            }
+            return workbook;
+        }
+        /// <summary>
+        /// 作用：填写时间：
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月8日15:48:22
+        /// </summary>
+        /// <param name="sheet"></param>
+        private static void WriteTime(ref ISheet sheet)
+        {
+            IRow row = sheet.GetRow(0);
+            if (row == null)
+            {
+                row = sheet.CreateRow(0);
+            }
+            ICell cell = row.GetCell(3);
+            if (cell == null)
+            {
+                cell = row.CreateCell(3);
+            }
+            cell.SetCellValue(DateTime.Now.ToString("yyyy-MM-dd"));
+        }
+
+        private static void Write(List<RollView> list,ref ISheet sheet,IRow modelRow)
+        {
+            var startLine = 2;
+            var serial = 1;
+            foreach(var item in list)
+            {
+                var row = sheet.GetRow(startLine);
+                if (row == null)
+                {
+                    row = sheet.CreateRow(startLine);
+                }
+                startLine++;
+                var cell = ExcelManager.GetCell(row, 0, modelRow);
+                cell.SetCellValue(serial++);
+                ExcelManager.GetCell(row, 1, modelRow).SetCellValue(item.Name);
+            }
+        }
+    }
+}

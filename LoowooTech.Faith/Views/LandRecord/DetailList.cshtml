@@ -1,0 +1,35 @@
+﻿@{ 
+    Layout = null;
+    List<LandRecord> list = ViewBag.List;
+}
+
+<h3>&nbsp;违法用地</h3>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>录入时间</th>
+            <th>查处文号</th>
+            <th>违法用地面积【亩】</th>
+            <th>合法用地面积【亩】</th>
+            <th>百分比</th>
+            <th>应扣分值</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>@(item.CreateTime)</td>
+                <td>@(item.Code)</td>
+                <td>@(item.IllegalArea)</td>
+                <td>@(item.Area)</td>
+                <td>
+                    @(Math.Round(item.IllegalArea / item.Area * 100, 2))
+                </td>
+                <td>@(item.Score)</td>
+             
+            </tr>
+        }
+    </tbody>
+</table>

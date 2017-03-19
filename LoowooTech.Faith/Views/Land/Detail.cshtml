@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "供地信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    LandView land = ViewBag.Model;
+}
+
+<h2>
+    &nbsp;@(land.Name)
+    <a class="btn btn-default" onclick="history.back()"><i class="glyphicon glyphicon-arrow-left"></i>返回</a>
+</h2>
+<hr />
+<h3>&nbsp;供地信息</h3>
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <th>项目名称</th>
+            <td colspan="3">@(land.Name)</td>
+        </tr>
+        <tr>
+            <th>受让人</th>
+            <td colspan="3"><a href="@(land.SystemData==SystemData.Enterprise?"/Enterprise/Detail?id="+land.ELID:"/Lawyer/Detail?id="+land.ELID)">@(land.sName)</a> </td>
+        </tr>
+        <tr>
+            <th>电子监管号</th>
+            <td>@(land.Number)</td>
+            <th>合同编号</th>
+            <td>@(land.ContractNumber)</td>
+        </tr>
+        <tr>
+            <th>宗地编号</th>
+            <td>@(land.LandNumber)</td>
+            <th>供应方式</th>
+            <td>@(land.Way.HasValue?land.Way.Value.GetDescription():"未填写")</td>
+        </tr>
+        <tr>
+            <th>供应面积</th>
+            <td>@(land.Area)</td>
+            <th>代征面积</th>
+            <td>@(land.ReplaceArea.HasValue?land.ReplaceArea.Value.ToString():"未填写")</td>
+        </tr>
+        <tr>
+            <th>出让金额【万元】</th>
+            <td>@(land.Money)</td>
+            <th>批准文号</th>
+            <td>@(land.Code)</td>
+        </tr>
+    </tbody>
+</table>
+
+@{ 
+    Html.RenderAction("DetailList", "Conduct", new { LandID = land.ID });
+}
+
+

@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "审核管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>&nbsp;审核管理</h2>
+<br />
+<div class="row">
+    <div class="col-dm-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#None" role="tab" data-toggle="tab">等待审核</a></li>
+            <li role="presentation"><a href="#History" role="tab" data-toggle="tab">审核历史</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="None">
+                @{
+                    Html.RenderAction("Work");
+                }
+            </div>
+            <div role="tabpanel" class="tab-pane" id="History">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="/FlowNode/History" name=""></iframe>
+                </div>
+                @{
+                    //Html.RenderAction("History");
+                }
+            </div>
+        </div>
+        <div class="col-md-12">
+
+        </div>
+    </div>
+</div>
+
+

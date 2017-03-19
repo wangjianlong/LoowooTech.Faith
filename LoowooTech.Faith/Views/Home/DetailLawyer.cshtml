@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "查看自然人";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Lawyer lawyer = ViewBag.Model;
+}
+
+
+@{ 
+    Html.RenderPartial("_showLawyer", lawyer as object);
+    Html.RenderPartial("_Subject", lawyer as object);
+    Html.RenderAction("Detail", "Conduct", new { dataId = lawyer.ID, systemdata = SystemData.Lawyer, rows = 20 });
+}
+

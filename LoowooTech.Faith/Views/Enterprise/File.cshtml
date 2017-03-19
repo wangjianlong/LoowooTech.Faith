@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+<h3 class="text-center">导入企业文件</h3>
+<form class="form-horizontal" action="/Enterprise/analyzefile" method="post" enctype="multipart/form-data" id="file">
+    @{
+        Html.RenderPartial("_Message");
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label col-md-4">文件：</label>
+                <div class="col-md-7">
+                    <input type="file" class="form-control" name="file" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-7 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-upload"></i>&nbsp; 上传</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp; 取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

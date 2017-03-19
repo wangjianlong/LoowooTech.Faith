@@ -1,0 +1,34 @@
+﻿@{ 
+    if (Model == null)
+    {
+        return;
+    }
+
+    Subject subject = Model as Subject;
+    if (subject == null)
+    {
+        return;
+    }
+}
+
+<h3>&nbsp;信用评级</h3>
+<table class="table table-bordered">
+    <tr>
+        <th>信用评级：</th>
+        <td><h2 style="margin-top:5px;"><label class="label label-danger">@(subject.Level)</label></h2> </td>
+        <th>轻微不诚信</th>
+        <td><label class="label label-success">@(subject.Good)</label> </td>
+    </tr>
+    <tr>
+        <th>评级时间：</th>
+        <td>@(subject.GradeTime.HasValue ? subject.GradeTime.Value.ToString("yyyy-MM-dd") : "未评级")</td>
+        <th>不诚信行为</th>
+        <td><label class="label label-warning">@(subject.Less)</label></td>
+    </tr>
+    <tr>
+        <th>信用评级说明：</th>
+        <td>@(subject.LevelDescription)</td>
+        <th>严重不诚信</th>
+        <td><label class="label label-danger">@(subject.Bad)</label> </td>
+    </tr>
+</table>

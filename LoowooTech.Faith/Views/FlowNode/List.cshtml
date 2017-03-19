@@ -1,0 +1,8 @@
+﻿@{ 
+    Layout = null;
+    List<FlowNodeView> list = ViewBag.List;
+}
+
+@{ 
+    Html.RenderPartial("Show", list as object);
+}

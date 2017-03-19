@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "信用评级";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    &nbsp;信用评级
+   
+</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        @{
+            Html.RenderPartial("_Message");
+        }
+       
+        <div class="well">
+            每年12月31日点击开始计算信用评级按钮，系统将自动计算和更新企业及自然人的信用级别信息。
+        </div>
+        <a href="/Grade/Working" class="btn btn-primary btn-large" name="Work"><i class="glyphicon glyphicon-tree-deciduous"></i>开始计算信用评级</a>    
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $("a[name='Work']").click(function () {
+            var button = $(this);
+            button.text("正在信用评级").attr("disabled", "disabled");
+            ShowMessage("正在评级，请稍等......");
+            var href = $(this).attr("href");
+            $.request(href, null, function (json) {
+                if (json.result == 0) {
+                    ShowErrorMessage(json.content);
+                } else {
+                    ShowSuccessMessage("完成评级");
+                }
+
+                button.text("信用评级").removeAttr("disabled");
+            });
+            return false;
+        });
+    })
+</script>

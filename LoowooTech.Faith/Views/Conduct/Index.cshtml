@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "诚信行为管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    &nbsp;诚信行为&nbsp;&nbsp;&nbsp;&nbsp;
+    <a class="btn btn-primary" href="/Conduct/Create" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus"></i>添加诚信行为信息</a>
+</h2>
+
+
+@{ 
+    Html.RenderAction("List", new { UserId = Identity.UserID });
+}

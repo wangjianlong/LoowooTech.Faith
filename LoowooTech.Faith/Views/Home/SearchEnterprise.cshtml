@@ -1,0 +1,53 @@
+﻿@{ 
+    Layout = null;
+    List<Enterprise> list = ViewBag.List;
+    EnterpriseParameter parameter = ViewBag.Parameter;
+    var page = parameter.Page;
+
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+@*<div class="well">
+    <span>&nbsp;查询开始时间：@(parameter.SearchStartTime.ToString()) &nbsp;</span>
+    <span>&nbsp;查询结束时间：@(parameter.SearchEndTime.ToString()) &nbsp;</span>
+    <span>&nbsp;查询耗时：@(parameter.TimeSpan) &nbsp;</span>
+    <span>&nbsp;总查询到结果：@(parameter.Page.RecordCount)</span>
+</div>*@
+
+<div class="list-group">
+    @foreach (var item in list)
+    {
+        <a href="/Home/DetailEnterprise?id=@(item.ID)" class="list-group-item" target="_blank">
+            <h3 class="list-group-item-heading">@(item.Name)</h3>
+            <blockquote>
+                <dl class="dl-horizontal">
+                    <dt>地址：</dt>
+                    <dd>@(item.Address)</dd>
+                    <dt>组织机构代码：</dt>
+                    <dd>@(item.OIBC)</dd>
+                    <dt>统一社会信用代码：</dt>
+                    <dd>@(item.USCC)</dd>
+                    <dt>企业法人：</dt>
+                    <dd>@(item.Lawyer)</dd>
+                    <dt>企业法人身份证号：</dt>
+                    <dd>@(item.LawNumber)</dd>
+                    <dt>注册资本【万元】：</dt>
+                    <dd>@(item.Money)</dd>
+                    <dt>营业执照/注册号：</dt>
+                    <dd>@(item.Number)</dd>
+                    <dt>经营范围：</dt>
+                    <dd>@(item.Scope)</dd>
+                </dl>
+            </blockquote>
+        </a>
+    }
+</div>
+
+@{
+    Html.RenderPartial("_pagination", parameter.Page as object);
+}
+
+

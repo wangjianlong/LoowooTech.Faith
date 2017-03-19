@@ -1,0 +1,71 @@
+﻿@{ 
+    Layout = null;
+    List<ConductView> views = ViewBag.Views;
+    int dataId = ViewBag.DataID;
+    SystemData systemData = ViewBag.SystemData;
+}
+
+
+<h3>&nbsp;诚信行为记录</h3>
+@if (Identity.IsAuthenticated)
+{
+    <a class="btn btn-primary btn-sm" href="/Conduct/Create?dataid=@(dataId)&&systemdata=@(systemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus"></i>诚信行为</a>
+}
+
+@{
+    Html.RenderPartial("_Message");
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>时间</th>
+            <th>诚信行为等级</th>
+            <th>环节</th>
+            <th>诚信行为</th>
+            <th>分值</th>
+            <th>备注</th>
+            <th>状态</th>
+            @if (Identity.IsAuthenticated)
+            {
+                <th>操作</th>
+            }
+   
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in views)
+        {
+            <tr>
+                <td>@(item.CreateTime.ToString("yyyy-MM-dd"))</td>
+                <td>@(item.Degree.GetDescription())</td>
+                <td>@(item.Credit.GetDescription())</td>
+                <td>@(item.sName)</td>
+                <td>@(item.Score)</td>
+                <td>@(item.Remark)</td>
+                <td>
+                    @(item.State.HasValue ? item.State.Value.GetDescription() : "草稿")
+                </td>
+                @if (Identity.IsAuthenticated)
+                {
+                    <td>
+                        @if (!item.State.HasValue || item.State.Value == BaseState.DisAgree)
+                        {
+
+                            <a class="btn btn-success btn-xs" href="/FlowNode/Create?infoId=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-upload"></i>提交审核</a>
+                            <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=@(dataId)&&systemdata=@(systemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                        }
+                        @if (item.State.HasValue && item.State.Value == BaseState.Argee)
+                        {
+                            <a class="btn btn-info btn-xs" href="/Conduct/Relieve?id=@(item.ID)" name="Relieve"><i class="glyphicon glyphicon-flag"></i>解除</a>
+                        }
+
+                        <a class="btn btn-danger btn-xs" href="/Conduct/Delete?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>撤销</a>
+                    </td>
+                }
+              
+            </tr>
+        }
+    </tbody>
+</table>
+
+

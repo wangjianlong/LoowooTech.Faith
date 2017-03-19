@@ -1,0 +1,66 @@
+﻿
+@{ 
+    Layout = null;
+    List<User> list = ViewBag.List;
+}
+
+
+<br />
+<br />
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>登录名</th>
+            <th>角色</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>@(item.ID)</td>
+                <td>@(item.UserName)</td>
+                <td>@(item.Name)</td>
+                <td>@(item.Role.GetDescription())</td>
+                <td>
+                    
+                    @if (item.Approve == false)
+                    {
+                        <a href="/System/Approve?id=@(item.ID)" class="btn btn-success btn-xs" name="Approve"><i class="glyphicon glyphicon-leaf"></i>授权登录</a>
+                    }
+                    @if (item.Role != UserRole.Administrator)
+                    {
+                        <a href="/System/ChangeRole?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-flag"></i>更改权限</a>
+                        <a href="/System/DeleteUser?id=@(item.ID)" class="btn btn-danger btn-xs" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>删除</a>
+                    }
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        $("a[name='Approve']").click(function () {
+            if (confirm("您确定要授权登录吗？")) {
+                var node = $(this);
+                ShowMessage("正在授权,请稍等......");
+                var href = $(this).attr("href");
+                $.request(href, null, function (json) {
+                    if (json.result == 0) {
+                        ShowErrorMessage(json.content);
+
+                    } else {
+                        ShowSuccessMessage("成功授权");
+                        node.remove();
+                    }
+                })
+            }
+            return false;
+        });
+    })
+</script>

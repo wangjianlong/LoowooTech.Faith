@@ -1,0 +1,78 @@
+﻿@{ 
+    Layout = null;
+    LandRecordView record = ViewBag.Model;
+}
+<script>
+    $(function () {
+        $("#Record-form").submit(function () {
+            var btn = $("#Record-form button[type='submit']");
+            btn.text("正在保存").attr("disabled", "disabled");
+            ShowMessage("正在保存，请稍等......");
+            var data = $(this).serialize();
+            $.request("/LandRecord/Create", data, function (json) {
+                if (json.result == 0) {
+                    ShowErrorMessage(json.content);
+                    btn.text("保存").removeAttr("disabled");
+                } else {
+                    ShowSuccessMessage("成功保存")
+                    location.href = "";
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+<h3 class="text-center">&nbsp;违法用地信息</h3>
+<hr />
+<form class="form-horizontal" method="post" id="Record-form">
+    <div class="row">
+        <div class="col-md-12">
+            @{ 
+                Html.RenderPartial("_Message");
+            }
+            <input type="hidden" name="ELID" value="@(record!=null?record.ELID.ToString():Request.QueryString["ELID"].ToString())" />
+            <input type="hidden" name="SystemData" value="@(record!=null?record.SystemData.ToString():Request.QueryString["SystemData"].ToString())" />
+            <input type="hidden" name="ID" value="@(record!=null?record.ID:0)" />
+            <input type="hidden" name="UserID" value="@(Identity.UserID)" />
+            <div class="form-group">
+                <label class="control-label col-md-4">名称：</label>
+                <div class="col-md-7">
+                    <input type="text" name="" class="form-control" value="@(record!=null?record.ELName:"请刷新")"readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">查出文号：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Code" class="form-control" value="@(record!=null?record.Code:"")" placeholder="查处文号" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">违法用地面积【亩】：</label>
+                <div class="col-md-7">
+                    <input type="text" name="IllegalArea" class="form-control" value="@(record!=null?record.IllegalArea.ToString():"")" placeholder="违法用地面积" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">合法用地面积【亩】：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Area" class="form-control" value="@(record!=null?record.Area.ToString():"")" placeholder="合法用地面积" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">应扣分值：</label>
+                <div class="col-md-7">
+                    <input type="text" name="Score" class="form-control" value="@(record!=null?record.Score.ToString():"")" placeholder="应扣分值" />
+                </div>
+            </div>
+
+            <br />
+            <div class="form-group">
+                <div class="col-md-7 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>&nbsp; 保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp; 取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

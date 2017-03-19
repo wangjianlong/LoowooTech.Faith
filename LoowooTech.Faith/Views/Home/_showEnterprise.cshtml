@@ -1,0 +1,65 @@
+﻿@{
+    if (Model == null)
+    {
+        return;
+    }
+
+    Enterprise enterprise = Model as Enterprise;
+
+    if (enterprise == null)
+    {
+        return;
+    }
+}
+
+<br />
+<h3>&nbsp;@(enterprise.Name)</h3>
+<hr />
+<h4>&nbsp;企业信息</h4>
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <th>企业名称：</th>
+            <td colspan="3">@(enterprise.Name)</td>
+        </tr>
+        <tr>
+            <th>地址：</th>
+            <td colspan="3">@(enterprise.Address)</td>
+        </tr>
+        <tr>
+            <th>组织机构代码：</th>
+            <td>@(enterprise.OIBC)</td>
+            <th>统一社会信用代码：</th>
+            <td>@(enterprise.USCC)</td>
+        </tr>
+        <tr>
+            <th>企业法人：</th>
+            <td>@(enterprise.Lawyer)</td>
+            <th>企业法人身份证号：</th>
+            <td>@(enterprise.LawNumber)</td>
+        </tr>
+        <tr>
+            <th>注册资本【万元】：</th>
+            <td>@(enterprise.Money)</td>
+            <th>营业执照/注册号：</th>
+            <td>@(enterprise.Number)</td>
+        </tr>
+        <tr>
+            <th>经营范围：</th>
+            <td colspan="3">@(enterprise.Scope)</td>
+        </tr>
+        <tr>
+            <th>企业类型：</th>
+            <td>@(enterprise.Type)</td>
+            <th>联系电话：</th>
+            <td>@(enterprise.ContactWay)</td>
+        </tr>
+        <tr>
+            <th>联系人名字：</th>
+            <td>@(enterprise.Contact)</td>
+            <th>联系人电话：</th>
+            <td>@(enterprise.TelPhone)</td>
+        </tr>
+    </tbody>
+</table>
+

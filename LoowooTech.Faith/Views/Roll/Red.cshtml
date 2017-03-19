@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "异常名单";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string key = ViewBag.Key;
+}
+
+
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h2>&nbsp;异常名单管理 </h2>
+
+
+
+        <form class="form-inline" style="float:right" action="/Roll/Red">
+            <div class="form-group">
+                <label>&nbsp; 关键字：</label>
+                <input type="text" name="Key" class="form-control" placeholder="名单关键字" value="@key" />
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>立即查询</button>
+            <a href="/Roll/Download" class="btn btn-primary"><i class="glyphicon glyphicon-download-alt"></i>下载表格</a>
+        </form>
+        <br />
+        <br />
+        @{
+            Html.RenderAction("List", new { bREnum = BREnum.Red, key = key });
+        }
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@{ 
+    Layout = null;
+    LawyerParameter parameter = ViewBag.Parameter;
+    List<Lawyer> list = ViewBag.List;
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+@*<div class="well">
+    <span>&nbsp;查询开始时间：@(parameter.SearchStartTime.ToString()) &nbsp;</span>
+    <span>&nbsp;查询结束时间：@(parameter.SearchEndTime.ToString()) &nbsp;</span>
+    <span>&nbsp;查询耗时：@(parameter.TimeSpan) &nbsp;</span>
+    <span>&nbsp;总查询到结果：@(parameter.Page.RecordCount)</span>
+</div>*@
+
+<div class="list-group">
+    @foreach (var item in list)
+    {
+        <a href="/Home/DetailLawyer?id=@(item.ID)" class="list-group-item" target="_blank">
+            <h3 class="list-group-item-heading">@(item.Name)</h3>
+            <blockquote>
+                <dl class="dl-horizontal">
+                    <dt>性别：</dt>
+                    <dd>@(item.Sex.GetDescription())</dd>
+                    <dt>出生年月日：</dt>
+                    <dd>@(item.BornTime)</dd>
+                    <dt>证件类型：</dt>
+                    <dd>@(item.Credential.GetDescription())</dd>
+                    <dt>证件编号：</dt>
+                    <dd>@(item.Number)</dd>
+                    <dt>地址：</dt>
+                    <dd>@(item.Address)</dd>
+                    <dt>联系电话：</dt>
+                    <dd>@(item.TelPhone)</dd>
+                    <dt>电子邮箱：</dt>
+                    <dd>@(item.EMail)</dd>
+                </dl>
+            </blockquote>
+        </a>
+    }
+
+</div>
+@{
+    Html.RenderPartial("_pagination", parameter.Page as object);
+}

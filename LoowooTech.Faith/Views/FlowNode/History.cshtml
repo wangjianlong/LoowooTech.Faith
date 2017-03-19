@@ -1,0 +1,21 @@
+﻿@{ 
+    Layout = null;
+    List<FlowNodeConduct> list = ViewBag.History;
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        @{
+            Html.RenderPartial("Show", list as object);
+            Html.RenderPartial("_pagination", ViewBag.Page as object);
+        }
+    </div>
+</div>
+
