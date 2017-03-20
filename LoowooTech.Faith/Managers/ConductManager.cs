@@ -110,6 +110,8 @@ namespace LoowooTech.Faith.Managers
             }
             return query.ToList();
         }
+
+       
         /// <summary>
         /// 作用：获取诚信记录
         /// 作者：汪建龙
@@ -377,6 +379,17 @@ namespace LoowooTech.Faith.Managers
         {
             var model = Db.ConductView.Find(id);
             return model;
+        }
+
+        /// <summary>
+        /// 作用：统计数量
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月20日16:43:46
+        /// </summary>
+        /// <returns></returns>
+        public long Count()
+        {
+            return Db.Conducts.LongCount();
         }
 
     }

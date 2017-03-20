@@ -1,6 +1,9 @@
 ﻿using LoowooTech.Faith.Common;
+using LoowooTech.Faith.Models;
+using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,6 +40,24 @@ namespace LoowooTech.Faith.Controllers
                 Core.DailyManager.AddRange(daily1);
             }
             return SuccessJsonResult();
+        }
+
+        public ActionResult Download()
+        {
+            var list = Core.ScoreManager.Get();
+            IWorkbook workbook = RollExcelManager.SaveScore(list);
+            MemoryStream ms = new MemoryStream();
+            workbook.Write(ms);
+            ms.Flush();
+            byte[] fileContents = ms.ToArray();
+            return File(fileContents, "application/ms-excel", "综合分值表.xls");
+        }
+
+        public ActionResult Score(int ELID,SystemData systemData)
+        {
+            var model = Core.ScoreManager.Get(ELID, systemData);
+            ViewBag.Model = model;
+            return View();
         }
     }
 }

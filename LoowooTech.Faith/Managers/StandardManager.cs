@@ -57,6 +57,16 @@ namespace LoowooTech.Faith.Managers
             }
             return Db.Standards.Find(id);
         }
+
+        public Standard Get(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
+            var model = Db.Standards.FirstOrDefault(e => e.Name.ToLower() == name.ToLower());
+            return model;
+        }
         /// <summary>
         /// 作用：删除
         /// 作者：汪建龙

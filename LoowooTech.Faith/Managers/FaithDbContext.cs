@@ -34,6 +34,7 @@ namespace LoowooTech.Faith.Managers
         public DbSet<ConductView> ConductView { get; set; }//打算作废
         public DbSet<FlowNodeView> FlowNodeView { get; set; }//打算作废
         public DbSet<Offend> Offends { get; set; }
+        public DbSet<Score> Scores { get; set; }
         public DbSet<LandRecord> LandRecords { get; set; }
         public DbSet<LandRecordView> LandRecordViews { get; set; }
         public DbSet<Land> Lands { get; set; }

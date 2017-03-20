@@ -15,7 +15,7 @@ namespace LoowooTech.Faith.Controllers
         {
             if (!Identity.IsAuthenticated)
             {
-                return RedirectToAction("Search");
+                return Redirect("/User/login");
             }
             ViewBag.ECount = Core.EnterpriseManager.Count();
             ViewBag.LCount = Core.LawyerManager.Count();
@@ -23,6 +23,7 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.LandRecordCount = Core.LandRecordManager.Count();
             ViewBag.Black = Core.RollManager.Count(Models.BREnum.Black);
             ViewBag.Red = Core.RollManager.Count(Models.BREnum.Red);
+            ViewBag.CCount = Core.ConductManager.Count();
             return View();
         }
 

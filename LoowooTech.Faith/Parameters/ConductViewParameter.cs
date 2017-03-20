@@ -9,5 +9,6 @@ namespace LoowooTech.Faith.Parameters
     {
         public string Name { get; set; }
         public string sName { get; set; }
+        
     }
 }

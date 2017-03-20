@@ -233,12 +233,14 @@ namespace LoowooTech.Faith.Controllers
         }
 
         [UserAuthorize(false)]
-        public ActionResult Detail(int dataId,SystemData systemData,int? rows=null)
+        public ActionResult Detail(int elid,SystemData systemData,int? rows=null)
         {
-            ViewBag.DataID = dataId;
+            ViewBag.ELID = elid;
             ViewBag.SystemData = systemData;
-            var conductViews = Core.ConductManager.GetView(dataId, systemData, rows.HasValue ? new PageParameter(1, rows.Value) : null);
-            ViewBag.Views = conductViews;
+            var conducts = Core.ConductStandardManager.Get(elid, systemData);
+            ViewBag.List = conducts;
+            //var conductViews = Core.ConductManager.GetView(dataId, systemData, rows.HasValue ? new PageParameter(1, rows.Value) : null);
+            //ViewBag.Views = conductViews;
             return View();
         }
 
@@ -259,37 +261,32 @@ namespace LoowooTech.Faith.Controllers
             int? UserId=null,
             DateTime? startTime=null,DateTime? EndTime=null,
             CreditDegree? degree=null,string systemData=null,
-            string name=null,Credit ?credit=null,
-            string sName=null,double? minScore=null,double? maxScore=null,
-            BaseState? state=null,string userName=null,
+            string ELname=null,Credit ?credit=null,
+            string standardName=null,double? minScore=null,double? maxScore=null,
+            BaseState? state=null,
             DateTime? startUpdateTime=null,DateTime? endUpdateTime=null,
             int page=1,int rows=20
             )
         {
-
-            var parameter = new FlowNodeViewParameter
+            var parameter = new ConductStandardParameter
             {
-                UserID = UserId,
-                StartTime = startTime,
-                EndTime = EndTime,
+                StartTime=startTime,
+                EndTime=EndTime,
                 Degree=degree,
+                ELName=ELname,
                 Credit=credit,
+                StandardName=standardName,
+                MinScore=minScore,
+                MaxScore=maxScore,
                 State=state,
-                Name = name,
-                sName = sName,
-                MinScore = minScore,
-                MaxScore = maxScore,
-                UserName = userName,
-                StartUpdateTime = startUpdateTime,
-                EndUpdateTime = endUpdateTime,
                 Page = new PageParameter(page, rows)
             };
             if (!string.IsNullOrEmpty(systemData))
             {
                 parameter.SystemData = EnumHelper.GetEnum<SystemData>(systemData);
             }
-            var List = Core.FlowNodeViewManager.Search(parameter);
-            ViewBag.List = List;
+            var list = Core.ConductStandardManager.Search(parameter);
+            ViewBag.List = list;
             ViewBag.Parameter = parameter;
             ViewBag.Page = parameter.Page;
             return View();
@@ -317,6 +314,31 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.List = list;
             ViewBag.LandID = landID;
             return View();
+        }
+        public ActionResult File()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AnalyzeFile()
+        {
+            if (Request.Files.Count == 0)
+            {
+                throw new ArgumentException("请选择上传文件");
+            }
+            var file = HttpContext.Request.Files[0];
+            var fileName = file.FileName;
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentException("请选择上传文件");
+            }
+            var filePath = FileManager.Upload(file);
+            var list = ExcelManager.AnalyzeConduct(filePath);
+            var dict = list.GroupBy(e => e.ELName).ToDictionary(e => e.Key, e => e.GroupBy(k => k.LandName).ToDictionary(k => k.Key, k => k.ToList()));
+            Core.ConductStandardManager.AddRange(dict, Identity.UserID);
+            return RedirectToAction("Index");
         }
     }
 }

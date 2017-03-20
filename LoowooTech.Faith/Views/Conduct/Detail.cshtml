@@ -1,16 +1,12 @@
 ﻿@{ 
     Layout = null;
-    List<ConductView> views = ViewBag.Views;
-    int dataId = ViewBag.DataID;
+    List<ConductStandard> list = ViewBag.List;
+    int ELId = ViewBag.ELID;
     SystemData systemData = ViewBag.SystemData;
 }
 
 
 <h3>&nbsp;诚信行为记录</h3>
-@if (Identity.IsAuthenticated)
-{
-    <a class="btn btn-primary btn-sm" href="/Conduct/Create?dataid=@(dataId)&&systemdata=@(systemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus"></i>诚信行为</a>
-}
 
 @{
     Html.RenderPartial("_Message");
@@ -19,6 +15,7 @@
     <thead>
         <tr>
             <th>时间</th>
+            <th>项目名称</th>
             <th>诚信行为等级</th>
             <th>环节</th>
             <th>诚信行为</th>
@@ -33,13 +30,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in views)
+        @foreach (var item in list)
         {
             <tr>
                 <td>@(item.CreateTime.ToString("yyyy-MM-dd"))</td>
+                <td>@(item.LandName)</td>
                 <td>@(item.Degree.GetDescription())</td>
                 <td>@(item.Credit.GetDescription())</td>
-                <td>@(item.sName)</td>
+                <td>@(item.StandardName)</td>
                 <td>@(item.Score)</td>
                 <td>@(item.Remark)</td>
                 <td>
@@ -52,7 +50,7 @@
                         {
 
                             <a class="btn btn-success btn-xs" href="/FlowNode/Create?infoId=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-upload"></i>提交审核</a>
-                            <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=@(dataId)&&systemdata=@(systemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                            <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=@(ELId)&&systemdata=@(systemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
                         }
                         @if (item.State.HasValue && item.State.Value == BaseState.Argee)
                         {
