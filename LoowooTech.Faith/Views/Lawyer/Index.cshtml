@@ -127,7 +127,6 @@
                     <th>证件类型</th>
                     <th>证件编号</th>
                     <th>联系电话</th>
-                    <th>诚信</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -140,11 +139,6 @@
                         <td>@(item.Credential.GetDescription())</td>
                         <td>@(item.Number)</td>
                         <td>@(item.TelPhone)</td>
-                        <td>
-                            &nbsp;轻微不诚信：<label class="label label-success">@(item.Good)</label>
-                            &nbsp;不诚信行为：<label class="label label-warning">@(item.Less)</label>
-                            &nbsp;严重不诚信：<label class="label label-danger">@(item.Bad)</label>
-                        </td>
                         <td>
                             <a class="btn btn-warning btn-xs" href="/LandRecord/Create?systemdata=@(SystemData.Lawyer)&&elid=@(item.ID)&&name=@(item.Name)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-screenshot"></i>违法用地</a>
                             <a class="btn btn-xs btn-primary" href="/Lawyer/Create?id=@(item.ID)&&url=@(request)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>

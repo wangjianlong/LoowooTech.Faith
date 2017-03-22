@@ -36,6 +36,37 @@ namespace LoowooTech.Faith.Common
             }
             return workbook;
         }
+        private static ICell[] GetCells(IRow row,int startline,int endline)
+        {
+            var cells = new ICell[endline - startline+1];
+            var j = 0;
+            for(var i = startline; i <= endline; i++)
+            {
+                var cell = row.GetCell(i);
+                if (cell == null)
+                {
+                    return null;
+                }
+                cells[j++] = cell;
+            }
+            return cells;
+        }
+        private static string[] GetString(IRow row,int startline,int endline)
+        {
+            var results = new string[endline - startline+1];
+            var j = 0;
+            for(var i = startline; i <= endline; i++)
+            {
+                var cell = row.GetCell(i);
+                if (cell == null)
+                {
+                    return null;
+                }
+                results[j++] = cell.ToString().Trim();
+            }
+            return results;
+        }
+
         /// <summary>
         /// 作用：分析一行得到自然人实体类
         /// 作者：汪建龙
@@ -77,15 +108,10 @@ namespace LoowooTech.Faith.Common
         }
         private static LandRecordView AnalyzeLandRecord(IRow row)
         {
-            var cells = new ICell[7];
-            for(var i = 0; i < cells.Length; i++)
+            var cells = GetCells(row, 0, 7);
+            if (cells == null)
             {
-                var cell = row.GetCell(i);
-                if (cell == null)
-                {
-                    return null;
-                }
-                cells[i] = cell;
+                return null;
             }
             var name = cells[0].ToString().Trim();
             if (string.IsNullOrEmpty(name))
@@ -105,15 +131,10 @@ namespace LoowooTech.Faith.Common
         }
         private static Land AnalyzeLand(IRow row)
         {
-            var cells = new ICell[21];
-            for(var i = 0; i < cells.Length; i++)
+            var cells = GetCells(row, 0, 21);
+            if (cells == null)
             {
-                var cell = row.GetCell(i);
-                if (cell == null)
-                {
-                    return null;
-                }
-                cells[i] = cell;
+                return null;
             }
             var elName = cells[2].ToString().Trim();
             var name = cells[5].ToString().Trim();
@@ -162,6 +183,38 @@ namespace LoowooTech.Faith.Common
 
             return land;
         }
+        private static List<ConductStandard> AnalyzeConductStandard(IRow row,string[] standardName)
+        {
+            var list = new List<ConductStandard>();
+            var cells = GetCells(row, 0, 25);
+            if (cells == null)
+            {
+                return null;
+            }
+            var landname = cells[2].ToString().Trim();
+            var elName = cells[3].ToString().Trim();
+            if (string.IsNullOrEmpty(landname)||string.IsNullOrEmpty(elName))
+            {
+                return null;
+            }
+            double a = .0;
+
+            for(var i = 4; i <= 25; i++)
+            {
+                var cell = cells[i];
+                if(double.TryParse(cell.ToString().Trim(),out a)&&a>0)
+                {
+                    list.Add(new ConductStandard
+                    {
+                        ELName = elName,
+                        LandName=landname,
+                        Score = a,
+                        StandardName = standardName[i - 4]
+                    });
+                }
+            }
+            return list;
+        }
 
         /// <summary>
         /// 作用：分析一行 获取企业类型
@@ -172,15 +225,10 @@ namespace LoowooTech.Faith.Common
         /// <returns></returns>
         private static Enterprise AnalyzeEnterprise(IRow row)
         {
-            var cells = new ICell[17];
-            for(var i = 0; i < cells.Length; i++)
+            var cells = GetCells(row, 0, 17);
+            if (cells == null)
             {
-                var cell = row.GetCell(i);
-                if (cell == null)
-                {
-                    return null;
-                }
-                cells[i] = cell;
+                return null;
             }
             var name = cells[0].ToString().Trim();
             if (string.IsNullOrEmpty(name))
@@ -345,6 +393,44 @@ namespace LoowooTech.Faith.Common
 
                         }
                       
+                    }
+                }
+            }
+            return list;
+        }
+
+
+        public static List<ConductStandard> AnalyzeConduct(string filePath)
+        {
+            var list = new List<ConductStandard>();
+            IWorkbook workbook = filePath.OpenExcel();
+            if (workbook != null)
+            {
+                ISheet sheet = workbook.GetSheetAt(0);
+                if (sheet != null)
+                {
+                    var headrow = sheet.GetRow(2);
+                    if (headrow == null)
+                    {
+                        throw new ArgumentException("无诚信行为记录");
+                    }
+                    var standardNames = GetString(headrow, 4, 24);
+                    if (standardNames == null)
+                    {
+                        throw new ArgumentException("未获取诚信行为记录信息");
+                    }
+                    for(var i = 3; i <= sheet.LastRowNum; i++)
+                    {
+                        var row = sheet.GetRow(i);
+                        if (row == null)
+                        {
+                            continue;
+                        }
+                        var temp = AnalyzeConductStandard(row, standardNames);
+                        if (temp != null && temp.Count > 0)
+                        {
+                            list.AddRange(temp);
+                        }
                     }
                 }
             }

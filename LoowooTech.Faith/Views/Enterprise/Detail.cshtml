@@ -44,7 +44,17 @@
         </tr>
         <tr>
             <th>经营范围：</th>
-            <td colspan="3">@(enterprise.Scope)</td>
+            <td colspan="3">
+                @if (!string.IsNullOrEmpty(enterprise.Scope) && enterprise.Scope.Length > 100)
+                {
+                    <abbr title="@(enterprise.Scope)">@(enterprise.Scope.Substring(0,100))</abbr>
+                }
+                else
+                {
+                    @(enterprise.Scope)
+                }
+              
+            </td>
         </tr>
         <tr>
             <th>企业类型：</th>
@@ -64,9 +74,12 @@
 
 
 @{ 
-    Html.RenderPartial("_Subject", enterprise as object);
+    //Html.RenderPartial("_Subject", enterprise as object);
+    Html.RenderAction("Score", "Grade", new { ELID = enterprise.ID, systemdata = SystemData.Enterprise });
     Html.RenderAction("DetailList", "Land", new { ELID = enterprise.ID, SystemData = SystemData.Enterprise });
+    Html.RenderAction("Detail", "Conduct", new { ELID = enterprise.ID, SystemData = SystemData.Enterprise });
     Html.RenderAction("DetailList", "LandRecord", new { ELID = enterprise.ID, SystemData = SystemData.Enterprise });
+
 }
 
 @{ 

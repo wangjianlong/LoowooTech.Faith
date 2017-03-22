@@ -22,14 +22,14 @@
         @foreach(var item in list)
         {
             <tr>
-                <td>@(item.Name)</td>
+                <td><a href="/Land/Detail?id=@(item.ID)">@(item.Name)</a> </td>
                 <td>@(item.Number)</td>
                 <td>@(item.ContractNumber)</td>
                 <td>@(item.LandNumber)</td>
                 <td>@(item.Way.HasValue?item.Way.Value.GetDescription():" ")</td>
                 <td>@(item.Code)</td>
                 <td>
-                  
+
                 </td>
             </tr>
         }

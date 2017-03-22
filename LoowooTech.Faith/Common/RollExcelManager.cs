@@ -11,10 +11,34 @@ namespace LoowooTech.Faith.Common
     {
         private static string _modelExcelName { get; set; }
         private static string _modelExcelPath { get; set; }
+
+
+        private static string _modelScorePath { get; set; }
         static RollExcelManager()
         {
             _modelExcelName = System.Configuration.ConfigurationManager.AppSettings["Roll"] ?? "Roll.xls";
             _modelExcelPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", _modelExcelName);
+
+            _modelScorePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Score"] ?? "Score.xls");
+        }
+
+        public static IWorkbook SaveScore(List<Score> scores)
+        {
+            if (!System.IO.File.Exists(_modelScorePath))
+            {
+                return null;
+            }
+            IWorkbook workbook = _modelScorePath.OpenExcel();
+            if (workbook != null)
+            {
+                ISheet sheet = workbook.GetSheetAt(0);
+                if (sheet != null)
+                {
+                    var modelrow = sheet.GetRow(0);
+                    Write(scores, ref sheet, modelrow);
+                }
+            }
+            return workbook;
         }
         /// <summary>
         /// 作用：生成表单
@@ -84,6 +108,28 @@ namespace LoowooTech.Faith.Common
                 var cell = ExcelManager.GetCell(row, 0, modelRow);
                 cell.SetCellValue(serial++);
                 ExcelManager.GetCell(row, 1, modelRow).SetCellValue(item.Name);
+            }
+        }
+
+        private static void Write(List<Score> list,ref ISheet sheet,IRow modelRow)
+        {
+            var startLine = 1;
+            foreach(var item in list)
+            {
+                var row = sheet.GetRow(startLine);
+                if (row == null)
+                {
+                    row = sheet.CreateRow(startLine);
+                }
+                startLine++;
+                var cell = ExcelManager.GetCell(row, 0, modelRow);
+                cell.SetCellValue(item.ELName);
+                ExcelManager.GetCell(row, 1, modelRow).SetCellValue(item.Times.HasValue ? item.Times.Value : 0);
+                ExcelManager.GetCell(row, 2, modelRow).SetCellValue(item.ScoreValue ?? 0);
+                ExcelManager.GetCell(row, 3, modelRow).SetCellValue(item.Average);
+                ExcelManager.GetCell(row, 4, modelRow).SetCellValue(item.Record ?? 0);
+                ExcelManager.GetCell(row, 5, modelRow).SetCellValue(item.DeDuck);
+                ExcelManager.GetCell(row, 6, modelRow).SetCellValue(item.Degree);
             }
         }
     }

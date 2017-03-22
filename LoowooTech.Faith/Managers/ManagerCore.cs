@@ -43,5 +43,7 @@ namespace LoowooTech.Faith.Managers
         public LandRecordViewManager LandRecordViewManager { get { return _landRecordViewManager == null ? _landRecordViewManager = new LandRecordViewManager() : _landRecordViewManager; } }
         private LandManager _landManager { get; set; }
         public LandManager LandManager { get { return _landManager == null ? _landManager = new LandManager() : _landManager; } }
+        private ScoreManager _scoreManager { get; set; }
+        public ScoreManager ScoreManager { get { return _scoreManager == null ? _scoreManager = new ScoreManager() : _scoreManager; } }
     }
 }

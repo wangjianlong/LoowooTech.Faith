@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Grades>
-  <Grade name="AAA" Title="诚信" Description="诚信分95分（含）以上" Bad="0" Less="0" Litter="0" MinScore="95" MaxScore="" Order="1"></Grade>
-  <Grade name="AA" Title="守信" Description="诚信分低于95分" Bad="0" Less="0" Litter="0" MinScore="NULL" MaxScore="94" Order="2"></Grade>
-  <Grade name="A" Title="基本守信" Description="具有1条不诚信行为" Bad="0" Less="1" Litter="0" MinScore="NULL" MaxScore="NULL" Order="3"></Grade>
-  <Grade name="B" Title="失信" Description="具有2条不诚信行为" Bad="0" Less="2" Litter="0" MinScore="NULL" MaxScore="NULL" Order="4"></Grade>
-  <Grade name="C" Title="严重失信" Description="具有严重不诚信行为或3条（含）以上不诚信行为" Bad="True" Less="3" Litter="0" MinScore="NULL" MaxScore="NULL" Order="5"></Grade>
+  <Grade name="A" Title="诚信" Description="诚信分95分（含）以上" Bad="NULL" Less="NULL" Litter="NULL" MinScore="100" MaxScore="100" Order="1"></Grade>
+  <Grade name="B" Title="守信" Description="诚信分低于95分" Bad="NULL" Less="NULL" Litter="NULL" MinScore="80" MaxScore="99" Order="2"></Grade>
+  <Grade name="C" Title="基本守信" Description="具有1条不诚信行为" Bad="NULL" Less="NULL" Litter="NULL" MinScore="60" MaxScore="79" Order="3"></Grade>
+  <Grade name="D" Title="失信" Description="具有2条不诚信行为" Bad="NULL" Less="NULL" Litter="NULL" MinScore="0" MaxScore="59" Order="4"></Grade>
 </Grades>
