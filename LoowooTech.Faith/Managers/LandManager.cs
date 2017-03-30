@@ -60,6 +60,8 @@ namespace LoowooTech.Faith.Managers
             return model;
         }
 
+    
+
         public LandView GetView(int id)
         {
             if (id <= 0)
@@ -220,6 +222,11 @@ namespace LoowooTech.Faith.Managers
         {
             return Db.Lands.LongCount();
         }
-        
+
+
+        public long Count(int ELID,SystemData systemData)
+        {
+            return Db.Lands.Where(e => e.ELID == ELID && e.SystemData == systemData).LongCount();
+        }
     }
 }

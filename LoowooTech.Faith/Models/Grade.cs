@@ -71,4 +71,12 @@ namespace LoowooTech.Faith.Models
 
         public int Order { get; set; }
     }
+
+    public enum GradeDegree
+    {
+        A,
+        B,
+        C,
+        D
+    }
 }

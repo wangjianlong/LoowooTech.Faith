@@ -108,7 +108,7 @@ namespace LoowooTech.Faith.Common
         }
         private static LandRecordView AnalyzeLandRecord(IRow row)
         {
-            var cells = GetCells(row, 0, 7);
+            var cells = GetCells(row, 0, 6);
             if (cells == null)
             {
                 return null;

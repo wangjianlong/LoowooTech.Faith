@@ -8,6 +8,9 @@ using System.Web;
 
 namespace LoowooTech.Faith.Models
 {
+    /// <summary>
+    /// 拿地记录
+    /// </summary>
     [Table("land")]
     public class Land
     {

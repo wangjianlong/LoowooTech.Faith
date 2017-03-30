@@ -22,7 +22,7 @@ namespace LoowooTech.Faith.Models
         public int DataId { get; set; }
         public SystemData SystemData { get; set; }
         public Credit Credit { get; set; }
-        public CreditDegree Degree { get; set; }
+        public CreditDegree CreditDegree { get; set; }
         public int StandardId { get; set; }
         public double Score { get; set; }
         /// <summary>

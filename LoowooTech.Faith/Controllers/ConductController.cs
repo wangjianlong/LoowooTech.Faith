@@ -291,6 +291,13 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.Page = parameter.Page;
             return View();
         }
+        public ActionResult Relieve(int id)
+        {
+            var model = Core.ConductStandardManager.Get(id);
+            ViewBag.Model = model;
+            return View();
+        }
+
 
         /// <summary>
         /// 作用：诚信行为记录解除
@@ -299,11 +306,21 @@ namespace LoowooTech.Faith.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Relieve(int id)
+        [HttpPost]
+        public ActionResult Relieve(int id,string memo)
         {
-            if (!Core.ConductManager.Relieve(id))
+            if (!Core.ConductManager.Relieve(id,memo))
             {
                 return ErrorJsonResult("解除诚信行为失败，未找到诚信行为记录，或已经被撤销");
+            }
+            return SuccessJsonResult();
+        }
+
+        public ActionResult CancelRelieve(int id)
+        {
+            if (!Core.ConductManager.CancelRelieve(id))
+            {
+                return ErrorJsonResult("撤销解除失败，未找到诚信行为记录或已经被撤销");
             }
             return SuccessJsonResult();
         }

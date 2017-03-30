@@ -46,6 +46,6 @@
     }
     <li><a href="@(GetPageLink(pageCount))">尾页</a></li>
     <li class="disabled"><a href="">@(page.PageIndex)/@(pageCount)</a></li>
-
+    <li class="disabled"><a href="">@string.Format("当前查询数量：{0}",page.RecordCount)</a></li>
 </ul>
 

@@ -23,7 +23,7 @@ namespace LoowooTech.Faith.Managers
             }
             if (parameter.Degree.HasValue)
             {
-                query = query.Where(e => e.Degree == parameter.Degree.Value);
+                query = query.Where(e => e.CreditDegree == parameter.Degree.Value);
             }
             if (parameter.StartTime.HasValue)
             {

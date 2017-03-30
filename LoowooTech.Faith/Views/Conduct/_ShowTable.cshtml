@@ -15,15 +15,15 @@
         <tr>
             <th>录入时间</th>
             <th>企业/自然人</th>
-            <th>项目名称</th>
             <th>名称</th>
+            <th>项目名称</th>
             <th>环节</th>
             <th>行为</th>
             <th>诚信等级</th>
             <th>扣分</th>
             <th>备注</th>
             <th>状态</th>
-            <th>快捷工具</th>
+            <th>操作</th>
         </tr>
     </thead>
     <tbody>
@@ -70,10 +70,18 @@
                         <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=&&systemdata=@(item.SystemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
                         <a class="btn btn-danger btn-xs" href="/Conduct/Delete?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>撤销</a>
                     }
-                    @if (item.State.HasValue && item.State.Value == BaseState.Argee)
+                    @if (item.State.HasValue)
                     {
-                        <a class="btn btn-info btn-xs" href="/Conduct/Relieve?id=@(item.ID)" name="Relieve"><i class="glyphicon glyphicon-flag"></i>解除</a>
+                        if (item.State.Value == BaseState.Argee)
+                        {
+                            <a class="btn btn-info btn-xs" href="/Conduct/Relieve?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-flag"></i>解除</a>
+                        }
+                        if (item.State.Value == BaseState.Relieve)
+                        {
+                            <a class="btn btn-success btn-xs" href="/Conduct/CancelRelieve?id=@(item.ID)" name="Relieve"><i class="glyphicon glyphicon-flag"></i>撤销解除</a>
+                        }
                     }
+                    
                    
                 </td>
             </tr>

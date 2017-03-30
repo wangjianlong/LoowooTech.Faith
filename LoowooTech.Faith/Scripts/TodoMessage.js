@@ -2,8 +2,8 @@
 //作者：汪建龙
 //编写时间：2016年12月6日14:53:08
 function ShowMessage(message) {
-    $("div.alert.alert-warning[name='Message']>span").html(message);
-    $("div.alert.alert-warning[name='Message']").show(500);
+    $("div.alert[name='Message']>span").html(message);
+    $("div.alert[name='Message']").addClass("alert-warning").show(500);
 }
 //作用：隐藏提示框
 //作者：汪建龙

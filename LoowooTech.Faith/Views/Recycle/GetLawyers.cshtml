@@ -1,0 +1,60 @@
+﻿@{ 
+    Layout = null;
+    List<Lawyer> list = ViewBag.List;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        已删除自然人<span class="badge">@(list.Count)</span>
+    </div>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>信用级别</th>
+                <th>性别</th>
+                <th>证件类型</th>
+                <th>证件编号</th>
+                <th>联系电话</th>
+                <th>删除备注</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in list)
+            {
+                <tr>
+                    <td><a href="/Lawyer/Detail?id=@(item.ID)">@(item.Name)</a> </td>
+                    <td style="padding:0px;">
+                        <h3 style="margin-top:5px;">
+                            @switch (item.Degree)
+                            {
+                                case GradeDegree.A:
+                                    <label class="label label-success">@(item.Degree.ToString())</label>
+                                    break;
+                                case GradeDegree.B:
+                                    <label class="label label-warning">@(item.Degree.ToString())</label>
+                                    break;
+                                case GradeDegree.C:
+                                    <label class="label label-default">@(item.Degree.ToString())</label>
+                                    break;
+                                case GradeDegree.D:
+                                    <label class="label label-danger">@(item.Degree.ToString())</label>
+                                    break;
+                            }
+                        </h3>
+                    </td>
+
+                    <td>@(item.Sex.GetDescription())</td>
+                    <td>@(item.Credential.GetDescription())</td>
+                    <td>@(item.Number)</td>
+                    <td>@(item.TelPhone)</td>
+                    <td>@(item.Remark)</td>
+                    <td>
+                        <a class="btn btn-success btn-xs" href="/Lawyer/Recycle?id=@(item.ID)" name="Recycle"><i class="glyphicon glyphicon-leaf"></i>还原</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

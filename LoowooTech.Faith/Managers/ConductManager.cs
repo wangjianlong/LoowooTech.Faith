@@ -315,7 +315,7 @@ namespace LoowooTech.Faith.Managers
             }
             if (parameter.Degree.HasValue)
             {
-                query = query.Where(e => e.Degree == parameter.Degree.Value);
+                query = query.Where(e => e.CreditDegree == parameter.Degree.Value);
             }
             if (parameter.StartTime.HasValue)
             {
@@ -357,14 +357,34 @@ namespace LoowooTech.Faith.Managers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool Relieve(int id)
+        public bool Relieve(int id,string memo)
         {
             var model = Db.Conducts.Find(id);
             if (model == null)
             {
                 return false;
             }
+            model.Memo = memo;
             model.State = BaseState.Relieve;
+            Db.SaveChanges();
+            return true;
+        }
+
+        /// <summary>
+        /// 作用:取消解除
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月29日16:30:22
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool CancelRelieve(int id)
+        {
+            var model = Db.Conducts.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.State = BaseState.Argee;
             Db.SaveChanges();
             return true;
         }

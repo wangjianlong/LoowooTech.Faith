@@ -42,6 +42,18 @@ namespace LoowooTech.Faith.Controllers
             return SuccessJsonResult();
         }
 
+        /// <summary>
+        /// 作用：对企业和自然人进行信用评级
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月28日17:12:26
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Calculate()
+        {
+            Core.GradeManager.Grade2();
+            return SuccessJsonResult();
+        }
+
         public ActionResult Download()
         {
             var list = Core.ScoreManager.Get();
@@ -59,5 +71,7 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.Model = model;
             return View();
         }
+
+        
     }
 }

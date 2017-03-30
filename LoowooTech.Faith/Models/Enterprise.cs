@@ -63,6 +63,7 @@ namespace LoowooTech.Faith.Models
         public string TelPhone { get; set; }
         [NotMapped]
         public List<Conduct> Conducts { get; set; }
+        public int? LawyerID { get; set; }
 
         
     }

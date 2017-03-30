@@ -79,17 +79,35 @@ namespace LoowooTech.Faith.Managers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool Delete(int id)
+        public bool Delete(int id,string remark)
         {
             var model = Db.Lawyers.Find(id);
             if (model == null)
             {
                 return false;
             }
-            Db.Lawyers.Remove(model);
+            model.Deleted = true;
+            model.Remark = remark;
             Db.SaveChanges();
             return true;
         }
+
+        public bool Recycle(int id)
+        {
+            var model = Db.Lawyers.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.Deleted = false;
+            Db.SaveChanges();
+            return true;
+        }
+        public bool Used(int id)
+        {
+            return Db.Conducts.Any(e => e.SystemData == SystemData.Lawyer && e.DataId == id) || Db.Lands.Any(e => e.SystemData == SystemData.Lawyer && e.ELID == id);
+        }
+
         /// <summary>
         /// 作用：查询自然人信息
         /// 作者：汪建龙
@@ -99,7 +117,11 @@ namespace LoowooTech.Faith.Managers
         /// <returns></returns>
         public List<Lawyer> Search(LawyerParameter parameter)
         {
-            var query = Db.Lawyers.AsQueryable();
+            var query = Db.Lawyers.Where(e=>e.Deleted==parameter.Deleted).AsQueryable();
+            if (parameter.Degree.HasValue)
+            {
+                query = query.Where(e => e.Degree == parameter.Degree.Value);
+            }
             if (!string.IsNullOrEmpty(parameter.Name))
             {
                 query = query.Where(e => e.Name.ToLower().Contains(parameter.Name.ToLower()));
@@ -206,7 +228,37 @@ namespace LoowooTech.Faith.Managers
         /// <returns></returns>
         public long Count()
         {
-            return Db.Lawyers.LongCount();
+            return Db.Lawyers.Where(e=>e.Deleted==false).LongCount();
+        }
+        public void Grade(List<Rank> ranks)
+        {
+            var feeds = new List<Feed>();
+            foreach(var rank in ranks)
+            {
+                if (rank.SystemData == SystemData.Lawyer)
+                {
+                    var lawyer = Db.Lawyers.Find(rank.ELID);
+                    if (lawyer == null)
+                    {
+                        continue;
+                    }
+                    if (lawyer.Degree != rank.Degree)
+                    {
+                        feeds.Add(new Feed
+                        {
+                            ELID = lawyer.ID,
+                            SystemData = SystemData.Lawyer,
+                            Old = lawyer.Degree,
+                            New = rank.Degree
+                        });
+                    }
+                    lawyer.Degree = rank.Degree;
+                    lawyer.Times = rank.Times;
+                    lawyer.Values = rank.Values;
+                    lawyer.Record = rank.Record;
+                    Db.SaveChanges();
+                }
+            }
         }
 
     }

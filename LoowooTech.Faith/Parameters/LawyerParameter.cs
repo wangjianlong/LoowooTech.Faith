@@ -15,6 +15,8 @@ namespace LoowooTech.Faith.Parameters
         public string Address { get; set; }
         public string TelPhone { get; set; }
         public string Email { get; set; }
+        public GradeDegree? Degree { get; set; }
+        public bool Deleted { get; set; }
 
     }
 }

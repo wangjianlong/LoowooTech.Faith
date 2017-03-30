@@ -22,6 +22,7 @@ namespace LoowooTech.Faith.Models
         public string Address { get; set; }
         public string TelPhone { get; set; }
         public string EMail { get; set; }
+        public int? EnterpriseID { get; set; }
     }
 
     public enum Sex

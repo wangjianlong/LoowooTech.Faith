@@ -16,7 +16,7 @@ namespace LoowooTech.Faith.Controllers
         public ActionResult Index(
             string name=null,string sex=null,
             string bornTime=null,string number=null,
-            string address=null,string telphone=null,
+            string address=null,string telphone=null,GradeDegree?degree=null,
             string email=null, int page=1,int rows=20)
         {
             var parameter = new LawyerParameter
@@ -27,6 +27,8 @@ namespace LoowooTech.Faith.Controllers
                 Address=address,
                 TelPhone=telphone,
                 Email=email,
+                Degree=degree,
+                Deleted=false,
                 Page = new PageParameter(page, rows)
             };
             if (!string.IsNullOrEmpty(sex))
@@ -103,16 +105,41 @@ namespace LoowooTech.Faith.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult Delete(int id)
+        {
+            var model = Core.LawyerManager.Get(id);
+            ViewBag.Model = model;
+            return View();
+        }
+
+
+
+
         /// <summary>
         /// 作用：删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult Delete(int id,string remark)
         {
-            if (!Core.LawyerManager.Delete(id))
+            //if (Core.LawyerManager.Used(id))
+            //{
+            //    return ErrorJsonResult("删除失败，当前自然人已经管理诚信行为以及违法用地记录");
+            //}
+            if (!Core.LawyerManager.Delete(id,remark))
             {
                 return ErrorJsonResult("删除失败，未找到删除ID");
+            }
+            return SuccessJsonResult();
+        }
+
+        public ActionResult Recycle(int id)
+        {
+            if (!Core.LawyerManager.Recycle(id))
+            {
+                return ErrorJsonResult("还原自然人信息失败，未找到需要还原的自然人信息");
             }
             return SuccessJsonResult();
         }
@@ -125,6 +152,13 @@ namespace LoowooTech.Faith.Controllers
         }
 
         public ActionResult DetailLawyer(int id)
+        {
+            var model = Core.LawyerManager.Get(id);
+            ViewBag.Model = model;
+            return View();
+        }
+
+        public ActionResult Translate(int id)
         {
             var model = Core.LawyerManager.Get(id);
             ViewBag.Model = model;

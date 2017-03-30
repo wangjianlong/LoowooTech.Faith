@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "回收站";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>回收站</h2>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#Enterprise" aria-controls="home" role="tab" data-toggle="tab">企业</a></li>
+    <li role="presentation"><a href="#Lawyer" aria-controls="profile" role="tab" data-toggle="tab">自然人</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="Enterprise">
+        @{ 
+            Html.RenderAction("GetEnterprises");
+        }
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="Lawyer">
+        @{ 
+            Html.RenderAction("GetLawyers");
+        }
+    </div>
+</div>
+

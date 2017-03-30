@@ -1,0 +1,114 @@
+﻿@{ 
+    Layout = null;
+    Lawyer lawyer = ViewBag.Model;
+}
+
+<script>
+    $(function () {
+        $("#translate-form").submit(function () {
+            var btn = $("#translate-form button[type='submit']");
+            btn.attr("disabled", "disabled");
+            var data = $(this).serialize();
+            $.request("/enterprise/create", data, function (json) {
+                if (json.result == 0) {
+                    alert(json.content);
+                    btn.removeAttr("disabled");
+                } else {
+                    alert("成功录入");
+                    location.href = "/enterprise/detail?id=" + json.data;
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+<h3 class="text-center">&nbsp;录入企业</h3>
+<form class="form-horizontal" method="post" id="translate-form">
+    <input type="hidden" name="LawyerID" value="@(lawyer.ID)" />
+    <div class="form-group">
+        <label class="control-label col-md-4">企业名称：</label>
+        <div class="col-md-7">
+            <input type="text" name="Name" class="form-control" placeholder="企业名称" value="" required />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">组织机构代码：</label>
+        <div class="col-md-7">
+            <input type="text" name="OIBC" class="form-control" placeholder="组织机构代码" value="" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">统一社会信用代码：</label>
+        <div class="col-md-7">
+            <input type="text" name="USCC" class="form-control" placeholder="统一社会信用代码" value="" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">地址：</label>
+        <div class="col-md-7">
+            <input type="text" name="Address" class="form-control" placeholder="地址" value="" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">企业法人：</label>
+        <div class="col-md-7">
+            <input type="text" name="Lawyer" class="form-control" placeholder="企业法人" value="@(lawyer.Name)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">企业法人身份证号：</label>
+        <div class="col-md-7">
+            <input type="text" name="LawNumber" class="form-control" placeholder="企业法人身份证号" value="@(lawyer.Number)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">营业执照/注册号:</label>
+        <div class="col-md-7">
+            <input type="text" name="Number" class="form-control" placeholder="营业执照/注册号" value="" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">经营范围：</label>
+        <div class="col-md-7">
+            <textarea name="Scope" class="form-control" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">企业类型：</label>
+        <div class="col-md-7">
+            <input type="text" name="Type" class="form-control" placeholder="企业类型" value="" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">注册资本【万元】：</label>
+        <div class="col-md-7">
+            <input type="text" name="Money" class="form-control" placeholder="注册资本" value="" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">公司电话：</label>
+        <div class="col-md-7">
+            <input type="text" name="ContactWay" class="form-control" placeholder="公司电话" value="" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">联系人：</label>
+        <div class="col-md-7">
+            <input type="text" name="Contact" class="form-control" placeholder="联系人" value="@(lawyer.Name)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">联系人电话：</label>
+        <div class="col-md-7">
+            <input type="text" name="TelPhone" class="form-control" placeholder="联系人电话" value="@(lawyer.TelPhone)" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-7 col-md-offset-4">
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>&nbsp;录入企业</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp; 取消</button>
+        </div>
+    </div>
+</form>

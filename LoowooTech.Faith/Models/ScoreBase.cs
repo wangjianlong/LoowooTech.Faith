@@ -24,6 +24,9 @@ namespace LoowooTech.Faith.Models
                 return string.Format("诚信：{0}；失信：{1}；严重失信：{2}", Good, Less, Bad);
             }
         }
+
+       
+
     }
 
     public enum BaseState

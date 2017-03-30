@@ -1,0 +1,48 @@
+﻿@{ 
+    Layout = null;
+    Enterprise enterprise = ViewBag.Model;
+}
+
+<script>
+    $(function () {
+        $("#enterprise-delete").submit(function () {
+            var btn = $("#enterprise-delete button[type='submit']");
+            btn.attr("disabled", "disabled");
+            var data = $(this).serialize();
+            $.request("/enterprise/delete", data, function (json) {
+                if (json.result == 0) {
+                    alert(json.content);
+                    btn.removeAttr("disabled");
+                } else {
+                    alert("成功删除");
+                    location.href = "/Enterprise/index";
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+
+<h3 class="text-center text-danger">&nbsp;删除企业</h3>
+<form class="form-horizontal" method="post" id="enterprise-delete">
+    <div class="form-group">
+        <label class="control-label col-md-4">&nbsp;企业名称：</label>
+        <div class="col-md-7">
+            <input type="text" name="" class="form-control" placeholder="" value="@(enterprise.Name)" readonly />
+            <input type="hidden" name="ID" value="@(enterprise.ID)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">&nbsp;删除备注:</label>
+        <div class="col-md-7">
+            <textarea name="Remark" class="form-control" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-7 col-md-offset-4">
+            <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;删除</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp; 取消</button>
+        </div>
+    </div>
+</form>

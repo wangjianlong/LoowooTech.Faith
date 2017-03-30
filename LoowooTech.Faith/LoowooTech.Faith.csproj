@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ConductController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\FlowNodeController.cs" />
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -182,6 +183,8 @@
     <Compile Include="Controllers\LandRecordController.cs" />
     <Compile Include="Controllers\LawyerController.cs" />
     <Compile Include="Controllers\OffendController.cs" />
+    <Compile Include="Controllers\RankController.cs" />
+    <Compile Include="Controllers\RecycleController.cs" />
     <Compile Include="Controllers\RollController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -193,6 +196,7 @@
     <Compile Include="Managers\DailyManager.cs" />
     <Compile Include="Managers\EnterpriseManager.cs" />
     <Compile Include="Managers\FaithDbContext.cs" />
+    <Compile Include="Managers\FeedManager.cs" />
     <Compile Include="Managers\FlowNodeConductManager.cs" />
     <Compile Include="Managers\FlowNodeManager.cs" />
     <Compile Include="Managers\FlowNodeViewManager.cs" />
@@ -205,6 +209,7 @@
     <Compile Include="Managers\ManagerCore.cs" />
     <Compile Include="Managers\OffendManager.cs" />
     <Compile Include="Managers\OneContext.cs" />
+    <Compile Include="Managers\RankManager.cs" />
     <Compile Include="Managers\RollManager.cs" />
     <Compile Include="Managers\RollViewManager.cs" />
     <Compile Include="Managers\ScoreManager.cs" />
@@ -215,6 +220,7 @@
     <Compile Include="Models\ConductView.cs" />
     <Compile Include="Models\Daily.cs" />
     <Compile Include="Models\Enterprise.cs" />
+    <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\FlowNode.cs" />
     <Compile Include="Models\FlowNodeConduct.cs" />
     <Compile Include="Models\FlowNodeView.cs" />
@@ -224,7 +230,9 @@
     <Compile Include="Models\LandRecord.cs" />
     <Compile Include="Models\LandRecordView.cs" />
     <Compile Include="Models\Lawyer.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Offend.cs" />
+    <Compile Include="Models\Rank.cs" />
     <Compile Include="Models\Roll.cs" />
     <Compile Include="Models\RollView.cs" />
     <Compile Include="Models\Score.cs" />
@@ -237,6 +245,7 @@
     <Compile Include="Parameters\ConductStandardParameter.cs" />
     <Compile Include="Parameters\ConductViewParameter.cs" />
     <Compile Include="Parameters\EnterpriseParameter.cs" />
+    <Compile Include="Parameters\FeedParameter.cs" />
     <Compile Include="Parameters\FlowNodeConductParameter.cs" />
     <Compile Include="Parameters\FlowNodeParameter.cs" />
     <Compile Include="Parameters\FlowNodeViewParameter.cs" />
@@ -417,6 +426,15 @@
     <Content Include="Views\LandRecord\File.cshtml" />
     <Content Include="Views\Conduct\File.cshtml" />
     <Content Include="Views\Grade\Score.cshtml" />
+    <Content Include="Views\Rank\Detail.cshtml" />
+    <Content Include="Views\Enterprise\Delete.cshtml" />
+    <Content Include="Views\Lawyer\Delete.cshtml" />
+    <Content Include="Views\Recycle\Index.cshtml" />
+    <Content Include="Views\Lawyer\Translate.cshtml" />
+    <Content Include="Views\Conduct\Relieve.cshtml" />
+    <Content Include="Views\Recycle\GetEnterprises.cshtml" />
+    <Content Include="Views\Recycle\GetLawyers.cshtml" />
+    <Content Include="Views\Feed\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

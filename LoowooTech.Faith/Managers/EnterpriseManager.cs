@@ -79,17 +79,31 @@ namespace LoowooTech.Faith.Managers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool Delete(int id)
+        public bool Delete(int id,string remark)
         {
             var model = Db.Enterprises.Find(id);
             if (model == null)
             {
                 return false;
             }
-            Db.Enterprises.Remove(model);
+            model.Deleted = true;
+            model.Remark = remark;
             Db.SaveChanges();
             return true;
         }
+
+        public bool Recycle(int id)
+        {
+            var model = Db.Enterprises.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.Deleted = false;
+            Db.SaveChanges();
+            return true;
+        }
+
         /// <summary>
         /// 作用：查询企业
         /// 作者：汪建龙
@@ -99,7 +113,11 @@ namespace LoowooTech.Faith.Managers
         /// <returns></returns>
         public List<Enterprise> Search(EnterpriseParameter parameter)
         {
-            var query = Db.Enterprises.AsQueryable();
+            var query = Db.Enterprises.Where(e=>e.Deleted==parameter.Deleted).AsQueryable();
+            if (parameter.Degree.HasValue)
+            {
+                query = query.Where(e => e.Degree == parameter.Degree.Value);
+            }
             if (!string.IsNullOrEmpty(parameter.Name))
             {
                 query = query.Where(e => e.Name.ToLower().Contains(parameter.Name.ToLower()));
@@ -218,7 +236,48 @@ namespace LoowooTech.Faith.Managers
         /// <returns></returns>
         public long Count()
         {
-            return Db.Enterprises.LongCount();
+            return Db.Enterprises.Where(e=>e.Deleted==false).LongCount();
+        }
+
+        public bool Used(int id)
+        {
+            return Db.Conducts.Any(e => e.DataId == id && e.SystemData == SystemData.Enterprise) || Db.Lands.Any(e => e.SystemData == SystemData.Enterprise && e.ELID == id);
+        }
+
+        public void Grade(List<Rank> ranks)
+        {
+            var feeds = new List<Feed>();
+            foreach(var rank in ranks)
+            {
+                if (rank.SystemData == SystemData.Enterprise)
+                {
+                    var enterprise = Db.Enterprises.Find(rank.ELID);
+                    if (enterprise == null)
+                    {
+                        continue;
+                    }
+                    if (enterprise.Degree != rank.Degree)
+                    {
+                        feeds.Add(new Feed
+                        {
+                            ELID = enterprise.ID,
+                            SystemData = SystemData.Enterprise,
+                            Old = enterprise.Degree,
+                            New = rank.Degree,
+                        });
+                    }
+                    enterprise.Degree = rank.Degree;
+                    enterprise.Times = rank.Times;
+                    enterprise.Values = rank.Values;
+                    enterprise.Record = rank.Record;
+                }
+            }
+            if (feeds.Count > 0)
+            {
+                Db.Feeds.AddRange(feeds);
+                Db.SaveChanges();
+            }
+          
         }
     }
 }

@@ -1,0 +1,74 @@
+﻿@{ 
+    Layout = null;
+    List<Enterprise> list = ViewBag.List;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        已删除的企业<span class="badge">@(list.Count)</span>
+    </div>
+    <table class="table table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>企业名称</th>
+                <th>诚信评价</th>
+                <th>统一社会信用代码</th>
+                <th>企业法人</th>
+                <th>企业类型</th>
+                <th>注册资本【万元】</th>
+                <th>联系人名字</th>
+                <th>联系电话</th>
+                <th>删除备注</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in list)
+            {
+                <tr>
+                    <td>
+                        <a href="/Enterprise/Detail?id=@(item.ID)">
+                            @if (item.Name.Length > 20)
+                            {
+                                <abbr title="@(item.Name)">@(item.Name.Substring(0, 20))</abbr>
+                            }
+                            else
+                            {
+                                @(item.Name)
+                            }
+                        </a>
+                    </td>
+                    <td style="padding:0px;">
+                        <h3 style="margin-top:5px;">
+                            @switch (item.Degree)
+                            {
+                                case GradeDegree.A:
+                                    <label class="label label-success">@(item.Degree.ToString())</label>
+                                    break;
+                                case GradeDegree.B:
+                                    <label class="label label-warning">@(item.Degree.ToString())</label>
+                                    break;
+                                case GradeDegree.C:
+                                    <label class="label label-default">@(item.Degree.ToString())</label>
+                                    break;
+                                case GradeDegree.D:
+                                    <label class="label label-danger">@(item.Degree.ToString())</label>
+                                    break;
+                            }
+                        </h3>
+                    </td>
+                    <td>@(item.USCC)</td>
+                    <td>@(item.Lawyer)</td>
+                    <td>@(item.Type)</td>
+                    <td>@(item.Money)</td>
+                    <td>@(item.Contact)</td>
+                    <td>@(item.TelPhone)</td>
+                    <td>@(item.Remark)</td>
+                    <td>
+                        <a class="btn btn-success btn-xs" href="/Enterprise/Recycle?id=@(item.ID)" name="Recycle" ><i class="glyphicon glyphicon-leaf"></i>还原</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

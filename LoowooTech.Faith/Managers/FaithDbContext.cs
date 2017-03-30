@@ -39,6 +39,9 @@ namespace LoowooTech.Faith.Managers
         public DbSet<LandRecordView> LandRecordViews { get; set; }
         public DbSet<Land> Lands { get; set; }
         public DbSet<LandView> LandViews { get; set; }
+
+        public DbSet<Rank> Ranks { get; set; }
+        public DbSet<Feed> Feeds { get; set; }
     }
 
     

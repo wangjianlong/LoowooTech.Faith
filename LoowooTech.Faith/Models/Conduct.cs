@@ -24,9 +24,13 @@ namespace LoowooTech.Faith.Models
         public DateTime CreateTime { get; set; }
         public string Content { get; set; }
         /// <summary>
-        /// 备注
+        /// 备注(针对录入人员)
         /// </summary>
         public string Remark { get; set; }
+        /// <summary>
+        /// 行为接触备注（）
+        /// </summary>
+        public string Memo { get; set; }
         public int DataId { get; set; }
         public SystemData SystemData { get; set; }
 

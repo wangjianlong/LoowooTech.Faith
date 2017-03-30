@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoowooTech.Faith.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,5 +21,7 @@ namespace LoowooTech.Faith.Parameters
         public double? MaxMoney { get; set; }
         public string Contact { get; set; }
         public string TelPhone { get; set; }
+        public GradeDegree? Degree { get; set; }
+        public bool Deleted { get; set; }
     }
 }

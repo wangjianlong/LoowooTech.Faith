@@ -7,7 +7,7 @@
 
     var request = Request.Url.PathAndQuery;
     request= HttpUtility.UrlEncode(request);
-    var serial = 1;
+    //var serial = 1;
 }
 
 <h2>
@@ -35,6 +35,18 @@
                                 </div>
                                 <input type="text" name="Name" placeholder="姓名关键字" class="form-control"  value="@(parameter.Name)"/>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">&nbsp;信用级别：</label>
+                        <div class="col-md-12">
+                            <select name="Degree" class="form-control">
+                                <option value="" @(parameter.Degree.HasValue?"":"selected=selected")>全部</option>
+                                @foreach(GradeDegree degree in Enum.GetValues(typeof(GradeDegree)))
+                                {
+                                    <option value="@(degree)" @(parameter.Degree.HasValue&&parameter.Degree.Value==degree?"selected=selected":"")>@(degree.ToString())</option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -123,6 +135,7 @@
             <thead>
                 <tr>
                     <th>姓名</th>
+                    <th>信用级别</th>
                     <th>性别</th>
                     <th>证件类型</th>
                     <th>证件编号</th>
@@ -135,14 +148,43 @@
                 {
                     <tr>
                         <td><a href="/Lawyer/Detail?id=@(item.ID)">@(item.Name)</a> </td>
+                        <td style="padding:0px;">
+                            <h3 style="margin-top:5px;">
+                                @switch (item.Degree)
+                                {
+                                    case GradeDegree.A:
+                                        <label class="label label-success">@(item.Degree.ToString())</label>
+                                        break;
+                                    case GradeDegree.B:
+                                        <label class="label label-warning">@(item.Degree.ToString())</label>
+                                        break;
+                                    case GradeDegree.C:
+                                        <label class="label label-default">@(item.Degree.ToString())</label>
+                                        break;
+                                    case GradeDegree.D:
+                                        <label class="label label-danger">@(item.Degree.ToString())</label>
+                                        break;
+                                }
+                            </h3>
+                        </td>
+
                         <td>@(item.Sex.GetDescription())</td>
                         <td>@(item.Credential.GetDescription())</td>
                         <td>@(item.Number)</td>
                         <td>@(item.TelPhone)</td>
                         <td>
+                            @if (item.EnterpriseID.HasValue == false)
+                            {
+                                <a class="btn btn-success btn-xs" href="/Lawyer/Translate?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-briefcase"></i>&nbsp;录入企业</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary btn-xs" href="/Enterprise/Detail?id=@(item.EnterpriseID.Value)"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;查看企业</a>
+                            }
+
                             <a class="btn btn-warning btn-xs" href="/LandRecord/Create?systemdata=@(SystemData.Lawyer)&&elid=@(item.ID)&&name=@(item.Name)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-screenshot"></i>违法用地</a>
                             <a class="btn btn-xs btn-primary" href="/Lawyer/Create?id=@(item.ID)&&url=@(request)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
-                            <a class="btn btn-xs btn-danger" href="/Lawyer/Delete?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>删除</a>
+                            <a class="btn btn-xs btn-danger" href="/Lawyer/Delete?id=@(item.ID)" data-toggle="modal" data-target="#Modal" ><i class="glyphicon glyphicon-remove-circle"></i>删除</a>
                         </td>
                     </tr>
                 }

@@ -127,6 +127,7 @@ namespace LoowooTech.Faith.Controllers
             }
             if (IsOk && flowNode.Conduct.Degree != CreditDegree.Good)//审核后通过 并且不是诚信行为
             {
+                Core.GradeManager.Grade(flowNode);//对应的企业自然人如果发生信用评级发生改变，更新级别并且发布级别提醒
                 var error = Core.RollManager.Update(flowNode.Conduct.DataId, flowNode.Conduct.SystemData, flowNode.Conduct.Degree);
                 if (!string.IsNullOrEmpty(error))
                 {

@@ -1,0 +1,47 @@
+﻿@{ 
+    Layout = null;
+    Lawyer lawyer = ViewBag.Model;
+}
+
+<script>
+    $(function () {
+        $("#lawyer-delete").submit(function () {
+            var btn = $("#lawyer-delete button[type='submit']");
+            btn.attr("disabled", "disabled");
+            var data = $(this).serialize();
+            $.request("/lawyer/delete", data, function (json) {
+                if (json.result == 0) {
+                    alert(json.content);
+                    btn.removeAttr("disabled");
+                } else {
+                    alert("成功删除");
+                    location.href = "/lawyer/index";
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+<h3 class="text-center text-danger">&nbsp;删除自然人</h3>
+<form class="form-horizontal" method="post" id="lawyer-delete">
+    <div class="form-group">
+        <label class="control-label col-md-4">&nbsp;自然人名称：</label>
+        <div class="col-md-7">
+            <input type="hidden" name="ID" value="@(lawyer.ID)" />
+            <input type="text" name="" class="form-control" placeholder="" value="@(lawyer.Name)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">&nbsp; 删除备注：</label>
+        <div class="col-md-7">
+            <textarea name="Remark" class="form-control" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-7 col-md-offset-4">
+            <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;删除</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp; 取消</button>
+        </div>
+    </div>
+</form>

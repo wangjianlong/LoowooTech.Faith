@@ -76,6 +76,7 @@
 @{ 
     //Html.RenderPartial("_Subject", enterprise as object);
     Html.RenderAction("Score", "Grade", new { ELID = enterprise.ID, systemdata = SystemData.Enterprise });
+   // Html.RenderAction("Detail", "Rank", new { ELID = enterprise.ID, systemData = SystemData.Enterprise });
     Html.RenderAction("DetailList", "Land", new { ELID = enterprise.ID, SystemData = SystemData.Enterprise });
     Html.RenderAction("Detail", "Conduct", new { ELID = enterprise.ID, SystemData = SystemData.Enterprise });
     Html.RenderAction("DetailList", "LandRecord", new { ELID = enterprise.ID, SystemData = SystemData.Enterprise });

@@ -10,9 +10,10 @@ namespace LoowooTech.Faith.Models
     [Table("scores")]
     public class Score
     {
-        [Key]
+        //[Key]
         public int ID { get; set; }
         public string ELName { get; set; }
+        //public int SystemData { get; set; }
         public SystemData SystemData { get; set; }
         public int? Times { get; set; }
         public int? ScoreValue { get; set; }
@@ -42,21 +43,21 @@ namespace LoowooTech.Faith.Models
             }
         }
         [NotMapped]
-        public string Degree
+        public GradeDegree Degree
         {
             get
             {
                 if (DeDuck == 100)
                 {
-                    return "A";
+                    return GradeDegree.A;
                 }else if (DeDuck < 100 && DeDuck >= 80)
                 {
-                    return "B";
+                    return GradeDegree.B;
                 }else if (DeDuck < 80 && DeDuck >= 60)
                 {
-                    return "C";
+                    return GradeDegree.C;
                 }
-                return "D";
+                return GradeDegree.D;
             }
         }
     }

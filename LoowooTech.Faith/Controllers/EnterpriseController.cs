@@ -19,23 +19,25 @@ namespace LoowooTech.Faith.Controllers
             string lawyer=null,string lawnumber=null,
             string number=null,string scope=null,
             string type=null,double? minmoney=null,double? maxMoney=null,
-            string contact=null,string telphone=null,
+            string contact=null,string telphone=null,GradeDegree?degree=null,
             int page=1,int rows=20)
         {
             var parameter = new EnterpriseParameter
             {
-                Name=name,
-                OIBC=oibc,
-                USCC=uscc,
-                Address=address,
-                Lawyer=lawyer,
-                LawNumber=lawnumber,
-                Number=number,
-                Scope=scope,
-                Type=type,
-                Contact=contact,TelPhone=telphone,
-                MinMoney=minmoney,
-                MaxMoney=maxMoney,
+                Name = name,
+                OIBC = oibc,
+                USCC = uscc,
+                Address = address,
+                Lawyer = lawyer,
+                LawNumber = lawnumber,
+                Number = number,
+                Scope = scope,
+                Type = type,
+                Contact = contact, TelPhone = telphone,
+                MinMoney = minmoney,
+                MaxMoney = maxMoney,
+                Degree = degree,
+                Deleted = false,
                 Page = new PageParameter(page, rows)
             };
             var list = Core.EnterpriseManager.Search(parameter);
@@ -69,13 +71,31 @@ namespace LoowooTech.Faith.Controllers
             }
             else
             {
+                Lawyer lawyer = null;
+                if (enterprise.LawyerID.HasValue)
+                {
+                    lawyer = Core.LawyerManager.Get(enterprise.LawyerID.Value);
+                    if (lawyer == null)
+                    {
+                        return ErrorJsonResult("录入企业的自然人LawyerID不正确");
+                    }
+                }
                 var id = Core.EnterpriseManager.Save(enterprise);
                 if (id <= 0)
                 {
                     return ErrorJsonResult("保存失败");
                 }
+                if (lawyer != null)
+                {
+                    lawyer.EnterpriseID = id;
+                    if (!Core.LawyerManager.Edit(lawyer))
+                    {
+                        return ErrorJsonResult("更新自然人的企业ID失败");
+                    }
+                }
+
             }
-            return SuccessJsonResult();
+            return SuccessJsonResult(enterprise.ID);
         }
 
         public ActionResult File()
@@ -118,11 +138,33 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.Model = model;
             return View();
         }
+
         public ActionResult Delete(int id)
         {
-            if (!Core.EnterpriseManager.Delete(id))
+            var model = Core.EnterpriseManager.Get(id);
+            ViewBag.Model = model;
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult Delete(int id,string remark)
+        {
+            //if (Core.EnterpriseManager.Used(id))
+            //{
+            //    return ErrorJsonResult("删除失败，当前企业已经关联了违法用地或者诚信行为记录");
+            //}
+            if (!Core.EnterpriseManager.Delete(id,remark))
             {
                 return ErrorJsonResult("删除失败，未找到需要删除的企业信息");
+            }
+            return SuccessJsonResult();
+        }
+
+        public ActionResult Recycle(int id)
+        {
+            if (!Core.EnterpriseManager.Recycle(id))
+            {
+                return ErrorJsonResult("还原企业信息失败，未找到企业相关信息");
             }
             return SuccessJsonResult();
         }

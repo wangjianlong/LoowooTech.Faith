@@ -142,6 +142,13 @@ namespace LoowooTech.Faith.Managers
         public List<ConductStandard> Search(ConductStandardParameter parameter)
         {
             var query = Db.ConductStandards.AsQueryable();
+
+            if (parameter.ELID.HasValue)
+            {
+                query = query.Where(e => e.ELID == parameter.ELID.Value);
+            }
+
+
             if (parameter.SystemData.HasValue)
             {
                 query = query.Where(e => e.SystemData == parameter.SystemData.Value);
@@ -196,6 +203,16 @@ namespace LoowooTech.Faith.Managers
                 query = query.SetPage(page);
             }
             return query.ToList();
+        }
+
+        public ConductStandard Get(int id)
+        {
+            if (id <= 0)
+            {
+                return null;
+            }
+            var model = Db.ConductStandards.Find(id);
+            return model;
         }
     }
 }

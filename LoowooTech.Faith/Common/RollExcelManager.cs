@@ -129,7 +129,7 @@ namespace LoowooTech.Faith.Common
                 ExcelManager.GetCell(row, 3, modelRow).SetCellValue(item.Average);
                 ExcelManager.GetCell(row, 4, modelRow).SetCellValue(item.Record ?? 0);
                 ExcelManager.GetCell(row, 5, modelRow).SetCellValue(item.DeDuck);
-                ExcelManager.GetCell(row, 6, modelRow).SetCellValue(item.Degree);
+                ExcelManager.GetCell(row, 6, modelRow).SetCellValue(item.Degree.ToString());
             }
         }
     }

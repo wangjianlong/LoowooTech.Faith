@@ -1,0 +1,46 @@
+﻿@{ 
+    Layout = null;
+    Rank rank = ViewBag.Model;
+}
+
+<h3>&nbsp;信用级别（2）</h3>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>信用级别:</th>
+        <td>
+            <h2 style="margin-top:5px;">
+                @switch (rank.Degree)
+                {
+                case GradeDegree.A:
+                        <label class="label label-success">@(rank.Degree.ToString())</label>
+                        break;
+                    case GradeDegree.B:
+                        <label class="label label-warning">@(rank.Degree.ToString())</label>
+                        break;
+                    case GradeDegree.C:
+                        <label class="label label-default">@(rank.Degree.ToString())</label>
+                        break;
+                    case GradeDegree.D:
+                        <label class="label label-danger">@(rank.Degree.ToString())</label>
+                        break;
+                }
+            </h2>
+        </td>
+        <th>最终分值：</th>
+        <td>@(rank.DeDuck)</td>
+    </tr>
+    <tr>
+        <th>购地次数：</th>
+        <td>@(rank.Times)</td>
+        <th>购地记录扣分值：</th>
+        <td>@(rank.Values)</td>
+
+    </tr>
+    <tr>
+        <th>购地平均分值：</th>
+        <td>@(rank.Average)</td>
+        <th>违法用地扣分值：</th>
+        <td>@(rank.Record)</td>
+
+    </tr>
+</table>
