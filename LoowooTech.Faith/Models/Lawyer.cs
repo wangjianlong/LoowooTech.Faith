@@ -48,4 +48,10 @@ namespace LoowooTech.Faith.Models
         [Description("其他")]
         Other
     }
+
+    [Table("lawyer_scores")]
+    public class LawyerScore : BaseScore
+    {
+
+    }
 }

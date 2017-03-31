@@ -230,36 +230,76 @@ namespace LoowooTech.Faith.Managers
         {
             return Db.Lawyers.Where(e=>e.Deleted==false).LongCount();
         }
-        public void Grade(List<Rank> ranks)
+        public void Grade()
         {
             var feeds = new List<Feed>();
-            foreach(var rank in ranks)
+            var scores = Db.LawyerScores.ToList();
+            foreach(var score in scores)
             {
-                if (rank.SystemData == SystemData.Lawyer)
+                var lawyer = Db.Lawyers.Find(score.ID);
+                if (lawyer == null)
                 {
-                    var lawyer = Db.Lawyers.Find(rank.ELID);
-                    if (lawyer == null)
-                    {
-                        continue;
-                    }
-                    if (lawyer.Degree != rank.Degree)
-                    {
-                        feeds.Add(new Feed
-                        {
-                            ELID = lawyer.ID,
-                            SystemData = SystemData.Lawyer,
-                            Old = lawyer.Degree,
-                            New = rank.Degree
-                        });
-                    }
-                    lawyer.Degree = rank.Degree;
-                    lawyer.Times = rank.Times;
-                    lawyer.Values = rank.Values;
-                    lawyer.Record = rank.Record;
-                    Db.SaveChanges();
+                    continue;
                 }
+                if (lawyer.Degree != score.Degree)
+                {
+                    feeds.Add(new Feed
+                    {
+                        ELID = lawyer.ID,
+                        SystemData = SystemData.Lawyer,
+                        Old = lawyer.Degree,
+                        New = score.Degree
+                    });
+                }
+                lawyer.Degree = score.Degree;
+                lawyer.Times = score.Times;
+                lawyer.Values = score.ScoreValue;
+                lawyer.Record = score.Record;
+                lawyer.GradeTime = DateTime.Now;
             }
-        }
 
+            if (feeds.Count > 0)
+            {
+                Db.Feeds.AddRange(feeds);
+            }
+            Db.SaveChanges();
+        }
+        public void Grade(int id,int conductId)
+        {
+            var lawyer = Db.Lawyers.Find(id);
+            if (lawyer == null)
+            {
+                return;
+            }
+            var score = Db.LawyerScores.Find(id);
+            if (score == null)
+            {
+                return;
+            }
+
+            Feed feed = null;
+            if (lawyer.Degree != score.Degree)
+            {
+                feed = new Feed
+                {
+                    ELID = lawyer.ID,
+                    SystemData = SystemData.Lawyer,
+                    Old = lawyer.Degree,
+                    New = score.Degree,
+                    ConductID = conductId
+                };
+            }
+            lawyer.Degree = score.Degree;
+            lawyer.Times = score.Times;
+            lawyer.Values = score.ScoreValue;
+            lawyer.Record = score.Record;
+            lawyer.GradeTime = DateTime.Now;
+            if (feed != null)
+            {
+                Db.Feeds.Add(feed);
+
+            }
+            Db.SaveChanges();
+        }
     }
 }

@@ -10,9 +10,9 @@ namespace LoowooTech.Faith.Managers
 {
     public class FeedManager:ManagerBase
     {
-        public List<Feed> Search(FeedParameter parameter)
+        public List<FeedView> Search(FeedParameter parameter)
         {
-            var query = Db.Feeds.AsQueryable();
+            var query = Db.FeedViews.AsQueryable();
             if (parameter.HasRead.HasValue)
             {
                 query = query.Where(e => e.HasRead == parameter.HasRead.Value);
@@ -27,6 +27,12 @@ namespace LoowooTech.Faith.Managers
             Db.Feeds.Add(feed);
             Db.SaveChanges();
             return feed.ID;
+        }
+
+        public void AddList(List<Feed> feeds)
+        {
+            Db.Feeds.AddRange(feeds);
+            Db.SaveChanges();
         }
     }
 }

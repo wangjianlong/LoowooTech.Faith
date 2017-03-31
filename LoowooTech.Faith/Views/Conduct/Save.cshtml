@@ -52,6 +52,7 @@
                     <input type="hidden" name="ID" value="@(conduct!=null?conduct.ID:0)" />
                     <input type="hidden" name="UserID" value="@(Identity.UserID)" />
                     <input type="hidden" name="LandID" value="@(conduct!=null?conduct.LandID:land!=null?land.ID:0)" />
+                    <input type="hidden" name="SystemData" value="@(conduct!=null?conduct.SystemData:land!=null?land.SystemData:SystemData.Enterprise)" />
                     <input type="text" name="" class="form-control" value="@(land!=null?land.Name:"未获取供地信息,请刷新")" readonly />
                 </div>
             </div>

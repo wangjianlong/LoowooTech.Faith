@@ -43,7 +43,7 @@
     </tbody>
 </table>
 @{ 
-    // Html.RenderPartial("_Subject", lawyer as object);
+     Html.RenderPartial("_Subject", lawyer as Subject);
     Html.RenderAction("Score", "Grade", new { ELID = lawyer.ID, systemdata = SystemData.Lawyer });
     Html.RenderAction("DetailList", "Land", new { ELID = lawyer.ID, SystemData = SystemData.Lawyer });
     Html.RenderAction("Detail", "Conduct", new { ELID = lawyer.ID, systemdata = SystemData.Lawyer });

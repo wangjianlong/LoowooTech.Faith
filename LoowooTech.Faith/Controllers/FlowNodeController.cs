@@ -125,19 +125,30 @@ namespace LoowooTech.Faith.Controllers
             {
                 return ErrorJsonResult("更新审核表失败");
             }
-            if (IsOk && flowNode.Conduct.Degree != CreditDegree.Good)//审核后通过 并且不是诚信行为
+          
+            if (IsOk)//审核后通过 
             {
-                Core.GradeManager.Grade(flowNode);//对应的企业自然人如果发生信用评级发生改变，更新级别并且发布级别提醒
-                var error = Core.RollManager.Update(flowNode.Conduct.DataId, flowNode.Conduct.SystemData, flowNode.Conduct.Degree);
-                if (!string.IsNullOrEmpty(error))
+                var land = Core.LandManager.Get(flowNode.Conduct.LandID);
+                if (land != null)
                 {
-                    Core.DailyManager.Save(new Daily
+                    Core.GradeManager.Grade(land, flowNode.Conduct.ID);//对应的企业自然人如果发生信用评级发生改变，更新级别并且发布级别提醒
+                    if (flowNode.Conduct.Degree != CreditDegree.Good)// 并且不是诚信行为
                     {
-                        Name = "更新异常/黑名单",
-                        Description = string.Format("FlowNodeID:{0};ConductID:{1},错误信息：", flowNode.ID, flowNode.Conduct.ID),
-                        UserID = Identity.UserID
-                    });
+                        var error = Core.RollManager.Update(land.ELID, land.SystemData, flowNode.Conduct.Degree);
+                        if (!string.IsNullOrEmpty(error))
+                        {
+                            Core.DailyManager.Save(new Daily
+                            {
+                                Name = "更新异常/黑名单",
+                                Description = string.Format("FlowNodeID:{0};ConductID:{1},错误信息：", flowNode.ID, flowNode.Conduct.ID),
+                                UserID = Identity.UserID
+                            });
+                        }
+                    }
+                  
                 }
+                
+              
             }
             return SuccessJsonResult();
         }

@@ -67,4 +67,10 @@ namespace LoowooTech.Faith.Models
 
         
     }
+
+    [Table("enterprise_scores")]
+    public class EnterpriseScore:BaseScore
+    {
+ 
+    }
 }

@@ -45,8 +45,6 @@ namespace LoowooTech.Faith.Managers
         public LandManager LandManager { get { return _landManager == null ? _landManager = new LandManager() : _landManager; } }
         private ScoreManager _scoreManager { get; set; }
         public ScoreManager ScoreManager { get { return _scoreManager == null ? _scoreManager = new ScoreManager() : _scoreManager; } }
-        private RankManager _rankManager { get; set; }
-        public RankManager RankManager { get { return _rankManager == null ? _rankManager = new RankManager() : _rankManager; } }
         private FeedManager _feedManager { get; set; }
         public FeedManager FeedManager { get { return _feedManager == null ? _feedManager = new FeedManager() : _feedManager; } }
     }

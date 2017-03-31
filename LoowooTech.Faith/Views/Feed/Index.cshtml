@@ -2,8 +2,110 @@
 @{
     ViewBag.Title = "消息列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+    List<FeedView> list = ViewBag.List;
+    FeedParameter parameter = ViewBag.Parameter;
+    var serial = 1;
 }
 
-<h2>Index</h2>
+<div class="page-header">
+    <h2>&nbsp; 消息管理</h2>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-2 well">
+            <fieldset><legend>查询设置</legend></fieldset>
+            <form method="get">
+                <div class="form-group">
+                    <label class="control-label">&nbsp;企业/自然人名称：</label>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-success" name="ELName">全部</button>
+                            </div>
+                            <input type="text" name="ELName" class="form-control" placeholder="企业/自然人关键字" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;原始级别：</label>
+                    <div class="col-md-12">
+                        <select name="Old" class="form-control">
+                            <option>全部</option>
+                            @foreach(GradeDegree degree in Enum.GetValues(typeof(GradeDegree)))
+                            {
+                                <option value="@(degree)">@(degree.GetDescription())</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;当前级别：</label>
+                    <div class="col-md-12">
+                        <select name="New" class="form-control">
+                            <option>全部</option>
+                            @foreach (GradeDegree degree in Enum.GetValues(typeof(GradeDegree)))
+                            {
+                                <option value="@(degree)">@(degree.GetDescription())</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;查询：</label>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-search"></i>&nbsp;立即查询</button>
+                        <button type="button" class="btn btn-sm btn-default" onclick="history.back();"><i class="glyphicon glyphicon-arrow-left"></i>返回</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>企业/自然人名称</th>
+                        <th>原始信用级别</th>
+                        <th>当前信用级别</th>
+                        <th>诚信行为</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in list)
+                    {
+                        <tr>
+                            <td>@(serial++)</td>
+                            <td>
+                                <a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/detail?id="+item.ELID:"/Lawyer/detail?id="+item.ELID)">
+                                    @(item.ELName)
+                                </a>
+                            
+                            </td>
+                            <td>@(item.Old.HasValue ? item.Old.Value.ToString() : "未评级")</td>
+                            <td>@(item.New.HasValue ? item.New.Value.ToString() : "未评级")</td>
+                            <td>
+                                @if (item.ConductID.HasValue)
+                                {
+
+                                }
+                                else
+                                {
+                                    <label class="label label-success">年度评级</label>
+                                }
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @{
+                Html.RenderPartial("_pagination", parameter.Page as object);
+            }
+        </div>
+    </div>
+</div>
+
 

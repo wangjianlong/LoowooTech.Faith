@@ -183,7 +183,6 @@
     <Compile Include="Controllers\LandRecordController.cs" />
     <Compile Include="Controllers\LawyerController.cs" />
     <Compile Include="Controllers\OffendController.cs" />
-    <Compile Include="Controllers\RankController.cs" />
     <Compile Include="Controllers\RecycleController.cs" />
     <Compile Include="Controllers\RollController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
@@ -209,7 +208,6 @@
     <Compile Include="Managers\ManagerCore.cs" />
     <Compile Include="Managers\OffendManager.cs" />
     <Compile Include="Managers\OneContext.cs" />
-    <Compile Include="Managers\RankManager.cs" />
     <Compile Include="Managers\RollManager.cs" />
     <Compile Include="Managers\RollViewManager.cs" />
     <Compile Include="Managers\ScoreManager.cs" />
@@ -232,7 +230,6 @@
     <Compile Include="Models\Lawyer.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Offend.cs" />
-    <Compile Include="Models\Rank.cs" />
     <Compile Include="Models\Roll.cs" />
     <Compile Include="Models\RollView.cs" />
     <Compile Include="Models\Score.cs" />

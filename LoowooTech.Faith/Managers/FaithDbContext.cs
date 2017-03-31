@@ -40,8 +40,10 @@ namespace LoowooTech.Faith.Managers
         public DbSet<Land> Lands { get; set; }
         public DbSet<LandView> LandViews { get; set; }
 
-        public DbSet<Rank> Ranks { get; set; }
         public DbSet<Feed> Feeds { get; set; }
+        public DbSet<FeedView> FeedViews { get; set; }
+        public DbSet<EnterpriseScore> EnterpriseScores { get; set; }
+        public DbSet<LawyerScore> LawyerScores { get; set; }
     }
 
     

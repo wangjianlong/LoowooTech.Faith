@@ -59,7 +59,6 @@ namespace LoowooTech.Faith.Managers
             }
             return Db.Enterprises.Find(id);
         }
-
         /// <summary>
         /// 作用：通过名称查询
         /// 作者：汪建龙
@@ -91,7 +90,6 @@ namespace LoowooTech.Faith.Managers
             Db.SaveChanges();
             return true;
         }
-
         public bool Recycle(int id)
         {
             var model = Db.Enterprises.Find(id);
@@ -103,7 +101,6 @@ namespace LoowooTech.Faith.Managers
             Db.SaveChanges();
             return true;
         }
-
         /// <summary>
         /// 作用：查询企业
         /// 作者：汪建龙
@@ -226,8 +223,6 @@ namespace LoowooTech.Faith.Managers
             }
 
         }
-
-
         /// <summary>
         /// 作用：统计企业数量
         /// 作者：汪建龙
@@ -243,41 +238,85 @@ namespace LoowooTech.Faith.Managers
         {
             return Db.Conducts.Any(e => e.DataId == id && e.SystemData == SystemData.Enterprise) || Db.Lands.Any(e => e.SystemData == SystemData.Enterprise && e.ELID == id);
         }
-
-        public void Grade(List<Rank> ranks)
+        /// <summary>
+        /// 作用：对所有的企业进行信用评级
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月31日14:10:47
+        /// </summary>
+        public void Grade()
         {
             var feeds = new List<Feed>();
-            foreach(var rank in ranks)
+            var enterprise_scores = Db.EnterpriseScores.ToList();
+            foreach(var score in enterprise_scores)
             {
-                if (rank.SystemData == SystemData.Enterprise)
+                var enterprise = Db.Enterprises.Find(score.ID);
+                if (enterprise == null)
                 {
-                    var enterprise = Db.Enterprises.Find(rank.ELID);
-                    if (enterprise == null)
-                    {
-                        continue;
-                    }
-                    if (enterprise.Degree != rank.Degree)
-                    {
-                        feeds.Add(new Feed
-                        {
-                            ELID = enterprise.ID,
-                            SystemData = SystemData.Enterprise,
-                            Old = enterprise.Degree,
-                            New = rank.Degree,
-                        });
-                    }
-                    enterprise.Degree = rank.Degree;
-                    enterprise.Times = rank.Times;
-                    enterprise.Values = rank.Values;
-                    enterprise.Record = rank.Record;
+                    continue;
                 }
+                if (enterprise.Degree != score.Degree)
+                {
+                    feeds.Add(new Feed
+                    {
+                        ELID = enterprise.ID,
+                        SystemData = SystemData.Enterprise,
+                        Old = enterprise.Degree,
+                        New = score.Degree,
+                    });
+                }
+                enterprise.Degree = score.Degree;
+                enterprise.Times = score.Times;
+                enterprise.Values = score.ScoreValue;
+                enterprise.Record = score.Record;
+                enterprise.GradeTime = DateTime.Now;
             }
             if (feeds.Count > 0)
             {
                 Db.Feeds.AddRange(feeds);
-                Db.SaveChanges();
             }
-          
+            Db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 作用：对某一个企业进行信用评级
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月31日14:11:15
+        /// </summary>
+        /// <param name="id"></param>
+        public void Grade(int id,int conductId)
+        {
+            var enterprise = Db.Enterprises.Find(id);
+            if (enterprise == null)
+            {
+                return;
+            }
+            var score = Db.EnterpriseScores.Find(id);
+            if (score == null)
+            {
+                return ;
+            }
+            Feed feed = null;
+            if (enterprise.Degree != score.Degree)
+            {
+                feed = new Feed
+                {
+                    ELID = enterprise.ID,
+                    SystemData = SystemData.Enterprise,
+                    Old = enterprise.Degree,
+                    New = score.Degree,
+                    ConductID=conductId
+                };
+            }
+            enterprise.Degree = score.Degree;
+            enterprise.Times = score.Times;
+            enterprise.Values = score.ScoreValue;
+            enterprise.Record = score.Record;
+            enterprise.GradeTime = DateTime.Now;
+            if (feed != null)
+            {
+                Db.Feeds.Add(feed);
+            }
+            Db.SaveChanges();
         }
     }
 }
