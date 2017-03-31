@@ -67,6 +67,7 @@ namespace LoowooTech.Faith.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public bool Deleted { get; set; }
         public int? Times { get; set; }
         public int? ScoreValue { get; set; }
         public int? Record { get; set; }

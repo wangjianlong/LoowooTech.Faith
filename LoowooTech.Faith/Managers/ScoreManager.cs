@@ -12,15 +12,20 @@ namespace LoowooTech.Faith.Managers
         {
             return Db.Scores.ToList();
         }
-        public List<Score> Get(SystemData systemData)
-        {
-            return Db.Scores.Where(e => e.SystemData == systemData).ToList();
-        }
         public Score Get(int ELID,SystemData systemData)
         {
             var model = Db.Scores.FirstOrDefault(e => e.ID == ELID && e.SystemData == systemData);
             return model;
         }
 
+        public List<EnterpriseScore> GetEnterprise()
+        {
+            return Db.EnterpriseScores.Where(e => e.Deleted == false).ToList();
+        }
+
+        public List<LawyerScore> GetLawyer()
+        {
+            return Db.LawyerScores.Where(e => e.Deleted == false).ToList();
+        }
     }
 }

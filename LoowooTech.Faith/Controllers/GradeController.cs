@@ -33,8 +33,9 @@ namespace LoowooTech.Faith.Controllers
 
         public ActionResult Download()
         {
-            var list = Core.ScoreManager.Get();
-            IWorkbook workbook = RollExcelManager.SaveScore(list);
+            var enterprise = Core.ScoreManager.GetEnterprise();
+            var lawyers = Core.ScoreManager.GetLawyer();
+            IWorkbook workbook = RollExcelManager.SaveScore(enterprise,lawyers);
             MemoryStream ms = new MemoryStream();
             workbook.Write(ms);
             ms.Flush();

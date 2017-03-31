@@ -22,7 +22,7 @@ namespace LoowooTech.Faith.Common
             _modelScorePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Score"] ?? "Score.xls");
         }
 
-        public static IWorkbook SaveScore(List<Score> scores)
+        public static IWorkbook SaveScore(List<EnterpriseScore> enterprises,List<LawyerScore> lawyers)
         {
             if (!System.IO.File.Exists(_modelScorePath))
             {
@@ -35,7 +35,13 @@ namespace LoowooTech.Faith.Common
                 if (sheet != null)
                 {
                     var modelrow = sheet.GetRow(0);
-                    Write(scores, ref sheet, modelrow);
+                    Write<EnterpriseScore>(enterprises, ref sheet, modelrow);
+                }
+                var sheet2 = workbook.GetSheetAt(1);
+                if (sheet2 != null)
+                {
+                    var modelRow = sheet2.GetRow(0);
+                    Write<LawyerScore>(lawyers, ref sheet2, modelRow);
                 }
             }
             return workbook;
@@ -111,7 +117,7 @@ namespace LoowooTech.Faith.Common
             }
         }
 
-        private static void Write(List<Score> list,ref ISheet sheet,IRow modelRow)
+        private static void Write<T>(List<T> list,ref ISheet sheet,IRow modelRow) where T:BaseScore
         {
             var startLine = 1;
             foreach(var item in list)
@@ -123,7 +129,7 @@ namespace LoowooTech.Faith.Common
                 }
                 startLine++;
                 var cell = ExcelManager.GetCell(row, 0, modelRow);
-                cell.SetCellValue(item.ELName);
+                cell.SetCellValue(item.Name);
                 ExcelManager.GetCell(row, 1, modelRow).SetCellValue(item.Times.HasValue ? item.Times.Value : 0);
                 ExcelManager.GetCell(row, 2, modelRow).SetCellValue(item.ScoreValue ?? 0);
                 ExcelManager.GetCell(row, 3, modelRow).SetCellValue(item.Average);

@@ -24,6 +24,7 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.Black = Core.RollManager.Count(Models.BREnum.Black);
             ViewBag.Red = Core.RollManager.Count(Models.BREnum.Red);
             ViewBag.CCount = Core.ConductManager.Count();
+            ViewBag.FCount = Core.FeedManager.Count();
             return View();
         }
 

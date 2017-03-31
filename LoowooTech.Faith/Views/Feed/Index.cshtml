@@ -22,9 +22,9 @@
                     <div class="col-md-12">
                         <div class="input-group input-group-sm">
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-success" name="ELName">全部</button>
+                                <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.ELName)?"success":"default")" name="ELName">全部</button>
                             </div>
-                            <input type="text" name="ELName" class="form-control" placeholder="企业/自然人关键字" />
+                            <input type="text" name="ELName" class="form-control" placeholder="企业/自然人关键字"  value="@(parameter.ELName)"/>
                         </div>
                     </div>
                 </div>
@@ -32,10 +32,10 @@
                     <label class="control-label">&nbsp;原始级别：</label>
                     <div class="col-md-12">
                         <select name="Old" class="form-control">
-                            <option>全部</option>
+                            <option @(parameter.Old.HasValue?"":"selected=selected")>全部</option>
                             @foreach(GradeDegree degree in Enum.GetValues(typeof(GradeDegree)))
                             {
-                                <option value="@(degree)">@(degree.GetDescription())</option>
+                                <option value="@(degree)" @(parameter.Old.HasValue&&parameter.Old.Value==degree?"selected=selected":"")>@(degree.GetDescription())</option>
                             }
                         </select>
                     </div>
@@ -44,11 +44,21 @@
                     <label class="control-label">&nbsp;当前级别：</label>
                     <div class="col-md-12">
                         <select name="New" class="form-control">
-                            <option>全部</option>
+                            <option @(parameter.New.HasValue?"":"selected=selected")>全部</option>
                             @foreach (GradeDegree degree in Enum.GetValues(typeof(GradeDegree)))
                             {
-                                <option value="@(degree)">@(degree.GetDescription())</option>
+                                <option value="@(degree)" @(parameter.New.HasValue&&parameter.New.Value==degree?"selected=selected":"")>@(degree.GetDescription())</option>
                             }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">&nbsp;是否已读：</label>
+                    <div class="col-md-12">
+                        <select name="HasRead" class="form-control">
+                            <option value="null" @(parameter.HasRead.HasValue?"":"selected=selected")>全部</option>
+                            <option value="false" @(parameter.HasRead.HasValue&&parameter.HasRead.Value==false?"selected=selected":"")>未读</option>
+                            <option value="true" @(parameter.HasRead.HasValue&&parameter.HasRead.Value==true?"selected=selected":"")>已读</option>
                         </select>
                     </div>
                 </div>
@@ -76,28 +86,58 @@
                 <tbody>
                     @foreach (var item in list)
                     {
-                        <tr>
-                            <td>@(serial++)</td>
-                            <td>
-                                <a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/detail?id="+item.ELID:"/Lawyer/detail?id="+item.ELID)">
-                                    @(item.ELName)
-                                </a>
-                            
-                            </td>
-                            <td>@(item.Old.HasValue ? item.Old.Value.ToString() : "未评级")</td>
-                            <td>@(item.New.HasValue ? item.New.Value.ToString() : "未评级")</td>
-                            <td>
-                                @if (item.ConductID.HasValue)
-                                {
+                        if (item.HasRead == false)
+                        {
+                            <tr>
+                                <th>@(serial++)</th>
+                                <th>
+                                    <a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/detail?id="+item.ELID:"/Lawyer/detail?id="+item.ELID)">
+                                        @(item.ELName)
+                                    </a>
 
-                                }
-                                else
-                                {
-                                    <label class="label label-success">年度评级</label>
-                                }
-                            </td>
-                            <td></td>
-                        </tr>
+                                </th>
+                                <th>@(item.Old.HasValue ? item.Old.Value.ToString() : "未评级")</th>
+                                <th>@(item.New.HasValue ? item.New.Value.ToString() : "未评级")</th>
+                                <th>
+                                    @if (item.ConductID.HasValue)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        <label class="label label-success">年度评级</label>
+                                    }
+                                </th>
+                                <th>
+                                    <a href="/Feed/Read?id=@(item.ID)" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-flag"></i>&nbsp;标记已读</a>
+                                </th>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@(serial++)</td>
+                                <td>
+                                    <a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/detail?id="+item.ELID:"/Lawyer/detail?id="+item.ELID)">
+                                        @(item.ELName)
+                                    </a>
+
+                                </td>
+                                <td>@(item.Old.HasValue ? item.Old.Value.ToString() : "未评级")</td>
+                                <td>@(item.New.HasValue ? item.New.Value.ToString() : "未评级")</td>
+                                <td>
+                                    @if (item.ConductID.HasValue)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        <label class="label label-success">年度评级</label>
+                                    }
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

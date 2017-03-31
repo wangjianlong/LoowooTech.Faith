@@ -13,14 +13,57 @@ namespace LoowooTech.Faith.Managers
         public List<FeedView> Search(FeedParameter parameter)
         {
             var query = Db.FeedViews.AsQueryable();
+            if (parameter.Old.HasValue)
+            {
+                query = query.Where(e => e.Old == parameter.Old.Value);
+            }
+            if (parameter.New.HasValue)
+            {
+                query = query.Where(e => e.New == parameter.New.Value);
+            }
             if (parameter.HasRead.HasValue)
             {
                 query = query.Where(e => e.HasRead == parameter.HasRead.Value);
             }
+            if (!string.IsNullOrEmpty(parameter.ELName))
+            {
+                query = query.Where(e => e.ELName.ToLower().Contains(parameter.ELName.ToLower()));
+            }
+
 
             query = query.OrderByDescending(e => e.CreateTime).SetPage(parameter.Page);
             return query.ToList();
         }
+
+        public long Count(bool hasRead=false)
+        {
+            return Db.Feeds.Where(e=>e.HasRead==hasRead).LongCount();
+        }
+
+        /// <summary>
+        /// 作用：标记已读
+        /// 作者：汪建龙
+        /// 编写时间：2017年3月31日16:07:13
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool Read(int id)
+        {
+            if (id <= 0)
+            {
+                return false;
+            }
+            var model = Db.Feeds.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.HasRead = true;
+
+            Db.SaveChanges();
+            return true;
+        }
+
 
         public int Save(Feed feed)
         {
