@@ -283,7 +283,7 @@ namespace LoowooTech.Faith.Managers
         /// 编写时间：2017年3月31日14:11:15
         /// </summary>
         /// <param name="id"></param>
-        public void Grade(int id,int conductId)
+        public void Grade(int id,int conductId,GradeAction action)
         {
             var enterprise = Db.Enterprises.Find(id);
             if (enterprise == null)
@@ -304,7 +304,8 @@ namespace LoowooTech.Faith.Managers
                     SystemData = SystemData.Enterprise,
                     Old = enterprise.Degree,
                     New = score.Degree,
-                    ConductID=conductId
+                    ConductID=conductId,
+                    Action=action
                 };
             }
             enterprise.Degree = score.Degree;

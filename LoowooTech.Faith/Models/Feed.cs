@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace LoowooTech.Faith.Models
         public DateTime CreateTime { get; set; }
         public bool HasRead { get; set; }
         public int? ConductID { get; set; }
+        public GradeAction Action { get; set; }
     }
 
     [Table("feed_view")]
@@ -43,6 +45,14 @@ namespace LoowooTech.Faith.Models
         public CreditDegree? Degree { get; set; }
         public int? StandardID { get; set; }
         public string StandardName { get; set; }
+        public GradeAction Action { get; set; }
 
+    }
+    public enum GradeAction
+    {
+        [Description("年度评级")]
+        Year,
+        [Description("诚信行为")]
+        Conduct,
     }
 }

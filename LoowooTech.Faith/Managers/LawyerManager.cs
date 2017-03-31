@@ -264,7 +264,7 @@ namespace LoowooTech.Faith.Managers
             }
             Db.SaveChanges();
         }
-        public void Grade(int id,int conductId)
+        public void Grade(int id,int conductId,GradeAction action)
         {
             var lawyer = Db.Lawyers.Find(id);
             if (lawyer == null)
@@ -286,7 +286,8 @@ namespace LoowooTech.Faith.Managers
                     SystemData = SystemData.Lawyer,
                     Old = lawyer.Degree,
                     New = score.Degree,
-                    ConductID = conductId
+                    ConductID = conductId,
+                    Action=action
                 };
             }
             lawyer.Degree = score.Degree;

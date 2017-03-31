@@ -168,15 +168,15 @@ namespace LoowooTech.Faith.Managers
             Core.LawyerManager.Grade();
         }
 
-        public void Grade(Land land,int conductId)
+        public void Grade(Land land,int conductId,GradeAction action)
         {
             if (land.SystemData == SystemData.Enterprise)
             {
-                Core.EnterpriseManager.Grade(land.ELID, conductId);
+                Core.EnterpriseManager.Grade(land.ELID, conductId,action);
             }
             else if (land.SystemData == SystemData.Lawyer)
             {
-                Core.LawyerManager.Grade(land.ELID, conductId);
+                Core.LawyerManager.Grade(land.ELID, conductId,action);
             }
         }
 

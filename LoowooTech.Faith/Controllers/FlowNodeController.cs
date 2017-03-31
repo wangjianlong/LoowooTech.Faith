@@ -131,7 +131,7 @@ namespace LoowooTech.Faith.Controllers
                 var land = Core.LandManager.Get(flowNode.Conduct.LandID);
                 if (land != null)
                 {
-                    Core.GradeManager.Grade(land, flowNode.Conduct.ID);//对应的企业自然人如果发生信用评级发生改变，更新级别并且发布级别提醒
+                    Core.GradeManager.Grade(land, flowNode.Conduct.ID,GradeAction.Conduct);//对应的企业自然人如果发生信用评级发生改变，更新级别并且发布级别提醒
                     if (flowNode.Conduct.Degree != CreditDegree.Good)// 并且不是诚信行为
                     {
                         var error = Core.RollManager.Update(land.ELID, land.SystemData, flowNode.Conduct.Degree);
