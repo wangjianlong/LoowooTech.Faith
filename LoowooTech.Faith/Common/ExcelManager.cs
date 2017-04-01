@@ -108,7 +108,7 @@ namespace LoowooTech.Faith.Common
         }
         private static LandRecordView AnalyzeLandRecord(IRow row)
         {
-            var cells = GetCells(row, 0, 6);
+            var cells = GetCells(row, 0, 7);
             if (cells == null)
             {
                 return null;
@@ -125,7 +125,8 @@ namespace LoowooTech.Faith.Common
                 Code = cells[1].ToString().Trim(),
                 IllegalArea = double.TryParse(cells[2].ToString().Trim(), out a) ? a : .0,
                 Area = double.TryParse(cells[3].ToString().Trim(), out a) ? a : .0,
-                Score = double.TryParse(cells[5].ToString().Trim(), out a) ? a : .0
+                Score = double.TryParse(cells[5].ToString().Trim(), out a) ? a : .0,
+                Remark=cells[7].ToString().Trim()
             };
             return model;
         }

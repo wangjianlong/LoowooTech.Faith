@@ -16,9 +16,13 @@ namespace LoowooTech.Faith.Models
         public int ID { get; set; }
         public int DataId { get; set; }
         public SystemData SystemData { get; set; }
-        //public virtual ScoreBase ScoreBase { get; set; }
         public BREnum BREnum { get; set; }
 
+    }
+
+    public class RollList:Roll
+    {
+        public string Name { get; set; }
     }
 
     public enum BREnum

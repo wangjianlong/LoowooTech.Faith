@@ -51,5 +51,9 @@ namespace LoowooTech.Faith.Models
         /// 录入人ID
         /// </summary>
         public int UserID { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark { get; set; }
     }
 }

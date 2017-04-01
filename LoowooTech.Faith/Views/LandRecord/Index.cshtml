@@ -73,6 +73,7 @@
                         <th>合法用地面积【亩】</th>
                         <th>百分比</th>
                         <th>应扣分值</th>
+                        <th>备注</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -90,6 +91,16 @@
                                 @(Math.Round(item.IllegalArea / item.Area * 100, 2))
                             </td>
                             <td>@(item.Score)</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.Remark) && item.Remark.Length > 20)
+                                {
+                                    <abbr title="@(item.Remark)">@(item.Remark.Substring(0,20))</abbr>
+                                }
+                                else
+                                {
+                                    @(item.Remark)
+                                }
+                            </td>
                             <td>
                                 <a href="/LandRecord/Create?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
                                 <a href="/LandRecord/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Check"><i class="glyphicon glyphicon-remove-circle"></i>删除</a>

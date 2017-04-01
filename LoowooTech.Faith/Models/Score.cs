@@ -38,9 +38,9 @@ namespace LoowooTech.Faith.Models
             {
                 if (Record.HasValue)
                 {
-                    return 100- Average - Record.Value;
+                    return  Average + Record.Value;
                 }
-                return 100-Average;
+                return Average;
             }
         }
         [NotMapped]
@@ -48,13 +48,13 @@ namespace LoowooTech.Faith.Models
         {
             get
             {
-                if (DeDuck == 100)
+                if (DeDuck == 0)
                 {
                     return GradeDegree.A;
-                }else if (DeDuck < 100 && DeDuck >= 80)
+                }else if (DeDuck <= 20 && DeDuck > 0)
                 {
                     return GradeDegree.B;
-                }else if (DeDuck < 80 && DeDuck >= 60)
+                }else if (DeDuck < 20 && DeDuck < 40)
                 {
                     return GradeDegree.C;
                 }
@@ -90,9 +90,9 @@ namespace LoowooTech.Faith.Models
             {
                 if (Record.HasValue)
                 {
-                    return 100 - Average - Record.Value;
+                    return Average + Record.Value;
                 }
-                return 100 - Average;
+                return  Average;
             }
         }
         [NotMapped]
@@ -100,15 +100,15 @@ namespace LoowooTech.Faith.Models
         {
             get
             {
-                if (DeDuck == 100)
+                if (DeDuck == 0)
                 {
                     return GradeDegree.A;
                 }
-                else if (DeDuck < 100 && DeDuck >= 80)
+                else if (DeDuck <= 20 && DeDuck > 0)
                 {
                     return GradeDegree.B;
                 }
-                else if (DeDuck < 80 && DeDuck >= 60)
+                else if (DeDuck > 20 && DeDuck < 40)
                 {
                     return GradeDegree.C;
                 }

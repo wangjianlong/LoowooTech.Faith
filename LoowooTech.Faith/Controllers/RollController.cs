@@ -35,22 +35,23 @@ namespace LoowooTech.Faith.Controllers
         [UserAuthorize(false)]
         public ActionResult List(BREnum bREnum,string key)
         {
-            var list = Core.RollViewManager.GetList(bREnum,key);
+            // var list = Core.RollViewManager.GetList(bREnum,key);
+            var list = Core.RollViewManager.GetRollList(bREnum, key);
             ViewBag.List = list;
             return View();
         }
 
 
         [UserAuthorize]
-        public ActionResult DownLoad()
+        public ActionResult DownLoad(BREnum brenum,string key)
         {
-            var list = Core.RollViewManager.GetList();
+            var list = Core.RollViewManager.GetRollList(brenum, key);
             IWorkbook workbook = RollExcelManager.SaveRoll(list);
             MemoryStream ms = new MemoryStream();
             workbook.Write(ms);
             ms.Flush();
             byte[] fileContents = ms.ToArray();
-            return File(fileContents, "application/ms-excel", "诚信系统名单列表.xls");
+            return File(fileContents, "application/ms-excel", string.Format("诚信系统{0}名单列表.xls",brenum==BREnum.Black?"黑":"异常"));
         }
     }
 }

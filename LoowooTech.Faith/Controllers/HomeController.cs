@@ -21,8 +21,8 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.LCount = Core.LawyerManager.Count();
             ViewBag.LandCount = Core.LandManager.Count();
             ViewBag.LandRecordCount = Core.LandRecordManager.Count();
-            ViewBag.Black = Core.RollManager.Count(Models.BREnum.Black);
-            ViewBag.Red = Core.RollManager.Count(Models.BREnum.Red);
+            ViewBag.Black = Core.RollViewManager.Count(Models.BREnum.Black);
+            ViewBag.Red = Core.RollViewManager.Count(Models.BREnum.Red);
             ViewBag.CCount = Core.ConductManager.Count();
             ViewBag.FCount = Core.FeedManager.Count();
             return View();

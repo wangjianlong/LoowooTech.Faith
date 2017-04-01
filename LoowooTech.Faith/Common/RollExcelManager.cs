@@ -51,7 +51,7 @@ namespace LoowooTech.Faith.Common
         /// </summary>
         /// <param name="rollViews"></param>
         /// <returns></returns>
-        public static IWorkbook SaveRoll(List<RollView> rollViews)
+        public static IWorkbook SaveRoll(List<RollList> list)
         {
             if (!System.IO.File.Exists(_modelExcelPath))
             {
@@ -67,15 +67,15 @@ namespace LoowooTech.Faith.Common
             {
                 var modelrow = sheet.GetRow(2);
                 WriteTime(ref sheet);
-                Write(rollViews.Where(e => e.BREnum == BREnum.Red).ToList(), ref sheet, modelrow);
+                Write(list, ref sheet, modelrow);
             }
-            ISheet sheet2 = workbook.GetSheetAt(1);
-            if (sheet2 != null)
-            {
-                var modelrow = sheet2.GetRow(2);
-                WriteTime(ref sheet2);
-                Write(rollViews.Where(e => e.BREnum == BREnum.Black).ToList(), ref sheet2, modelrow);
-            }
+            //ISheet sheet2 = workbook.GetSheetAt(1);
+            //if (sheet2 != null)
+            //{
+            //    var modelrow = sheet2.GetRow(2);
+            //    WriteTime(ref sheet2);
+            //    Write(rollViews.Where(e => e.BREnum == BREnum.Black).ToList(), ref sheet2, modelrow);
+            //}
             return workbook;
         }
         /// <summary>
@@ -99,7 +99,7 @@ namespace LoowooTech.Faith.Common
             cell.SetCellValue(DateTime.Now.ToString("yyyy-MM-dd"));
         }
 
-        private static void Write(List<RollView> list,ref ISheet sheet,IRow modelRow)
+        private static void Write(List<RollList> list,ref ISheet sheet,IRow modelRow)
         {
             var startLine = 2;
             var serial = 1;

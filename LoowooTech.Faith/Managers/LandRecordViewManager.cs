@@ -86,7 +86,8 @@ namespace LoowooTech.Faith.Managers
                     IllegalArea = item.IllegalArea,
                     Area = item.Area,
                     Score = item.Score,
-                    UserID = userID
+                    UserID = userID,
+                    Remark=item.Remark
                 });
             }
             if (inputs.Count > 0)

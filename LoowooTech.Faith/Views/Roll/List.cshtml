@@ -1,6 +1,6 @@
 ﻿@{ 
     Layout = null;
-    List<RollView> RollViews = ViewBag.List;
+    List<RollList> list = ViewBag.List;
     int serial = 1;
 }
 
@@ -13,11 +13,16 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in RollViews)
+        @foreach(var item in list)
         {
             <tr>
                 <td>@(serial++)</td>
-                <td>@(item.Name)</td>
+                <td>
+                    <a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/Detail?id="+item.DataId:"/Lawyer/Detail?id="+item.DataId)">
+                        @(item.Name)
+                    </a> 
+                
+                </td>
             </tr>
         }
     </tbody>
