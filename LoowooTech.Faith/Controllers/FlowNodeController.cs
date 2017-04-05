@@ -24,6 +24,10 @@ namespace LoowooTech.Faith.Controllers
             {
                 FlowNodeState = DoingState.None
             };
+            if (Identity.Role == UserRole.Manager)
+            {
+                parameter.UserID = Identity.UserID;
+            }
             var list = Core.FlowNodeConductManager.Search(parameter);
             ViewBag.List = list;
             return View();

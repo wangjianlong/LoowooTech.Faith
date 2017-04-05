@@ -17,6 +17,8 @@ namespace LoowooTech.Faith.Controllers
             {
                 return Redirect("/User/Login");
             }
+
+
             ViewBag.ECount = Core.EnterpriseManager.Count();
             ViewBag.LCount = Core.LawyerManager.Count();
             ViewBag.LandCount = Core.LandManager.Count();

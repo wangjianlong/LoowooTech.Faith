@@ -154,5 +154,20 @@ namespace LoowooTech.Faith.Managers
             return Db.Users.Where(e => e.Role == UserRole.Manager).ToList();
         }
 
+        /// <summary>
+        /// 作用：添加用户
+        /// 作者：汪建龙
+        /// 编写时间：2017年4月2日19:01:37
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public int Save(User user)
+        {
+            user.Password = user.Password.MD5();
+            Db.Users.Add(user);
+            Db.SaveChanges();
+            return user.ID;
+        }
+
     }
 }

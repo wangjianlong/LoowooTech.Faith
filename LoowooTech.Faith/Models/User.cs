@@ -40,14 +40,10 @@ namespace LoowooTech.Faith.Models
     {
         [Description("游客")]
         Guest,
-        [Description("审核")]
-        Manager,
         [Description("普通用户")]
         Common,
-        [Description("自然人")]
-        Lawyer,
-        [Description("企业")]
-        Enterprise,
+        [Description("审核")]
+        Manager,
         [Description("管理员")]
         Administrator
     }

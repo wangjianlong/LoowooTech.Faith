@@ -231,6 +231,7 @@ namespace LoowooTech.Faith.Managers
         /// <returns></returns>
         public long Count()
         {
+            //var step = Db.FlowSteps.Find(2);
             return Db.Enterprises.Where(e=>e.Deleted==false).LongCount();
         }
 
