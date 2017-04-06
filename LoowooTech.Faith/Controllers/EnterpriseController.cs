@@ -149,10 +149,10 @@ namespace LoowooTech.Faith.Controllers
         [HttpPost]
         public ActionResult Delete(int id,string remark)
         {
-            //if (Core.EnterpriseManager.Used(id))
-            //{
-            //    return ErrorJsonResult("删除失败，当前企业已经关联了违法用地或者诚信行为记录");
-            //}
+            if (Core.EnterpriseManager.Used(id))
+            {
+                return ErrorJsonResult("删除失败，当前企业已经关联了违法用地或者诚信行为记录");
+            }
             if (!Core.EnterpriseManager.Delete(id,remark))
             {
                 return ErrorJsonResult("删除失败，未找到需要删除的企业信息");

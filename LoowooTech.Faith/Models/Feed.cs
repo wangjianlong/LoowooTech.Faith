@@ -54,5 +54,18 @@ namespace LoowooTech.Faith.Models
         Year,
         [Description("诚信行为")]
         Conduct,
+        [Description("删除诚信行为")]
+        DeleteConduct,
+        [Description("解除诚信行为")]
+        Relieve,
+        [Description("撤销解除诚信")]
+        CanRelieve,
+        [Description("录入违法用地")]
+        AddLandRecord,
+        [Description("编辑违法用地")]
+        EditLandRecord,
+        [Description("删除违法用地")]
+        DeleteLandRecord,
+       
     }
 }

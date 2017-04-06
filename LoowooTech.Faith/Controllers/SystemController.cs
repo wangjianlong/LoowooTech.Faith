@@ -111,6 +111,40 @@ namespace LoowooTech.Faith.Controllers
             return SuccessJsonResult();
         }
 
+
+        public ActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SaveUser(User user,string copyPassword)
+        {
+            if (user == null)
+            {
+                return ErrorJsonResult("未获取用户相关信息");
+            }
+            if (string.IsNullOrEmpty(copyPassword))
+            {
+                return ErrorJsonResult("确认密码不能为空");
+            }
+            if (user.Password != copyPassword)
+            {
+                return ErrorJsonResult("输入的两次密码不一致，请核对密码信息");
+            }
+            if (Core.UserManager.Exist(user.Name))
+            {
+                return ErrorJsonResult("系统中已经存在相同的用户名");
+            }
+            var id = Core.UserManager.Save(user);
+            if (id <= 0)
+            {
+                return ErrorJsonResult("保存用户失败");
+            }
+
+
+            return SuccessJsonResult();
+        }
         
         
 

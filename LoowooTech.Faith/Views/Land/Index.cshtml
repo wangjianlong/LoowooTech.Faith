@@ -126,7 +126,19 @@
                           
                             </a> 
                         </td>
-                        <td><a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/Detail?id="+item.ELID:"/Lawyer/Detail?id="+item.ELID)">@(item.sName)</a> </td>
+                        <td>
+                            <a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/Detail?id="+item.ELID:"/Lawyer/Detail?id="+item.ELID)">
+                                @if (!string.IsNullOrEmpty(item.sName) && item.sName.Length > 20)
+                                {
+                                    <abbr title="@(item.sName)">@(item.sName.Substring(0,20))</abbr>
+                                }
+                                else
+                                {
+                                    @(item.sName)
+                                }
+                       
+                            </a> 
+                        </td>
                         <td>@(item.Number)</td>
                         <td>@(item.ContractNumber)</td>
                         <td>@(item.LandNumber)</td>

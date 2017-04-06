@@ -60,27 +60,32 @@
     </div>
     <div class="col-md-6">
         <blockquote>
-            <p><a href="/Grade"><i class="glyphicon glyphicon-grain"></i>&nbsp;信用评级计算</a></p>
-            <footer> 每年12月31日点击开始计算信用评级按钮，系统将自动计算和更新企业及自然人的信用级别信息。</footer>
-        </blockquote>
-    </div>
-    <div class="col-md-6">
-        <blockquote>
-            <p><a href="/Feed"><i class="glyphicon glyphicon-headphones"></i>&nbsp;消息管理</a></p>
-            <footer>未读消息：@(ViewBag.FCount)</footer>
-        </blockquote>
-    </div>
-    <div class="col-md-6">
-        <blockquote>
             <p><a href="/Recycle"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;回收站</a></p>
             <footer>系统中删除的企业以及自然人可以通过回收站还原</footer>
         </blockquote>
     </div>
-    <div class="col-md-6">
-        <blockquote>
-            <p><a href="/System"><i class="glyphicon glyphicon-cog"></i>&nbsp;系统管理</a></p>
-            <footer>对系统中诚信环节行为、用户管理</footer>
-        </blockquote>
-    </div>
+    @if (Identity.Role == UserRole.Administrator)
+    {
+        <div class="col-md-6">
+            <blockquote>
+                <p><a href="/Grade"><i class="glyphicon glyphicon-grain"></i>&nbsp;信用评级计算</a></p>
+                <footer> 每年12月31日点击开始计算信用评级按钮，系统将自动计算和更新企业及自然人的信用级别信息。</footer>
+            </blockquote>
+        </div>
+        <div class="col-md-6">
+            <blockquote>
+                <p><a href="/Feed"><i class="glyphicon glyphicon-headphones"></i>&nbsp;消息管理</a></p>
+                <footer>未读消息：@(ViewBag.FCount)</footer>
+            </blockquote>
+        </div>
+
+        <div class="col-md-6">
+            <blockquote>
+                <p><a href="/System"><i class="glyphicon glyphicon-cog"></i>&nbsp;系统管理</a></p>
+                <footer>对系统中诚信环节行为、用户管理</footer>
+            </blockquote>
+        </div>
+    }
+
 </div>
 

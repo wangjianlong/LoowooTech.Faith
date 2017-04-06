@@ -124,10 +124,10 @@ namespace LoowooTech.Faith.Controllers
         [HttpPost]
         public ActionResult Delete(int id,string remark)
         {
-            //if (Core.LawyerManager.Used(id))
-            //{
-            //    return ErrorJsonResult("删除失败，当前自然人已经管理诚信行为以及违法用地记录");
-            //}
+            if (Core.LawyerManager.Used(id))
+            {
+                return ErrorJsonResult("删除失败，当前自然人已经管理诚信行为以及违法用地记录");
+            }
             if (!Core.LawyerManager.Delete(id,remark))
             {
                 return ErrorJsonResult("删除失败，未找到删除ID");

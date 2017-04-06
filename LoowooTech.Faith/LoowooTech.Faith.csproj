@@ -432,6 +432,7 @@
     <Content Include="Views\Recycle\GetEnterprises.cshtml" />
     <Content Include="Views\Recycle\GetLawyers.cshtml" />
     <Content Include="Views\Feed\Index.cshtml" />
+    <Content Include="Views\System\CreateUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
