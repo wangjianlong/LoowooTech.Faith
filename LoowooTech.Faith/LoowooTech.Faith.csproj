@@ -222,6 +222,7 @@
     <Compile Include="Models\FlowNode.cs" />
     <Compile Include="Models\FlowNodeConduct.cs" />
     <Compile Include="Models\FlowNodeView.cs" />
+    <Compile Include="Models\FlowStep.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\JsonData.cs" />
     <Compile Include="Models\Land.cs" />

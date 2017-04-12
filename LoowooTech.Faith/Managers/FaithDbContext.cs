@@ -16,8 +16,11 @@ namespace LoowooTech.Faith.Managers
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<Conduct>().HasRequired(e => e.Standard).WithMany().HasForeignKey(e => e.StandardId);
             modelBuilder.Entity<FlowNode>().HasRequired(e => e.Conduct).WithMany().HasForeignKey(e => e.InfoID);
+
+            //modelBuilder.Entity<FlowStep>().HasRequired(e => e.Prev).WithRequiredPrincipal(e => e.Prev);
         }
 
         public DbSet<User> Users { get; set; }
@@ -44,6 +47,7 @@ namespace LoowooTech.Faith.Managers
         public DbSet<FeedView> FeedViews { get; set; }
         public DbSet<EnterpriseScore> EnterpriseScores { get; set; }
         public DbSet<LawyerScore> LawyerScores { get; set; }
+       // public DbSet<FlowStep> FlowSteps { get; set; }
     }
 
     
