@@ -437,5 +437,92 @@ namespace LoowooTech.Faith.Common
             }
             return list;
         }
+
+        
+        public static IWorkbook SaveConduct(List<ConductStandard> list)
+        {
+            IWorkbook workbook = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Conduct"]).OpenExcel();
+            if (workbook != null)
+            {
+                ISheet sheet = workbook.GetSheetAt(0);
+                var startline = 1;
+                if (sheet != null)
+                {
+                    var modelrow = sheet.GetRow(startline);
+                    foreach(var conduct in list)
+                    {
+                        var row = sheet.GetRow(startline);
+                        if (row == null)
+                        {
+                            row = sheet.CreateRow(startline);
+                        }
+                        startline++;
+                        var cell = GetCell(row, 0, modelrow);
+                        cell.SetCellValue(conduct.Code);
+                        GetCell(row, 1, modelrow).SetCellValue(conduct.LandNumber);
+                        GetCell(row, 2, modelrow).SetCellValue("330421");
+                        GetCell(row, 3, modelrow).SetCellValue(conduct.StandardName);
+                        if (conduct.SystemData == SystemData.Enterprise)
+                        {
+                            GetCell(row, 8, modelrow).SetCellValue(conduct.ELName);
+                        }
+                        else
+                        {
+                            GetCell(row, 7, modelrow).SetCellValue(conduct.ELName);
+                        }
+                    }
+                }
+            }
+            return workbook;
+        }
+
+        /// <summary>
+        /// 作用：保存企业相关数据
+        /// 作者：汪建龙
+        /// 编写时间：2017年4月12日13:33:44
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static IWorkbook SaveEnterprise(List<Enterprise> list)
+        {
+            IWorkbook workbook = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Enterprise"]).OpenExcel();
+            if (workbook != null)
+            {
+                ISheet sheet = workbook.GetSheetAt(0);
+                var startline = 1;
+                if (sheet != null)
+                {
+                    var modelRow = sheet.GetRow(startline);
+                    foreach(var enterprise in list)
+                    {
+                        var row = sheet.GetRow(startline);
+                        if (row == null)
+                        {
+                            row = sheet.CreateRow(startline);
+                        }
+                        startline++;
+                        var cell = GetCell(row, 0, modelRow);
+                        cell.SetCellValue(enterprise.Name);
+                        GetCell(row, 1, modelRow).SetCellValue(enterprise.OIBC);
+                        GetCell(row, 2, modelRow).SetCellValue(enterprise.USCC);
+                        GetCell(row, 3, modelRow).SetCellValue("浙江省");
+                        GetCell(row, 4, modelRow).SetCellValue("嘉兴市");
+                        GetCell(row, 5, modelRow).SetCellValue("嘉善县");
+                        GetCell(row, 6, modelRow).SetCellValue(enterprise.Address);
+                        GetCell(row, 7, modelRow).SetCellValue(enterprise.Lawyer);
+                        GetCell(row, 8, modelRow).SetCellValue(enterprise.LawNumber);
+                        GetCell(row, 9, modelRow).SetCellValue(enterprise.Number);
+                        GetCell(row, 10, modelRow).SetCellValue(enterprise.Scope);
+                        GetCell(row, 11, modelRow).SetCellValue(enterprise.Type);
+                        GetCell(row, 12, modelRow).SetCellValue(enterprise.Money);
+                        GetCell(row, 13, modelRow).SetCellValue(enterprise.TelPhone);
+                        //GetCell(row, 14, modelRow).SetCellValue();
+                        GetCell(row, 15, modelRow).SetCellValue(enterprise.Contact);
+                        GetCell(row, 16, modelRow).SetCellValue(enterprise.ContactWay);
+                    }
+                }
+            }
+            return workbook;
+        }
     }
 }

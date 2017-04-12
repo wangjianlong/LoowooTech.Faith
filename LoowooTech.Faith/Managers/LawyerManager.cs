@@ -264,6 +264,14 @@ namespace LoowooTech.Faith.Managers
             }
             Db.SaveChanges();
         }
+        /// <summary>
+        /// 作用：对一个自然人进行信用评级
+        /// 作者：王健林
+        /// 编写时间：2017年4月6日10:58:27；
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="conductId"></param>
+        /// <param name="action"></param>
         public void Grade(int id,int conductId,GradeAction action)
         {
             var lawyer = Db.Lawyers.Find(id);

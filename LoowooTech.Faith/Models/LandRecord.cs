@@ -25,8 +25,6 @@ namespace LoowooTech.Faith.Models
         /// </summary>
         public int ELID { get; set; }
         public SystemData SystemData { get; set; }
-        [NotMapped]
-        public string Title { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

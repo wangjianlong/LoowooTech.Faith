@@ -1,8 +1,10 @@
 ﻿using LoowooTech.Faith.Common;
 using LoowooTech.Faith.Models;
 using LoowooTech.Faith.Parameters;
+using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -167,6 +169,17 @@ namespace LoowooTech.Faith.Controllers
                 return ErrorJsonResult("还原企业信息失败，未找到企业相关信息");
             }
             return SuccessJsonResult();
+        }
+
+        public ActionResult Download()
+        {
+            var list = Core.EnterpriseManager.Search(new EnterpriseParameter { Deleted = false });
+            IWorkbook workbook = ExcelManager.SaveEnterprise(list);
+            MemoryStream ms = new MemoryStream();
+            workbook.Write(ms);
+            ms.Flush();
+            byte[] fileContents = ms.ToArray();
+            return File(fileContents, "application/ms-excel", "企业.xls");
         }
     }
 }

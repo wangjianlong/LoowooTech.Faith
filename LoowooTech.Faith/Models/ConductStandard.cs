@@ -19,6 +19,10 @@ namespace LoowooTech.Faith.Models
         /// </summary>
         public string LandName { get; set; }
         /// <summary>
+        /// 宗地编号
+        /// </summary>
+        public string LandNumber { get; set; }
+        /// <summary>
         /// 诚信环节
         /// </summary>
         public Credit Credit { get; set; }
@@ -34,6 +38,10 @@ namespace LoowooTech.Faith.Models
         /// 诚信行为名称
         /// </summary>
         public string StandardName { get; set; }
+        /// <summary>
+        /// 诚信编码
+        /// </summary>
+        public string Code { get; set; }
         /// <summary>
         /// 分值
         /// </summary>

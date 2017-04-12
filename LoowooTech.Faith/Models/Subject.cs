@@ -8,13 +8,6 @@ namespace LoowooTech.Faith.Models
 {
     public class Subject:ScoreBase
     {
-        ///// <summary>
-        ///// 评级
-        ///// </summary>
-        //public string Level { get; set; }
-        //public string LevelDescription { get; set; }
-
-
         #region  信用评级
         /// <summary>
         /// 评级时间

@@ -15,5 +15,6 @@ namespace LoowooTech.Faith.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public Credit Credit { get; set; }
+        public string Code { get; set; }
     }
 }

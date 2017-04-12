@@ -19,6 +19,7 @@ namespace LoowooTech.Faith.Managers
         {
             Db.LandRecords.Add(landRecord);
             Db.SaveChanges();
+            Grade(landRecord, GradeAction.AddLandRecord);
             return landRecord.ID;
         }
 
@@ -38,7 +39,7 @@ namespace LoowooTech.Faith.Managers
             }
             Db.Entry(model).CurrentValues.SetValues(landRecord);
             Db.SaveChanges();
-
+            Grade(model, GradeAction.EditLandRecord);
             return true;
         }
         /// <summary>
@@ -74,6 +75,7 @@ namespace LoowooTech.Faith.Managers
 
             Db.LandRecords.Remove(model);
             Db.SaveChanges();
+            Grade(model, GradeAction.DeleteLandRecord);
             return true;
         }
 
@@ -85,6 +87,17 @@ namespace LoowooTech.Faith.Managers
         public long Count()
         {
             return Db.LandRecords.LongCount();
+        }
+
+        public void Grade(LandRecord record,GradeAction action)
+        {
+            if (record.SystemData == SystemData.Enterprise)
+            {
+                Core.EnterpriseManager.Grade(record.ELID, record.ID, action);
+            }else if (record.SystemData == SystemData.Lawyer)
+            {
+                Core.LawyerManager.Grade(record.ELID, record.ID, action);
+            }
         }
     }
 }

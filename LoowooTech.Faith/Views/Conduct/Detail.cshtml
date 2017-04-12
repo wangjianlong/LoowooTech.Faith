@@ -51,13 +51,23 @@
 
                             <a class="btn btn-success btn-xs" href="/FlowNode/Create?infoId=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-upload"></i>提交审核</a>
                             <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=@(ELId)&&systemdata=@(systemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                            <a class="btn btn-danger btn-xs" href="/Conduct/Delete?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>撤销</a>
                         }
-                        @if (item.State.HasValue && item.State.Value == BaseState.Argee)
+                        @if (item.State.HasValue)
                         {
-                            <a class="btn btn-info btn-xs" href="/Conduct/Relieve?id=@(item.ID)" name="Relieve"><i class="glyphicon glyphicon-flag"></i>解除</a>
+                            if (item.State.Value == BaseState.Argee)
+                            {
+                                <a class="btn btn-info btn-xs" href="/Conduct/Relieve?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-flag"></i>解除</a>
+
+                            }
+                            else if (item.State.Value == BaseState.Relieve)
+                            {
+                                <a class="btn btn-success btn-xs" href="/Conduct/CancelRelieve?id=@(item.ID)" name="Relieve"><i class="glyphicon glyphicon-flag"></i>撤销解除</a>
+                            }
+
                         }
 
-                        <a class="btn btn-danger btn-xs" href="/Conduct/Delete?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>撤销</a>
+                       
                     </td>
                 }
               

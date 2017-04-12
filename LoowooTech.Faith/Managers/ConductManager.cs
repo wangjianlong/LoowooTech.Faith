@@ -71,10 +71,27 @@ namespace LoowooTech.Faith.Managers
             {
                 return false;
             }
-
-            UpdateCredit(model.DataId, model.Degree, model.SystemData, false);
+            Grade(model, GradeAction.DeleteConduct);
+           // UpdateCredit(model.DataId, model.Degree, model.SystemData, false);
             return true;
         }
+        public void Grade(Conduct conduct,GradeAction action)
+        {
+            var land = Core.LandManager.Get(conduct.LandID);
+            if (land != null)
+            {
+                if (land.SystemData == SystemData.Enterprise)
+                {
+                    Core.EnterpriseManager.Grade(land.ELID, conduct.ID, action);
+                }
+                else if (land.SystemData == SystemData.Lawyer)
+                {
+                    Core.LawyerManager.Grade(land.ELID, conduct.ID, action);
+                }
+            }
+           
+        }
+
         /// <summary>
         /// 作用：获取企业或者自然人的诚信列表
         /// 作者：汪建龙
@@ -367,6 +384,7 @@ namespace LoowooTech.Faith.Managers
             model.Memo = memo;
             model.State = BaseState.Relieve;
             Db.SaveChanges();
+            Grade(model, GradeAction.Relieve);
             return true;
         }
 
@@ -386,6 +404,7 @@ namespace LoowooTech.Faith.Managers
             }
             model.State = BaseState.Argee;
             Db.SaveChanges();
+            Grade(model, GradeAction.CanRelieve);
             return true;
         }
         /// <summary>

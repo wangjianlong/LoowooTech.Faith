@@ -24,7 +24,7 @@
             foreach(var item in entry.Value)
             {
                 <tr>
-                    <td>@(item.Name)</td>
+                    <td>@(item.Name)(@(item.Code))</td>
                     <td>
                         <a class="btn btn-primary btn-xs" href="/System/CreateStandard?id=@(item.ID)"data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
                         <a class="btn btn-danger btn-xs" href="/System/DeleteStandard?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>删除</a>

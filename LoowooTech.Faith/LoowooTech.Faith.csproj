@@ -228,7 +228,6 @@
     <Compile Include="Models\LandRecord.cs" />
     <Compile Include="Models\LandRecordView.cs" />
     <Compile Include="Models\Lawyer.cs" />
-    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Offend.cs" />
     <Compile Include="Models\Roll.cs" />
     <Compile Include="Models\RollView.cs" />
@@ -237,7 +236,6 @@
     <Compile Include="Models\Standard.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\ViewBase.cs" />
     <Compile Include="Parameters\ConductParameter.cs" />
     <Compile Include="Parameters\ConductStandardParameter.cs" />
     <Compile Include="Parameters\ConductViewParameter.cs" />
@@ -346,6 +344,8 @@
     <Content Include="Scripts\tree.jquery.js" />
     <Content Include="Excels\Roll.xls" />
     <Content Include="Excels\Score.xls" />
+    <Content Include="Excels\Enterprise.xls" />
+    <Content Include="Excels\Conduct.xls" />
     <None Include="Properties\PublishProfiles\faith.pubxml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config">

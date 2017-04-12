@@ -1,8 +1,10 @@
 ﻿using LoowooTech.Faith.Common;
 using LoowooTech.Faith.Models;
 using LoowooTech.Faith.Parameters;
+using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -356,6 +358,17 @@ namespace LoowooTech.Faith.Controllers
             var dict = list.GroupBy(e => e.ELName).ToDictionary(e => e.Key, e => e.GroupBy(k => k.LandName).ToDictionary(k => k.Key, k => k.ToList()));
             Core.ConductStandardManager.AddRange(dict, Identity.UserID);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Download()
+        {
+            var list = Core.ConductStandardManager.Search(new ConductStandardParameter { });
+            IWorkbook workbook = ExcelManager.SaveConduct(list);
+            MemoryStream ms = new MemoryStream();
+            workbook.Write(ms);
+            ms.Flush();
+            byte[] fileContents = ms.ToArray();
+            return File(fileContents, "application/ms-excel", "诚信记录.xls");
         }
     }
 }
