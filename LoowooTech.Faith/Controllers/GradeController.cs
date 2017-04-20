@@ -31,10 +31,15 @@ namespace LoowooTech.Faith.Controllers
             return SuccessJsonResult();
         }
 
-        public ActionResult Download()
+        public ActionResult Download(GradeDegree? degree=null)
         {
             var enterprise = Core.ScoreManager.GetEnterprise();
             var lawyers = Core.ScoreManager.GetLawyer();
+            if (degree.HasValue)
+            {
+                enterprise = enterprise.Where(e => e.Degree == degree.Value).ToList();
+                lawyers = lawyers.Where(e => e.Degree == degree.Value).ToList();
+            }
             IWorkbook workbook = RollExcelManager.SaveScore(enterprise,lawyers);
             MemoryStream ms = new MemoryStream();
             workbook.Write(ms);

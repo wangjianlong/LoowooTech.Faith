@@ -22,7 +22,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/03/2011 14:16:38</publishTime>
     </File>
     <File Include="bin/LoowooTech.Faith.dll">
-      <publishTime>04/12/2017 14:26:55</publishTime>
+      <publishTime>04/20/2017 17:01:02</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>06/15/2015 02:06:24</publishTime>
@@ -235,16 +235,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/13/2016 11:58:52</publishTime>
     </File>
     <File Include="Excels/Conduct.xls">
-      <publishTime>04/12/2017 13:54:11</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Excels/Enterprise.xls">
-      <publishTime>04/12/2017 11:09:14</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Excels/Roll.xls">
       <publishTime>04/01/2017 13:47:06</publishTime>
     </File>
     <File Include="Excels/Score.xls">
-      <publishTime>03/31/2017 15:41:34</publishTime>
+      <publishTime>04/20/2017 16:45:41</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>03/01/2017 14:59:02</publishTime>
@@ -406,7 +406,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/18/2017 12:47:14</publishTime>
     </File>
     <File Include="Views/Conduct/Detail.cshtml">
-      <publishTime>04/06/2017 14:31:45</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Views/Conduct/DetailConduct.cshtml">
       <publishTime>03/10/2017 15:06:40</publishTime>
@@ -418,7 +418,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/20/2017 14:38:04</publishTime>
     </File>
     <File Include="Views/Conduct/Index.cshtml">
-      <publishTime>04/12/2017 12:29:31</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Views/Conduct/List.cshtml">
       <publishTime>03/20/2017 15:25:26</publishTime>
@@ -451,10 +451,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/10/2017 09:42:22</publishTime>
     </File>
     <File Include="Views/Enterprise/Index.cshtml">
-      <publishTime>04/12/2017 11:07:39</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Views/Feed/Index.cshtml">
-      <publishTime>04/06/2017 14:19:32</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Views/FlowNode/Create.cshtml">
       <publishTime>03/18/2017 16:51:50</publishTime>
@@ -478,7 +478,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/19/2017 11:52:08</publishTime>
     </File>
     <File Include="Views/Grade/Index.cshtml">
-      <publishTime>03/30/2017 11:26:08</publishTime>
+      <publishTime>04/20/2017 16:35:03</publishTime>
     </File>
     <File Include="Views/Grade/Score.cshtml">
       <publishTime>04/05/2017 09:31:51</publishTime>
@@ -550,7 +550,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/10/2017 10:39:34</publishTime>
     </File>
     <File Include="Views/Lawyer/Index.cshtml">
-      <publishTime>04/12/2017 14:24:07</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Views/Lawyer/Translate.cshtml">
       <publishTime>03/29/2017 15:14:06</publishTime>
@@ -583,7 +583,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/05/2017 13:59:54</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/03/2017 14:08:43</publishTime>
+      <publishTime>04/20/2017 16:44:33</publishTime>
     </File>
     <File Include="Views/Shared/_Layout2.cshtml">
       <publishTime>03/10/2017 13:54:20</publishTime>
@@ -601,7 +601,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2017 14:26:30</publishTime>
     </File>
     <File Include="Views/System/CreateStandard.cshtml">
-      <publishTime>04/12/2017 14:26:32</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Views/System/CreateUser.cshtml">
       <publishTime>04/02/2017 19:25:13</publishTime>
@@ -610,7 +610,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/03/2017 16:16:30</publishTime>
     </File>
     <File Include="Views/System/StandardList.cshtml">
-      <publishTime>04/12/2017 14:24:58</publishTime>
+      <publishTime>04/12/2017 14:27:50</publishTime>
     </File>
     <File Include="Views/System/UserList.cshtml">
       <publishTime>04/02/2017 19:05:15</publishTime>
@@ -628,7 +628,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/01/2017 14:59:02</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/12/2017 14:26:55</publishTime>
+      <publishTime>04/20/2017 17:01:04</publishTime>
     </File>
   </ItemGroup>
 </Project>
