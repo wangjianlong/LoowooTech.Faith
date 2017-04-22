@@ -1,6 +1,7 @@
 ﻿using LoowooTech.Faith.Common;
 using LoowooTech.Faith.Models;
 using NPOI.SS.UserModel;
+using NPOI.XWPF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,6 +53,17 @@ namespace LoowooTech.Faith.Controllers
             ms.Flush();
             byte[] fileContents = ms.ToArray();
             return File(fileContents, "application/ms-excel", string.Format("诚信系统{0}名单列表.xls",brenum==BREnum.Black?"黑":"异常"));
+        }
+
+        public ActionResult DownloadWord()
+        {
+            XWPFDocument doc = RollExcelManager.SaveWord(Core.RollViewManager.GetRollList(BREnum.Black,null,true));
+            MemoryStream ms = new MemoryStream();
+            doc.Write(ms);
+            //workbook.Write(ms);
+            ms.Flush();
+            byte[] fileContents = ms.ToArray();
+            return File(fileContents, "application/octet-stream", "黑名单公式.docx");
         }
     }
 }

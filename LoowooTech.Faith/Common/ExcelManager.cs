@@ -1,5 +1,6 @@
 ﻿using LoowooTech.Faith.Models;
 using NPOI.SS.UserModel;
+using NPOI.XWPF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,9 +11,9 @@ namespace LoowooTech.Faith.Common
 {
     public static class ExcelManager
     {
-        public static ICell GetCell(IRow row, int line, IRow modelRow = null)
+        public static NPOI.SS.UserModel.ICell GetCell(IRow row, int line, IRow modelRow = null)
         {
-            ICell cell = row.GetCell(line);
+            NPOI.SS.UserModel.ICell cell = row.GetCell(line);
             if (cell == null)
             {
                 if (modelRow != null)
@@ -27,6 +28,34 @@ namespace LoowooTech.Faith.Common
             }
             return cell;
         }
+
+        public static XWPFTableCell GetCell(XWPFTableRow row,int line,XWPFTableRow modelRow)
+        {
+            XWPFTableCell cell= row.GetCell(line);
+            if (cell == null)
+            {
+                cell = row.CreateCell();
+                if (modelRow != null)
+                {
+                    var modelcell = modelRow.GetCell(line);
+                    cell.SetVerticalAlignment(modelcell.GetVerticalAlignment());
+                    cell.SetColor(modelcell.GetColor());
+                } 
+            }
+            return cell;
+        }
+        public static XWPFRun GetRun(XWPFTableRow row, int line, XWPFTableRow modelrow)
+        {
+            var cell = GetCell(row, line, modelrow);
+            if (cell.Paragraphs.Count == 0)
+            {
+                cell.AddParagraph();
+            }
+            var para = cell.Paragraphs[0];
+            XWPFRun run = para.CreateRun();
+            run.FontFamily = "仿宋";
+            return run;
+        }
         public static IWorkbook OpenExcel(this string filePath)
         {
             IWorkbook workbook = null;
@@ -36,9 +65,18 @@ namespace LoowooTech.Faith.Common
             }
             return workbook;
         }
-        private static ICell[] GetCells(IRow row,int startline,int endline)
+
+        public static XWPFDocument OpenWord(this string filePath)
         {
-            var cells = new ICell[endline - startline+1];
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                XWPFDocument doc = new XWPFDocument(fs);
+                return doc;
+            }
+        }
+        private static NPOI.SS.UserModel.ICell[] GetCells(IRow row,int startline,int endline)
+        {
+            var cells = new NPOI.SS.UserModel.ICell[endline - startline+1];
             var j = 0;
             for(var i = startline; i <= endline; i++)
             {
@@ -76,7 +114,7 @@ namespace LoowooTech.Faith.Common
         /// <returns></returns>
         private static Lawyer AnalyzeLawyer(IRow row)
         {
-            var cells = new ICell[11];
+            var cells = new NPOI.SS.UserModel.ICell[11];
             for(var i = 0; i < cells.Length; i++)
             {
                 cells[i] = row.GetCell(i);

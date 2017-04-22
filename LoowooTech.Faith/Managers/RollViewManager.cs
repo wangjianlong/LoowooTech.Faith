@@ -31,16 +31,32 @@ namespace LoowooTech.Faith.Managers
             return GetRollList(brnum, null).LongCount();
         }
 
-        public List<RollList> GetRollList(BREnum brenum,string key)
+        public List<RollList> GetRollList(BREnum brenum,string key,bool isStandard=false)
         {
-            return GetList(brenum == BREnum.Black ? GradeDegree.D : GradeDegree.C, key);
+            return GetList(brenum == BREnum.Black ? GradeDegree.D : GradeDegree.C, key,isStandard);
         }
 
-        public List<RollList> GetList(GradeDegree degree,string key)
+        public List<RollList> GetList(GradeDegree degree,string key,bool isStandard)
         {
             var result = new List<RollList>();
             result.AddRange(GetEnterprise(degree,key));
             result.AddRange(GetLawyer(degree, key));
+            if (isStandard)
+            {
+                try
+                {
+                    foreach (var item in result)
+                    {
+
+                        item.ConductStandards = Core.ConductStandardManager.Search(new Parameters.ConductStandardParameter { ELID = item.DataId, SystemData = item.SystemData, State = BaseState.Argee });
+                    }
+                }
+                catch(Exception ex)
+                {
+                    throw new ArgumentException(ex.ToString());
+                }
+              
+            }
             return result;
         }
 

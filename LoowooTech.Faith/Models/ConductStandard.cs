@@ -23,6 +23,14 @@ namespace LoowooTech.Faith.Models
         /// </summary>
         public string LandNumber { get; set; }
         /// <summary>
+        /// 合同编号
+        /// </summary>
+        public string ContractNumber { get; set; }
+        /// <summary>
+        /// 工地面积
+        /// </summary>
+        public double Area { get; set; }
+        /// <summary>
         /// 诚信环节
         /// </summary>
         public Credit Credit { get; set; }

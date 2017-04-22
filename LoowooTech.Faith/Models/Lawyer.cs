@@ -30,9 +30,7 @@ namespace LoowooTech.Faith.Models
         [Description("男")]
         Male,
         [Description("女")]
-        Female,
-        [Description("其他")]
-        Other
+        Female
     }
 
     public enum Credential

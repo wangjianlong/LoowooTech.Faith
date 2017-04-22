@@ -23,6 +23,9 @@ namespace LoowooTech.Faith.Models
     public class RollList:Roll
     {
         public string Name { get; set; }
+        [NotMapped]
+        public List<ConductStandard> ConductStandards { get; set; }
+
     }
 
     public enum BREnum

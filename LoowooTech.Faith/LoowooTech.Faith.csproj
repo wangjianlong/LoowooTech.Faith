@@ -347,6 +347,7 @@
     <Content Include="Excels\Score.xls" />
     <Content Include="Excels\Enterprise.xls" />
     <Content Include="Excels\Conduct.xls" />
+    <Content Include="Excels\Black.docx" />
     <None Include="Properties\PublishProfiles\faith.pubxml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -434,6 +435,7 @@
     <Content Include="Views\Recycle\GetLawyers.cshtml" />
     <Content Include="Views\Feed\Index.cshtml" />
     <Content Include="Views\System\CreateUser.cshtml" />
+    <Content Include="Views\LandRecord\Relieve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

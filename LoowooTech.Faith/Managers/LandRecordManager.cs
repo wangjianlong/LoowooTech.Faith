@@ -99,5 +99,36 @@ namespace LoowooTech.Faith.Managers
                 Core.LawyerManager.Grade(record.ELID, record.ID, action);
             }
         }
+        public bool Relieve(int id,string remark)
+        {
+            if (id <= 0)
+            {
+                return false;
+            }
+            var model = Db.LandRecords.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.State = LandRecordState.Relieve;
+            if (!string.IsNullOrEmpty(remark))
+            {
+                model.Remark += string.Format("解除备注：{0}", remark);
+            }
+           
+            Db.SaveChanges();
+            return true;
+        }
+        public bool CancelRelieve(int id)
+        {
+            var model = Db.LandRecords.Find(id);
+            if (model == null)
+            {
+                return false;
+            }
+            model.State = LandRecordState.Enter;
+            Db.SaveChanges();
+            return true;
+        }
     }
 }

@@ -25,9 +25,17 @@ namespace LoowooTech.Faith.Controllers
                 MaxScore = maxScore,
                 Page = new PageParameter(page, rows)
             };
-            var list = Core.LandRecordViewManager.Search(parameter);
-            ViewBag.List = list;
-            ViewBag.Parameter = parameter;
+            try
+            {
+                var list = Core.LandRecordViewManager.Search(parameter);
+                ViewBag.List = list;
+                ViewBag.Parameter = parameter;
+            }
+            catch(Exception ex)
+            {
+                throw new ArgumentException(ex.ToString());
+            }
+     
             return View();
         }
 
@@ -115,6 +123,31 @@ namespace LoowooTech.Faith.Controllers
             var list = ExcelManager.AnalyzeLandRecord(filePath);
             Core.LandRecordViewManager.AddRange(list,Identity.UserID);
             return RedirectToAction("Index");
+        }
+        public ActionResult Relieve(int id)
+        {
+            var model = Core.LandRecordViewManager.Get(id);
+            ViewBag.Model = model;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Relieve(int id,string remark)
+        {
+            if (!Core.LandRecordManager.Relieve(id, remark))
+            {
+                return ErrorJsonResult("解除违法用地失败，未找到违法用地相关信息");
+            }
+            return SuccessJsonResult();
+        }
+
+        public ActionResult CancelRelieve(int id)
+        {
+            if (!Core.LandRecordManager.CancelRelieve(id))
+            {
+                return ErrorJsonResult("取消解除失败，未找到违法用地相关信息");
+            }
+            return SuccessJsonResult();
         }
     }
 }

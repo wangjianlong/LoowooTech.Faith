@@ -43,6 +43,7 @@ namespace LoowooTech.Faith.Controllers
                 Page = new PageParameter(page, rows)
             };
             var list = Core.EnterpriseManager.Search(parameter);
+            ViewBag.Types = Core.EnterpriseManager.GetEnterpriseType();
             ViewBag.Parameter = parameter;
             ViewBag.Page = parameter.Page;
             ViewBag.List = list;

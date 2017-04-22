@@ -102,6 +102,15 @@
                                 }
                             </td>
                             <td>
+                                @if (item.State == LandRecordState.Enter)
+                                {
+                                    <a href="/LandRecord/Relieve?id=@(item.ID)" class="btn btn-info btn-xs" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-flag"></i>&nbsp;解除</a>
+                                }
+                                else
+                                {
+                                    <a href="/LandRecord/CancelRelieve?id=@(item.ID)" class="btn btn-success btn-xs" name="Relieve"><i class="glyphicon glyphicon-flag"></i>&nbsp;撤销解除</a>
+                                }
+
                                 <a href="/LandRecord/Create?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
                                 <a href="/LandRecord/Delete?id=@(item.ID)" class="btn btn-danger btn-xs" name="Check"><i class="glyphicon glyphicon-remove-circle"></i>删除</a>
                             </td>

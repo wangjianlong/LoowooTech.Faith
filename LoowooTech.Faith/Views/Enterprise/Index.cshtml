@@ -4,6 +4,7 @@
     List<Enterprise> list = ViewBag.List;
     Layout = "~/Views/Shared/_Layout.cshtml";
     EnterpriseParameter parameter = ViewBag.Parameter;
+    List<string> types = ViewBag.Types;
 }
 
 <div class="page-header">
@@ -96,12 +97,20 @@
                     <div class="form-group">
                         <label class="control-label">&nbsp;企业类型：</label>
                         <div class="col-md-12">
-                            <div class="input-group input-group-sm" role="group">
+                            <select name="Type" class="form-control">
+                                <option value="" @(string.IsNullOrEmpty(parameter.Type)?"selected=selected":"")>全部</option>
+                                @foreach(var type in types)
+                                {
+                                    <option value="@(string.IsNullOrEmpty(type)?"NULL": type)" @(!string.IsNullOrEmpty(parameter.Type)&&parameter.Type==type?"selected=selected":"")>@(string.IsNullOrEmpty(type)?"空":type)</option>
+                                }
+                            </select>
+
+                            @*<div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Type)?"success":"default")" name="Type">全部</button>
                                 </div>
                                 <input type="text" name="Type" placeholder="企业类型" class="form-control" value="@(parameter.Type)" />
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                     <div class="form-group">

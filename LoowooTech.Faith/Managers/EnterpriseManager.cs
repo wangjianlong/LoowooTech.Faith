@@ -101,6 +101,11 @@ namespace LoowooTech.Faith.Managers
             Db.SaveChanges();
             return true;
         }
+
+        public List<string> GetEnterpriseType()
+        {
+            return Db.Enterprises.Select(e => e.Type).Distinct().ToList();
+        }
         /// <summary>
         /// 作用：查询企业
         /// 作者：汪建龙
@@ -149,7 +154,15 @@ namespace LoowooTech.Faith.Managers
             }
             if (!string.IsNullOrEmpty(parameter.Type))
             {
-                query = query.Where(e => e.Type.ToLower().Contains(parameter.Type.ToLower()));
+                if (parameter.Type == "NULL")
+                {
+                    query = query.Where(e => string.IsNullOrEmpty(e.Type));
+                }
+                else
+                {
+                    query = query.Where(e => e.Type.ToLower().Contains(parameter.Type.ToLower()));
+                }
+                
             }
             if (!string.IsNullOrEmpty(parameter.Contact))
             {

@@ -21,5 +21,6 @@ namespace LoowooTech.Faith.Models
         public int UserID { get; set; }
         public string UserName { get; set; }
         public string Remark { get; set; }
+        public LandRecordState State { get; set; }
     }
 }
