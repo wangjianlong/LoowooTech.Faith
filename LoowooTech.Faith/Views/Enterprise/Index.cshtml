@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     EnterpriseParameter parameter = ViewBag.Parameter;
     List<string> types = ViewBag.Types;
+    int serial = 1;
 }
 
 <div class="page-header">
@@ -152,6 +153,7 @@
         <table class="table table-hover table-striped table-condensed">
             <thead>
                 <tr>
+                    <th>序号</th>
                     <th>企业名称</th>
                     <th>诚信评价</th>
                     <th>统一社会信用代码</th>     
@@ -168,6 +170,7 @@
                 @foreach(var item in list)
                 {
                     <tr>
+                        <td>@(serial++)</td>
                         <td>
                             <a href="/Enterprise/Detail?id=@(item.ID)">
                                 @if (item.Name.Length > 20)

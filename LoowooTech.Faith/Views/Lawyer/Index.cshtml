@@ -7,7 +7,7 @@
 
     var request = Request.Url.PathAndQuery;
     request= HttpUtility.UrlEncode(request);
-    //var serial = 1;
+    var serial = 1;
 }
 
 <div class="page-header">
@@ -138,6 +138,7 @@
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
+                    <th>序号</th>
                     <th>姓名</th>
                     <th>信用级别</th>
                     <th>性别</th>
@@ -151,6 +152,7 @@
                 @foreach (var item in list)
                 {
                     <tr>
+                        <td>@(serial++)</td>
                         <td><a href="/Lawyer/Detail?id=@(item.ID)">@(item.Name)</a> </td>
                         <td style="padding:0px;">
                             <h3 style="margin-top:5px;">
