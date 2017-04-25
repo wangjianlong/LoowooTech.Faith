@@ -20,6 +20,18 @@ namespace LoowooTech.Faith.Managers
         public List<LandRecordView> Search(LandRecordViewParameter parameter)
         {
             var query = Db.LandRecordViews.AsQueryable();
+            if (parameter.ELID.HasValue)
+            {
+                query = query.Where(e => e.ELID == parameter.ELID.Value);
+            }
+            if (parameter.SystemData.HasValue)
+            {
+                query = query.Where(e => e.SystemData == parameter.SystemData.Value);
+            }
+            if (parameter.State.HasValue)
+            {
+                query = query.Where(e => e.State == parameter.State.Value);
+            }
             if (!string.IsNullOrEmpty(parameter.Code))
             {
                 query = query.Where(e => e.Code.ToLower().Contains(parameter.Code.ToLower()));

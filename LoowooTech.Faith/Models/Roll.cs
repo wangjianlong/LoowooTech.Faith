@@ -35,4 +35,6 @@ namespace LoowooTech.Faith.Models
         [Description("异常名单")]
         Red
     }
+
+
 }

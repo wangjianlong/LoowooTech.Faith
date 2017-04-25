@@ -60,10 +60,35 @@ namespace LoowooTech.Faith.Controllers
             XWPFDocument doc = RollExcelManager.SaveWord(Core.RollViewManager.GetRollList(BREnum.Black,null,true));
             MemoryStream ms = new MemoryStream();
             doc.Write(ms);
-            //workbook.Write(ms);
             ms.Flush();
             byte[] fileContents = ms.ToArray();
-            return File(fileContents, "application/octet-stream", "黑名单公式.docx");
+            return File(fileContents, "application/octet-stream", "黑名单公告.docx");
+        }
+
+
+        public ActionResult DownloadBook(int number,Book book,int dataId,SystemData systemData)
+        {
+            var model = new Letter
+            {
+                Number = number.ToString("00"),
+                Book = book,
+                DataID = dataId,
+                SystemData = systemData
+            };
+            model.Conducts = Core.ConductStandardManager.Search(new Parameters.ConductStandardParameter { SystemData = systemData, ELID = dataId, State = BaseState.Argee });
+            model.LandRecord = Core.LandRecordViewManager.Search(new Parameters.LandRecordViewParameter { SystemData = systemData, ELID = dataId, State = LandRecordState.Enter });
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult DownloadBook(Letter letter)
+        {
+            XWPFDocument doc = RollExcelManager.SaveWord(letter);
+            MemoryStream ms = new MemoryStream();
+            doc.Write(ms);
+            ms.Flush();
+            byte[] fileContents = ms.ToArray();
+            return File(fileContents, "application/octet-stream", string.Format("{0}-{1}.docx",letter.Name,letter.Book.GetDescription()));
         }
     }
 }

@@ -31,6 +31,11 @@ namespace LoowooTech.Faith.Models
         /// </summary>
         
         public UserRole Role { get; set; }
+        /// <summary>
+        /// 联系电话
+        /// </summary>
+        public string TelPhone { get; set; }
+
         public bool Approve { get; set; }
         [NotMapped]
         public string AccessToken { get; set; }

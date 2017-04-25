@@ -16,12 +16,16 @@ namespace LoowooTech.Faith.Common
 
         private static string _modelScorePath { get; set; }
         private static string _modelBlackPath { get; set; }
+        private static string _modelNotificationPath { get; set; }
+        private static string _modelProtocolPath { get; set; }
         static RollExcelManager()
         {
             _modelExcelName = System.Configuration.ConfigurationManager.AppSettings["Roll"] ?? "Roll.xls";
             _modelExcelPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", _modelExcelName);
             _modelScorePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Score"] ?? "Score.xls");
             _modelBlackPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["BLACK"] ?? "Black.docx");
+            _modelNotificationPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Notification"] ?? "Notification.docx");
+            _modelProtocolPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Protocol"] ?? "Protocol.docx");
         }
 
         public static IWorkbook SaveScore(List<EnterpriseScore> enterprises,List<LawyerScore> lawyers)
@@ -139,6 +143,42 @@ namespace LoowooTech.Faith.Common
                 ExcelManager.GetCell(row, 5, modelRow).SetCellValue(item.DeDuck);
                 ExcelManager.GetCell(row, 6, modelRow).SetCellValue(item.Degree.ToString());
             }
+        }
+        public static XWPFDocument SaveWord(Letter letter)
+        {
+            XWPFDocument doc=null;
+            switch (letter.Book)
+            {
+                case Book.Notification:
+                    doc=_modelNotificationPath.OpenWord();
+                    break;
+                case Book.Protocol:
+                    doc = _modelProtocolPath.OpenWord();
+                    break;
+            }
+            if (doc != null)
+            {
+                var paras = doc.Paragraphs;
+                foreach(var para in paras)
+                {
+                    var text = para.ParagraphText;
+                    var runs = para.Runs;
+                    for(var i = 0; i < runs.Count; i++)
+                    {
+                        var run = runs[i];
+                        var str = run.Text
+                            .Replace("{Number}", letter.Number)
+                            .Replace("{Name}", letter.Name)
+                            .Replace("{Credit}", letter.Credit)
+                            .Replace("{Description}", letter.Description)
+                            .Replace("{Contact}", letter.Contact)
+                            .Replace("{TelPhone}", letter.TelPhone)
+                            .Replace("{Time}", letter.Time);
+                        run.SetText(str);
+                    }
+                }
+            }
+            return doc;
         }
 
         public static XWPFDocument SaveWord(List<RollList> list)
