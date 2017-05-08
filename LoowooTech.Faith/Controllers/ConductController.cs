@@ -210,6 +210,7 @@ namespace LoowooTech.Faith.Controllers
                 var parameter = new EnterpriseParameter
                 {
                     Name = key,
+                    CityID=City.ID,
                     Page = new PageParameter(1, 5)
                 };
                 list = Core.EnterpriseManager.Search(parameter).Select(e => new JsonData { ID=e.ID,Name=e.Name}).ToList(); 
@@ -219,6 +220,7 @@ namespace LoowooTech.Faith.Controllers
                 var parameter = new LawyerParameter
                 {
                     Name = key,
+                    CityID=City.ID,
                     Page = new PageParameter(1, 5)
                 };
                 list = Core.LawyerManager.Search(parameter).Select(e => new JsonData { ID=e.ID,Name=e.Name}).ToList();
@@ -281,6 +283,7 @@ namespace LoowooTech.Faith.Controllers
                 MinScore=minScore,
                 MaxScore=maxScore,
                 State=state,
+                CityID=City.ID,
                 Page = new PageParameter(page, rows)
             };
             if (!string.IsNullOrEmpty(systemData))
@@ -356,13 +359,13 @@ namespace LoowooTech.Faith.Controllers
             var filePath = FileManager.Upload(file);
             var list = ExcelManager.AnalyzeConduct(filePath);
             var dict = list.GroupBy(e => e.ELName).ToDictionary(e => e.Key, e => e.GroupBy(k => k.LandName).ToDictionary(k => k.Key, k => k.ToList()));
-            Core.ConductStandardManager.AddRange(dict, Identity.UserID);
+            Core.ConductStandardManager.AddRange(dict, Identity.UserID,City.ID);
             return RedirectToAction("Index");
         }
 
         public ActionResult Download()
         {
-            var list = Core.ConductStandardManager.Search(new ConductStandardParameter { });
+            var list = Core.ConductStandardManager.Search(new ConductStandardParameter { CityID=City.ID});
             IWorkbook workbook = ExcelManager.SaveConduct(list);
             MemoryStream ms = new MemoryStream();
             workbook.Write(ms);

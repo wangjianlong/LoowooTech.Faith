@@ -11,7 +11,7 @@
 @{
     Html.RenderPartial("_Message");
 }
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>时间</th>
@@ -34,7 +34,10 @@
         {
             <tr>
                 <td>@(item.CreateTime.ToString("yyyy-MM-dd"))</td>
-                <td>@(item.LandName)</td>
+                <td>
+                    <a href="/Land/Detail?id=@(item.LandID)">@(item.LandName)</a>
+                  
+                </td>
                 <td>@(item.Degree.GetDescription())</td>
                 <td>@(item.Credit.GetDescription())</td>
                 <td>@(item.StandardName)</td>

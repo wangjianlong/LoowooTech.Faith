@@ -71,7 +71,7 @@ namespace LoowooTech.Faith.Controllers
 
         public ActionResult UserList()
         {
-            var list = Core.UserManager.GetList();
+            var list = Core.UserManager.GetList(City.ID);
             ViewBag.List = list;
             return View();
         }
@@ -132,7 +132,7 @@ namespace LoowooTech.Faith.Controllers
             {
                 return ErrorJsonResult("输入的两次密码不一致，请核对密码信息");
             }
-            if (Core.UserManager.Exist(user.Name))
+            if (Core.UserManager.Exist(user.Name,City.ID))
             {
                 return ErrorJsonResult("系统中已经存在相同的用户名");
             }

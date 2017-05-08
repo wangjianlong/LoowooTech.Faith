@@ -115,5 +115,6 @@ namespace LoowooTech.Faith.Models
                 return GradeDegree.D;
             }
         }
+        public int CityID { get; set; }
     }
 }

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Faiths Title="嘉兴市嘉善县土地市场诚信管理系统">
+  <District Name="嘉善县"></District>
+  <!--<District Name="秀洲区"></District>-->
+  <Credits>
+    <Credit Name="竞买"></Credit>
+    <Credit Name="开发利用"></Credit>
+    <Credit Name="违规违法"></Credit>
+    <Credit Name="合同履约"></Credit>
+    <Credit Name="其他"></Credit>
+  </Credits>
+  <Degrees>
+    <Degree Name="轻微不诚信"></Degree>
+    <Degree Name="不诚信行为"></Degree>
+    <Degree Name="严重不诚信"></Degree>
+  </Degrees>
+</Faiths>

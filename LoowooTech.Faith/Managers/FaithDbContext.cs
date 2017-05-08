@@ -47,6 +47,7 @@ namespace LoowooTech.Faith.Managers
         public DbSet<FeedView> FeedViews { get; set; }
         public DbSet<EnterpriseScore> EnterpriseScores { get; set; }
         public DbSet<LawyerScore> LawyerScores { get; set; }
+        public DbSet<City> Citys { get; set; }//城市
        // public DbSet<FlowStep> FlowSteps { get; set; }
     }
 

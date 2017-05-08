@@ -25,6 +25,7 @@ namespace LoowooTech.Faith.Controllers
                 Number=number,
                 ContractNumber=contractNumber,
                 Way=way,
+                CityID=City.ID,
                 Page = new PageParameter(page, rows)
             };
             var list = Core.LandManager.Search(parameter);
@@ -89,7 +90,7 @@ namespace LoowooTech.Faith.Controllers
             }
             var filePath = FileManager.Upload(file);
             var list = ExcelManager.AnalyzeLand(filePath);
-            Core.LandManager.AddRange(list, Identity.UserID);
+            Core.LandManager.AddRange(list, Identity.UserID,City.ID);
             try
             {
               

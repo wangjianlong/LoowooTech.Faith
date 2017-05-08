@@ -420,16 +420,16 @@ namespace LoowooTech.Faith.Managers
             return model;
         }
 
-        /// <summary>
-        /// 作用：统计数量
-        /// 作者：汪建龙
-        /// 编写时间：2017年3月20日16:43:46
-        /// </summary>
-        /// <returns></returns>
-        public long Count()
-        {
-            return Db.Conducts.LongCount();
-        }
+        ///// <summary>
+        ///// 作用：统计数量
+        ///// 作者：汪建龙
+        ///// 编写时间：2017年3月20日16:43:46
+        ///// </summary>
+        ///// <returns></returns>
+        //public long Count()
+        //{
+        //    return Db.Conducts.LongCount();
+        //}
 
     }
 }

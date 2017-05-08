@@ -64,6 +64,10 @@ namespace LoowooTech.Faith.Models
         [NotMapped]
         public List<Conduct> Conducts { get; set; }
         public int? LawyerID { get; set; }
+        /// <summary>
+        /// 城市ID
+        /// </summary>
+        public int CityID { get; set; }
 
         
     }

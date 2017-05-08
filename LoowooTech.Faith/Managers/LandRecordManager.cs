@@ -84,9 +84,9 @@ namespace LoowooTech.Faith.Managers
             var list = Db.LandRecords.Where(e => e.ELID == ELID && e.SystemData == systemData).ToList();
             return list;
         }
-        public long Count()
+        public long Count(int cityID)
         {
-            return Db.LandRecords.LongCount();
+            return Db.LandRecordViews.Where(e=>e.CityID==cityID).LongCount();
         }
 
         public void Grade(LandRecord record,GradeAction action)

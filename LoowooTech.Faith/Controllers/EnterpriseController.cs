@@ -40,6 +40,7 @@ namespace LoowooTech.Faith.Controllers
                 MaxMoney = maxMoney,
                 Degree = degree,
                 Deleted = false,
+                CityID=City.ID,
                 Page = new PageParameter(page, rows)
             };
             var list = Core.EnterpriseManager.Search(parameter);
@@ -65,6 +66,7 @@ namespace LoowooTech.Faith.Controllers
             {
                 return SuccessJsonResult("未获取企业信息");
             }
+            enterprise.CityID = City.ID;
             if (enterprise.ID > 0)
             {
                 if (!Core.EnterpriseManager.Edit(enterprise))
@@ -120,7 +122,7 @@ namespace LoowooTech.Faith.Controllers
                 throw new AggregateException("请选择上传文件");
             }
             var filePath = FileManager.Upload(file);
-            var list = ExcelManager.AnalyzeEnterprise(filePath);
+            var list = ExcelManager.AnalyzeEnterprise(filePath,City.ID);
             Core.EnterpriseManager.AddRange(list, Identity.UserID);
             return RedirectToAction("Index");
         }
@@ -174,7 +176,7 @@ namespace LoowooTech.Faith.Controllers
 
         public ActionResult Download()
         {
-            var list = Core.EnterpriseManager.Search(new EnterpriseParameter { Deleted = false });
+            var list = Core.EnterpriseManager.Search(new EnterpriseParameter { Deleted = false,CityID=City.ID });
             IWorkbook workbook = ExcelManager.SaveEnterprise(list);
             MemoryStream ms = new MemoryStream();
             workbook.Write(ms);

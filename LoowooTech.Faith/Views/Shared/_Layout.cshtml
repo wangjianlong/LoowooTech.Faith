@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 嘉兴市秀洲区土地市场诚信体系建设管理系统 </title>
+    <title>@ViewBag.Title - @(SystemManager.Title) </title>
     <link rel="icon" href="~/loowootech1.png" />
     <link rel="shortcut icon" href="~/loowootech1.png" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -39,7 +39,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/Home"><img alt="LoowooTech" src="~/loowootech2.png" /> </a>
-                <a class="navbar-brand" href="/Home">嘉兴市秀洲区土地市场诚信管理系统</a>
+                <a class="navbar-brand" href="/Home">@(SystemManager.Title)</a>
             </div>
             @if (Identity != null && Identity.IsAuthenticated)
             {

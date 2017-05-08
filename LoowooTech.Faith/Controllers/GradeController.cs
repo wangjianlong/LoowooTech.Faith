@@ -27,14 +27,14 @@ namespace LoowooTech.Faith.Controllers
         /// <returns></returns>
         public ActionResult Calculate()
         {
-            Core.GradeManager.Grade2();
+            Core.GradeManager.Grade2(City.ID);
             return SuccessJsonResult();
         }
 
         public ActionResult Download(GradeDegree? degree=null)
         {
-            var enterprise = Core.ScoreManager.GetEnterprise();
-            var lawyers = Core.ScoreManager.GetLawyer();
+            var enterprise = Core.ScoreManager.GetEnterprise(City.ID);
+            var lawyers = Core.ScoreManager.GetLawyer(City.ID);
             if (degree.HasValue)
             {
                 enterprise = enterprise.Where(e => e.Degree == degree.Value).ToList();

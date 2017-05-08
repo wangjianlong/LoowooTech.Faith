@@ -37,7 +37,7 @@ namespace LoowooTech.Faith.Controllers
         public ActionResult List(BREnum bREnum,string key)
         {
             // var list = Core.RollViewManager.GetList(bREnum,key);
-            var list = Core.RollViewManager.GetRollList(bREnum, key);
+            var list = Core.RollViewManager.GetRollList(bREnum, key,City.ID);
             ViewBag.List = list;
             return View();
         }
@@ -46,7 +46,7 @@ namespace LoowooTech.Faith.Controllers
         [UserAuthorize]
         public ActionResult DownLoad(BREnum brenum,string key)
         {
-            var list = Core.RollViewManager.GetRollList(brenum, key);
+            var list = Core.RollViewManager.GetRollList(brenum, key,City.ID);
             IWorkbook workbook = RollExcelManager.SaveRoll(list);
             MemoryStream ms = new MemoryStream();
             workbook.Write(ms);
@@ -57,7 +57,7 @@ namespace LoowooTech.Faith.Controllers
 
         public ActionResult DownloadWord()
         {
-            XWPFDocument doc = RollExcelManager.SaveWord(Core.RollViewManager.GetRollList(BREnum.Black,null,true));
+            XWPFDocument doc = RollExcelManager.SaveWord(Core.RollViewManager.GetRollList(BREnum.Black,null,City.ID,true));
             MemoryStream ms = new MemoryStream();
             doc.Write(ms);
             ms.Flush();

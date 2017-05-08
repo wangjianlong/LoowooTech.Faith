@@ -47,5 +47,7 @@ namespace LoowooTech.Faith.Managers
         public ScoreManager ScoreManager { get { return _scoreManager == null ? _scoreManager = new ScoreManager() : _scoreManager; } }
         private FeedManager _feedManager { get; set; }
         public FeedManager FeedManager { get { return _feedManager == null ? _feedManager = new FeedManager() : _feedManager; } }
+        private CityManager _cityManager { get; set; }
+        public CityManager CityManager { get { return _cityManager == null ? _cityManager = new CityManager() : _cityManager; } }
     }
 }

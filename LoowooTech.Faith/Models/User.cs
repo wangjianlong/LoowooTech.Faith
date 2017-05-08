@@ -39,6 +39,7 @@ namespace LoowooTech.Faith.Models
         public bool Approve { get; set; }
         [NotMapped]
         public string AccessToken { get; set; }
+        public int CityID { get; set; }
     }
 
     public enum UserRole

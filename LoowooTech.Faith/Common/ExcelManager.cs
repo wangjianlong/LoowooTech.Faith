@@ -302,7 +302,7 @@ namespace LoowooTech.Faith.Common
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static List<Lawyer> AnalyzeLawyer(string filePath)
+        public static List<Lawyer> AnalyzeLawyer(string filePath,int cityID)
         {
             var list = new List<Lawyer>();
             IWorkbook workbook = filePath.OpenExcel();
@@ -321,6 +321,7 @@ namespace LoowooTech.Faith.Common
                         var lawyer = AnalyzeLawyer(row);
                         if (lawyer != null)
                         {
+                            lawyer.CityID = cityID;
                             list.Add(lawyer);
                         }
                     }
@@ -335,7 +336,7 @@ namespace LoowooTech.Faith.Common
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static List<LandRecordView> AnalyzeLandRecord(string filePath)
+        public static List<LandRecordView> AnalyzeLandRecord(string filePath,int cityID)
         {
             var list = new List<LandRecordView>();
             IWorkbook workbook = filePath.OpenExcel();
@@ -354,6 +355,7 @@ namespace LoowooTech.Faith.Common
                         var landrecord = AnalyzeLandRecord(row);
                         if (landrecord != null)
                         {
+                            landrecord.CityID = cityID;
                             list.Add(landrecord);
                         }
                     }
@@ -403,7 +405,7 @@ namespace LoowooTech.Faith.Common
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static List<Enterprise> AnalyzeEnterprise(string filePath)
+        public static List<Enterprise> AnalyzeEnterprise(string filePath,int cityID)
         {
             var list = new List<Enterprise>();
             IWorkbook workbook = filePath.OpenExcel();
@@ -422,8 +424,10 @@ namespace LoowooTech.Faith.Common
                         try
                         {
                             var enterprise = AnalyzeEnterprise(row);
+
                             if (enterprise != null)
                             {
+                                enterprise.CityID = cityID;
                                 list.Add(enterprise);
                             }
                         }

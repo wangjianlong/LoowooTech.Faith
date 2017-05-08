@@ -20,6 +20,10 @@ namespace LoowooTech.Faith.Managers
         public List<LandRecordView> Search(LandRecordViewParameter parameter)
         {
             var query = Db.LandRecordViews.AsQueryable();
+            if (parameter.CityID.HasValue)
+            {
+                query = query.Where(e => e.CityID == parameter.CityID.Value);
+            }
             if (parameter.ELID.HasValue)
             {
                 query = query.Where(e => e.ELID == parameter.ELID.Value);
@@ -65,10 +69,10 @@ namespace LoowooTech.Faith.Managers
             foreach(var item in list)
             {
                 
-                var enterprise = Core.EnterpriseManager.Get(item.ELName);
+                var enterprise = Core.EnterpriseManager.Get(item.ELName,item.CityID);
                 if (enterprise == null)
                 {
-                    var lawyer = Core.LawyerManager.Get(item.ELName);
+                    var lawyer = Core.LawyerManager.Get(item.ELName,item.CityID);
                     if (lawyer != null)
                     {
                         item.ELID = lawyer.ID;
@@ -86,7 +90,8 @@ namespace LoowooTech.Faith.Managers
                     {
                         Name = "文件导入违法用地",
                         Description = string.Format("未找到名称为{0}的企业或者自然人信息", item.ELName),
-                        UserID = userID
+                        UserID = userID,
+                        CityID=item.CityID
                     });
                     continue;
                 }

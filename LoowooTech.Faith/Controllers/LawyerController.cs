@@ -29,6 +29,7 @@ namespace LoowooTech.Faith.Controllers
                 Email=email,
                 Degree=degree,
                 Deleted=false,
+                CityID=City.ID,
                 Page = new PageParameter(page, rows)
             };
             if (!string.IsNullOrEmpty(sex))
@@ -64,6 +65,7 @@ namespace LoowooTech.Faith.Controllers
             {
                 return ErrorJsonResult("未获取自然人信息");
             }
+            lawyer.CityID = City.ID;
             if (lawyer.ID > 0)
             {
                 if (!Core.LawyerManager.Edit(lawyer))
@@ -100,7 +102,7 @@ namespace LoowooTech.Faith.Controllers
                 throw new ArgumentException("请选择上传文件");
             }
             var filePath = FileManager.Upload(file);
-            var list = ExcelManager.AnalyzeLawyer(filePath);
+            var list = ExcelManager.AnalyzeLawyer(filePath,City.ID);
             Core.LawyerManager.AddRange(list, Identity.UserID);
             return RedirectToAction("Index");
         }

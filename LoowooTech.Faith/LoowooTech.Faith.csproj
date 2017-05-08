@@ -169,6 +169,7 @@
     <Compile Include="Common\JsonExtension.cs" />
     <Compile Include="Common\QueryableExtensions.cs" />
     <Compile Include="Common\RollExcelManager.cs" />
+    <Compile Include="Common\SystemManager.cs" />
     <Compile Include="Common\UserAuthorizeAttribute.cs" />
     <Compile Include="Common\UserPrincipal.cs" />
     <Compile Include="Controllers\CommunityController.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\CityManager.cs" />
     <Compile Include="Managers\ConductManager.cs" />
     <Compile Include="Managers\ConductStandardManager.cs" />
     <Compile Include="Managers\DailyManager.cs" />
@@ -213,6 +215,7 @@
     <Compile Include="Managers\ScoreManager.cs" />
     <Compile Include="Managers\StandardManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Letter.cs" />
     <Compile Include="Models\Conduct.cs" />
     <Compile Include="Models\ConductStandard.cs" />
@@ -351,6 +354,7 @@
     <Content Include="Excels\Black.docx" />
     <Content Include="Excels\Notification.docx" />
     <Content Include="Excels\Protocol.docx" />
+    <Content Include="XMLTitleFile.xml" />
     <None Include="Properties\PublishProfiles\faith.pubxml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config">

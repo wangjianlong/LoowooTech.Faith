@@ -65,5 +65,6 @@ namespace LoowooTech.Faith.Models
         /// </summary>
         public string ELName { get; set; }
         public string Remark { get; set; }
+        public int CityID { get; set; }
     }
 }

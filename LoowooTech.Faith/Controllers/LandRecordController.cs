@@ -23,6 +23,7 @@ namespace LoowooTech.Faith.Controllers
                 ELName = ELName,
                 MinScore = minScore,
                 MaxScore = maxScore,
+                CityID=City.ID,
                 Page = new PageParameter(page, rows)
             };
             try
@@ -120,7 +121,7 @@ namespace LoowooTech.Faith.Controllers
                 throw new ArgumentException("请选择上传文件");
             }
             var filePath = FileManager.Upload(file);
-            var list = ExcelManager.AnalyzeLandRecord(filePath);
+            var list = ExcelManager.AnalyzeLandRecord(filePath,City.ID);
             Core.LandRecordViewManager.AddRange(list,Identity.UserID);
             return RedirectToAction("Index");
         }

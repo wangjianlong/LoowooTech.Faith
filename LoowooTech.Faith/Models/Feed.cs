@@ -46,7 +46,7 @@ namespace LoowooTech.Faith.Models
         public int? StandardID { get; set; }
         public string StandardName { get; set; }
         public GradeAction Action { get; set; }
-
+        public int CityID { get; set; }
     }
     public enum GradeAction
     {

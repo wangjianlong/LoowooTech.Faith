@@ -19,14 +19,14 @@ namespace LoowooTech.Faith.Controllers
             }
 
 
-            ViewBag.ECount = Core.EnterpriseManager.Count();
-            ViewBag.LCount = Core.LawyerManager.Count();
-            ViewBag.LandCount = Core.LandManager.Count();
-            ViewBag.LandRecordCount = Core.LandRecordManager.Count();
-            ViewBag.Black = Core.RollViewManager.Count(Models.BREnum.Black);
-            ViewBag.Red = Core.RollViewManager.Count(Models.BREnum.Red);
-            ViewBag.CCount = Core.ConductManager.Count();
-            ViewBag.FCount = Core.FeedManager.Count();
+            ViewBag.ECount = Core.EnterpriseManager.Count(City.ID);
+            ViewBag.LCount = Core.LawyerManager.Count(City.ID);
+            ViewBag.LandCount = Core.LandManager.Count(City.ID);
+            ViewBag.LandRecordCount = Core.LandRecordManager.Count(City.ID);
+            ViewBag.Black = Core.RollViewManager.Count(Models.BREnum.Black,City.ID);
+            ViewBag.Red = Core.RollViewManager.Count(Models.BREnum.Red,City.ID);
+            ViewBag.CCount = Core.ConductStandardManager.Count(City.ID);
+            ViewBag.FCount = Core.FeedManager.Count(City.ID);
             return View();
         }
 
