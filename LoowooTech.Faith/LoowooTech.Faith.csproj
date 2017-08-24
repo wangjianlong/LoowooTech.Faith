@@ -160,6 +160,7 @@
     <Compile Include="Common\AuthenticateModule.cs" />
     <Compile Include="Common\AuthUtils.cs" />
     <Compile Include="Common\BaseView.cs" />
+    <Compile Include="Common\ClassDescriptionHelper.cs" />
     <Compile Include="Common\ConductHelper.cs" />
     <Compile Include="Common\EncryptExtensions.cs" />
     <Compile Include="Common\EnumHelper.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Managers\StandardManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\ClassDescription.cs" />
     <Compile Include="Models\Letter.cs" />
     <Compile Include="Models\Conduct.cs" />
     <Compile Include="Models\ConductStandard.cs" />
@@ -354,7 +356,9 @@
     <Content Include="Excels\Black.docx" />
     <Content Include="Excels\Notification.docx" />
     <Content Include="Excels\Protocol.docx" />
-    <Content Include="XMLTitleFile.xml" />
+    <Content Include="XMLTitleFile.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\faith.pubxml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -444,6 +448,8 @@
     <Content Include="Views\System\CreateUser.cshtml" />
     <Content Include="Views\LandRecord\Relieve.cshtml" />
     <Content Include="Views\Roll\DownloadBook.cshtml" />
+    <Content Include="Views\Grade\ChangeDegree.cshtml" />
+    <Content Include="Views\Enterprise\Modify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

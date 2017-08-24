@@ -52,9 +52,9 @@ namespace LoowooTech.Faith.Models
             {
                 if (Record.HasValue)
                 {
-                    return 100 - Average - Record.Value;
+                    return  Average + Record.Value;
                 }
-                return 100-Average;
+                return Average;
             }
         }
         #endregion

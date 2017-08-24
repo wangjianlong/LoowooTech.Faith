@@ -25,6 +25,7 @@ namespace LoowooTech.Faith.Models
         public bool HasRead { get; set; }
         public int? ConductID { get; set; }
         public GradeAction Action { get; set; }
+        public string Remark { get; set; }
     }
 
     [Table("feed_view")]
@@ -66,6 +67,7 @@ namespace LoowooTech.Faith.Models
         EditLandRecord,
         [Description("删除违法用地")]
         DeleteLandRecord,
-       
+        [Description("管理员更改")]
+        AdministratorChange
     }
 }

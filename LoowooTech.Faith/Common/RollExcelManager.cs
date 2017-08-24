@@ -18,6 +18,7 @@ namespace LoowooTech.Faith.Common
         private static string _modelBlackPath { get; set; }
         private static string _modelNotificationPath { get; set; }
         private static string _modelProtocolPath { get; set; }
+        private static string _modeJiaXingPath { get; set; }
         static RollExcelManager()
         {
             _modelExcelName = System.Configuration.ConfigurationManager.AppSettings["Roll"] ?? "Roll.xls";
@@ -26,6 +27,40 @@ namespace LoowooTech.Faith.Common
             _modelBlackPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["BLACK"] ?? "Black.docx");
             _modelNotificationPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Notification"] ?? "Notification.docx");
             _modelProtocolPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["Protocol"] ?? "Protocol.docx");
+            _modeJiaXingPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Excels", System.Configuration.ConfigurationManager.AppSettings["JiaXing"] ?? "JiaXing.xls");
+        }
+        public static IWorkbook SaveJiaXing(List<Enterprise> list)
+        {
+            if (!System.IO.File.Exists(_modeJiaXingPath))
+            {
+                return null;
+            }
+            IWorkbook workbook = _modeJiaXingPath.OpenExcel();
+            if (workbook != null)
+            {
+                ISheet sheet = workbook.GetSheetAt(0);
+                if (sheet != null)
+                {
+                    var modelRow = sheet.GetRow(1);
+                    var startLine = 1;
+                    foreach(var item in list.OrderByDescending(e=>e.Degree))
+                    {
+                        var row = sheet.GetRow(startLine) ?? sheet.CreateRow(startLine);
+                        startLine++;
+                        var cell = ExcelManager.GetCell(row, 0, modelRow);
+                        cell.SetCellValue(item.Degree.GetDescription());
+                        ExcelManager.GetCell(row, 1, modelRow).SetCellValue(item.Name);
+                        ExcelManager.GetCell(row, 2, modelRow).SetCellValue(item.USCC);
+                        ExcelManager.GetCell(row, 3, modelRow).SetCellValue(item.Lawyer);
+                        ExcelManager.GetCell(row, 4, modelRow).SetCellValue(item.LawNumber);
+                        ExcelManager.GetCell(row, 5, modelRow);
+                        ExcelManager.GetCell(row, 6, modelRow);
+                        ExcelManager.GetCell(row, 7, modelRow);
+                        ExcelManager.GetCell(row, 8, modelRow).SetCellValue(string.Join(";", item.ConductStandards.Select(e => e.StandardName).ToArray()));
+                    }
+                }
+            }
+            return workbook;
         }
 
         public static IWorkbook SaveScore(List<EnterpriseScore> enterprises,List<LawyerScore> lawyers)
@@ -173,7 +208,8 @@ namespace LoowooTech.Faith.Common
                             .Replace("{Description}", letter.Description)
                             .Replace("{Contact}", letter.Contact)
                             .Replace("{TelPhone}", letter.TelPhone)
-                            .Replace("{Time}", letter.Time);
+                            .Replace("{Time}", letter.Time)
+                            .Replace("{Signature}", letter.Signature);
                         run.SetText(str);
                     }
                 }

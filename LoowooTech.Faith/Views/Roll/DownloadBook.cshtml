@@ -23,7 +23,7 @@
         <label class="control-label col-md-4">&nbsp;告知书编号【必填】：</label>
         <div class="col-md-7">
             <input type="hidden" name="Book" value="@(Model.Book)" />
-            <input type="text" name="Number" class="form-control" value="@(string.Format("善土诚信{0}字[{1}]{2}号",Model.Book==Book.Notification?"告":"认",DateTime.Now.Year,Model.Number))" required />
+            <input type="text" name="Number" class="form-control" value="@(string.Format("{0}诚信{1}字[{2}]{3}号", SystemManager.Number,Model.Book==Book.Notification?"告":"认",DateTime.Now.Year,Model.Number))" required />
         </div>
     </div>
     <div class="form-group">
@@ -61,6 +61,12 @@
         <dv class="col-md-7">
             <input type="text" name="Time" class="form-control" value="@(DateTime.Now.ToLongDateString())" required />
         </dv>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">&nbsp;签发单位：</label>
+        <div class="col-md-7">
+            <input type="text" name="Signature" class="form-control" value="@(SystemManager.Department)" readonly />
+        </div>
     </div>
     <div class="form-group">
         <div class="col-md-7 col-md-offset-4">

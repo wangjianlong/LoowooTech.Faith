@@ -42,6 +42,8 @@ namespace LoowooTech.Faith.Managers
                 UpdateCredit(conduct.DataId, model.Degree, conduct.SystemData, false);
                 UpdateCredit(conduct.DataId, conduct.Degree, conduct.SystemData, true);
             }
+            conduct.LandID = model.LandID;
+            conduct.State = model.State;
             Db.Entry(model).CurrentValues.SetValues(conduct);
             Db.SaveChanges();
             

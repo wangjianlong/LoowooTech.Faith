@@ -17,6 +17,10 @@ namespace LoowooTech.Faith.Models
         public string Time { get; set; }
         public Book Book { get; set; }
         public int DataID { get; set; }
+        /// <summary>
+        /// 签发单位
+        /// </summary>
+        public string Signature { get; set; }
         public SystemData SystemData { get; set; }
         public List<ConductStandard> Conducts { get; set; }
         public List<LandRecordView> LandRecord { get; set; }

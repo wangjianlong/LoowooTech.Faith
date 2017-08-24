@@ -339,5 +339,16 @@ namespace LoowooTech.Faith.Managers
             }
             Db.SaveChanges();
         }
+
+        public List<Enterprise> GetFull(int cityID)
+        {
+            var list = Db.Enterprises.Where(e => e.CityID == cityID).ToList();
+            foreach(var item in list)
+            {
+                item.ConductStandards = Db.ConductStandards.Where(e => e.ELID == item.ID && e.SystemData == SystemData.Enterprise).ToList();
+            }
+
+            return list;
+        }
     }
 }

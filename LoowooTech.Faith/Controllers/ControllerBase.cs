@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace LoowooTech.Faith.Controllers
 {
  
-   // [UserAuthorize]
+    [UserAuthorize]
     public class ControllerBase : AsyncController
     {
         protected ManagerCore Core = ManagerCore.Instance;

@@ -66,10 +66,25 @@ namespace LoowooTech.Faith.Common
             }
             return string.Empty;
         }
+        private static XmlNode GetNode()
+        {
+            var node = GetSingle("/Faiths/District");
+            return node;
+        }
+        private static XmlNode _node { get; set; }
+        public static XmlNode Node { get { return _node == null ? _node = GetNode() : _node; } }
         private static string _title { get; set; }
         public static string Title { get { return string.IsNullOrEmpty(_title) ? _title = GetTitle() : _title; } }
         private static string _district { get; set; }
         public static string District { get { return string.IsNullOrEmpty(_district) ? _district = GetDistrict() : _district; } }
+        private static string _department { get; set; }
+        /// <summary>
+        /// 部门名称
+        /// </summary>
+        public static string Department { get { return string.IsNullOrEmpty(_department) ? Node != null ? Node.Attributes["Department"].Value : _department : _department; } }
+        private static string _number { get; set; }
+        public static string Number { get { return string.IsNullOrEmpty(_number) ? Node != null ? Node.Attributes["Number"].Value : _number : _number; } }
+
         private static List<string> _credits { get; set; }
         public static List<string> Credits { get { return _credits == null || _credits.Count == 0 ? _credits = GetCredits() : _credits; } }
         private static List<string> _degrees { get; set; }

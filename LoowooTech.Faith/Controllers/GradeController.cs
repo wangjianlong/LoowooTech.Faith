@@ -54,7 +54,41 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.Model = model;
             return View();
         }
+        public ActionResult ChangeDegree(int id,SystemData data)
+        {
+            if (Identity.Role != UserRole.Administrator)
+            {
+                throw new ArgumentException("当前您没有权限更改企业的信用等级评分，如需更改请联系系统管理人员！");
+            }
+            switch (data)
+            {
+                case SystemData.Enterprise:
+                    break;
+                case SystemData.Lawyer:
+                    break;
+            }
 
+            return View();
+        }
+
+        public ActionResult ChangeDegree(CreditDegree degree,string remark)
+        {
+            return SuccessJsonResult();
+        }
+
+
+        public ActionResult List()
+        {
+            var enterprises = Core.EnterpriseManager.GetFull(City.ID);
+            var workbook = RollExcelManager.SaveJiaXing(enterprises);
+            MemoryStream ms = new MemoryStream();
+            workbook.Write(ms);
+            ms.Flush();
+            byte[] fileContents = ms.ToArray();
+            return File(fileContents, "application/ms-excel", "嘉兴名单列表.xls");
+        }
+
+        
         
     }
 }

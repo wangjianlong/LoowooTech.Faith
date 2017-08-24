@@ -182,6 +182,13 @@ namespace LoowooTech.Faith.Controllers
             return Json(list,JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetScore(int id)
+        {
+            var standard = Core.StandardManager.Get(id);
+            return Json(standard, JsonRequestBehavior.AllowGet);   
+        }
+
+
         /// <summary>
         /// 作用：删除撤销诚信行为记录
         /// 作者：汪建龙

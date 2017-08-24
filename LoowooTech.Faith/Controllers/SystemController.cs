@@ -38,10 +38,7 @@ namespace LoowooTech.Faith.Controllers
             {
                 return ErrorJsonResult("未获取诚信类型信息");
             }
-            if (Core.StandardManager.Exist(standard.Name, standard.Credit))
-            {
-                return ErrorJsonResult(string.Format("系统中已存在名称：{0}；环节为：{1}的类型记录", standard.Name, standard.Credit.GetDescription()));
-            }
+        
             if (standard.ID > 0)
             {
                 if (!Core.StandardManager.Edit(standard))
@@ -51,6 +48,10 @@ namespace LoowooTech.Faith.Controllers
             }
             else
             {
+                if (Core.StandardManager.Exist(standard.Name, standard.Credit))
+                {
+                    return ErrorJsonResult(string.Format("系统中已存在名称：{0}；环节为：{1}的类型记录", standard.Name, standard.Credit.GetDescription()));
+                }
                 var id = Core.StandardManager.Save(standard);
                 if (id <= 0)
                 {

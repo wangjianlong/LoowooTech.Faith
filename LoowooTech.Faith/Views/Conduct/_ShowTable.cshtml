@@ -70,8 +70,15 @@
                     {
 
                         <a class="btn btn-success btn-xs" href="/FlowNode/Create?infoId=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-upload"></i>提交审核</a>
-                        <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=&&systemdata=@(item.SystemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                        <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=@(item.ELID)&&systemdata=@(item.SystemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
                         <a class="btn btn-danger btn-xs" href="/Conduct/Delete?id=@(item.ID)" name="Delete"><i class="glyphicon glyphicon-remove-circle"></i>撤销</a>
+                    }
+                    else
+                    {
+                        if (Identity.Role == UserRole.Administrator)
+                        {
+                            <a class="btn btn-primary btn-xs" href="/Conduct/Create?id=@(item.ID)&&dataid=@(item.ELID)&&systemdata=@(item.SystemData)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                        }
                     }
                     @if (item.State.HasValue)
                     {

@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace LoowooTech.Faith.Controllers
 {
-    [UserAuthorize]
     public class LandController : ControllerBase
     {
         // GET: Land

@@ -116,5 +116,6 @@ namespace LoowooTech.Faith.Models
             }
         }
         public int CityID { get; set; }
+ 
     }
 }

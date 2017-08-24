@@ -184,5 +184,13 @@ namespace LoowooTech.Faith.Controllers
             byte[] fileContents = ms.ToArray();
             return File(fileContents, "application/ms-excel", "企业.xls");
         }
+
+        public ActionResult Modify(int id)
+        {
+            var model = Core.EnterpriseManager.Get(id);
+            return View();
+        }
+
+        
     }
 }

@@ -103,11 +103,11 @@
                     <th>序号</th>
                     <th>项目名称</th>
                     <th>受让人</th>
-                    <th>电子监管号</th>
+                    @*<th>电子监管号</th>*@
                     <th>合同编号</th>
-                    <th>宗地编号</th>
+                    @*<th>宗地编号</th>*@
                     <th>供应方式</th>
-                    <th>批准文号</th>
+                    @*<th>批准文号</th>*@
                     <th>操作</th>
                 </tr>
             </thead>
@@ -142,11 +142,11 @@
                        
                             </a> 
                         </td>
-                        <td>@(item.Number)</td>
+                        @*<td>@(item.Number)</td>*@
                         <td>@(item.ContractNumber)</td>
-                        <td>@(item.LandNumber)</td>
+                        @*<td>@(item.LandNumber)</td>*@
                         <td>@(item.Way.HasValue?item.Way.Value.GetDescription():"")</td>
-                        <td>@(item.Code)</td>
+                        @*<td>@(item.Code)</td>*@
                         <td>
                             <a href="/Conduct/Save?LandID=@(item.ID)" class="btn btn-warning btn-xs"data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus-sign"></i>录入诚信记录</a>
                             <a href="/Land/Create?id=@(item.ID)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>编辑</a>

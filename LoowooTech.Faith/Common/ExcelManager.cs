@@ -146,7 +146,7 @@ namespace LoowooTech.Faith.Common
         }
         private static LandRecordView AnalyzeLandRecord(IRow row)
         {
-            var cells = GetCells(row, 0, 7);
+            var cells = GetCells(row, 0, 6);
             if (cells == null)
             {
                 return null;
@@ -164,19 +164,19 @@ namespace LoowooTech.Faith.Common
                 IllegalArea = double.TryParse(cells[2].ToString().Trim(), out a) ? a : .0,
                 Area = double.TryParse(cells[3].ToString().Trim(), out a) ? a : .0,
                 Score = double.TryParse(cells[5].ToString().Trim(), out a) ? a : .0,
-                Remark=cells[7].ToString().Trim()
+                Remark=cells[6].ToString().Trim()
             };
             return model;
         }
         private static Land AnalyzeLand(IRow row)
         {
-            var cells = GetCells(row, 0, 21);
+            var cells = GetCells(row, 0, 6);
             if (cells == null)
             {
                 return null;
             }
-            var elName = cells[2].ToString().Trim();
-            var name = cells[5].ToString().Trim();
+            var elName = cells[0].ToString().Trim();
+            var name = cells[2].ToString().Trim();
             if (string.IsNullOrEmpty(elName)||string.IsNullOrEmpty(name))
             {
                 return null;
@@ -187,26 +187,26 @@ namespace LoowooTech.Faith.Common
             {
                 ELName = elName,
                 Name = name,
-                Number = cells[6].ToString().Trim(),
-                ContractNumber = cells[7].ToString().Trim(),
-                LandNumber = cells[8].ToString().Trim(),
-                Area = double.TryParse(cells[10].ToString().Trim(), out a) ? a : .0,
-                Money=double.TryParse(cells[12].ToString().Trim(),out a)?a:.0,
-                Code=cells[13].ToString().Trim(),
-                SignTime=DateTime.TryParse(cells[15].ToString().Trim(),out time)?time:time,
-                ApproveTime=DateTime.TryParse(cells[18].ToString().Trim(),out time)?time:time,
-                Recycle=cells[19].ToString().Trim()=="否"?false:true,
-                Location=cells[20].ToString().Trim()
+               // Number = cells[7].ToString().Trim(),
+                ContractNumber = cells[3].ToString().Trim(),
+               // LandNumber = cells[8].ToString().Trim(),
+                Area = double.TryParse(cells[5].ToString().Trim(), out a) ? a : .0,
+                //Money=double.TryParse(cells[10].ToString().Trim(),out a)?a:.0,
+               // Code=cells[10].ToString().Trim(),
+                //SignTime=DateTime.TryParse(cells[11].ToString().Trim(),out time)?time:time,
+                //ApproveTime=DateTime.TryParse(cells[12].ToString().Trim(),out time)?time:time,
+                //Recycle=cells[13].ToString().Trim()=="否"?false:true,
+                Location=cells[6].ToString().Trim()
             };
-            var area = cells[11].ToString().Trim();
-            if (!string.IsNullOrEmpty(area))
-            {
-                if(double.TryParse(area,out a))
-                {
-                    land.ReplaceArea = a;
-                }
-            }
-            var way = cells[9].ToString().Trim();
+            //var area = cells[8].ToString().Trim();
+            //if (!string.IsNullOrEmpty(area))
+            //{
+            //    if(double.TryParse(area,out a))
+            //    {
+            //        land.ReplaceArea = a;
+            //    }
+            //}
+            var way = cells[4].ToString().Trim();
             if (!string.IsNullOrEmpty(way))
             {
                 try
@@ -264,7 +264,7 @@ namespace LoowooTech.Faith.Common
         /// <returns></returns>
         private static Enterprise AnalyzeEnterprise(IRow row)
         {
-            var cells = GetCells(row, 0, 17);
+            var cells = GetCells(row, 0, 16);
             if (cells == null)
             {
                 return null;
@@ -396,6 +396,30 @@ namespace LoowooTech.Faith.Common
                 }
             }
             return list;
+        }
+
+        private static bool IdentifyEnterprise(IRow row)
+        {
+            var attribues = ClassDescriptionHelper.Enterprises;
+            foreach(var att in attribues)
+            {
+
+            }
+            for(var i = 0; i <= row.LastCellNum; i++)
+            {
+                var cell = row.GetCell(i);
+                if (cell == null)
+                {
+                    break;
+                }
+                var str = cell.ToString().Trim();
+                if (string.IsNullOrEmpty(str))
+                {
+                    break;
+                }
+
+            }
+            return false;
         }
 
         /// <summary>
