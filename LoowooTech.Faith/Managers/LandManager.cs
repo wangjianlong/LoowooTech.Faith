@@ -202,7 +202,26 @@ namespace LoowooTech.Faith.Managers
             {
                 query = query.Where(e => e.Way == parameter.Way.Value);
             }
-            query = query.OrderByDescending(e => e.CreateTime).SetPage(parameter.Page);
+            if (parameter.Order.HasValue)
+            {
+                switch (parameter.Order.Value)
+                {
+                    case LandOrder.ContractNumber:
+                        query = query.OrderBy(e => e.ContractNumber);
+                        break;
+                    case LandOrder.Name:
+                        query = query.OrderBy(e => e.Name);
+                        break;
+                    case LandOrder.sName:
+                        query = query.OrderBy(e => e.sName);
+                        break;
+                }
+            }
+            else
+            {
+                query = query.OrderBy(e => e.CreateTime);
+            }
+            query = query.SetPage(parameter.Page);
             return query.ToList();
         }
         /// <summary>

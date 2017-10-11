@@ -15,7 +15,7 @@ namespace LoowooTech.Faith.Controllers
         public ActionResult Index(
             string name=null,string sName=null,
             string number=null,string contractNumber=null,
-            SoldWay? way=null, int page=1,int rows=20)
+            SoldWay? way=null,LandOrder? order=null, int page=1,int rows=20)
         {
             var parameter = new LandViewParameter
             {
@@ -25,6 +25,7 @@ namespace LoowooTech.Faith.Controllers
                 ContractNumber=contractNumber,
                 Way=way,
                 CityID=City.ID,
+                Order=order,
                 Page = new PageParameter(page, rows)
             };
             var list = Core.LandManager.Search(parameter);

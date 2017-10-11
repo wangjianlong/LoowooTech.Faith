@@ -82,6 +82,18 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label">&nbsp;排序方式：</label>
+                        <div class="col-md-12">
+                            <select name="Order" class="form-control">
+                                <option value="" @(Parameter.Order.HasValue?"":"selected=selected")>请选择</option>
+                                @foreach(LandOrder order in Enum.GetValues(typeof(LandOrder)))
+                                {
+                                    <option value="@(order)" @(Parameter.Order.HasValue&&Parameter.Order.Value==order?"selected=selected":"")>@(order.GetDescription())</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
                     <br />
                     <div class="form-group">
                         <label class="control-label">&nbsp;查询:</label>
