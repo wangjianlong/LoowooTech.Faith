@@ -49,5 +49,14 @@ namespace LoowooTech.Faith.Managers
         public FeedManager FeedManager { get { return _feedManager == null ? _feedManager = new FeedManager() : _feedManager; } }
         private CityManager _cityManager { get; set; }
         public CityManager CityManager { get { return _cityManager == null ? _cityManager = new CityManager() : _cityManager; } }
+
+        private FaithFileManager _fileManager { get; set; }
+        public FaithFileManager FileManager { get { return _fileManager == null ? _fileManager = new FaithFileManager() : _fileManager; } }
+
+        private GradeHistoryManager _gradeHistoryManager { get; set; }
+        public GradeHistoryManager GradeHistoryManager { get { return _gradeHistoryManager == null ? _gradeHistoryManager = new GradeHistoryManager() : _gradeHistoryManager; } }
+        private ScoresHistoryManager _scoresHistoryManager { get; set; }
+        public ScoresHistoryManager ScoresHistoryManager { get { return _scoresHistoryManager == null ? _scoresHistoryManager = new ScoresHistoryManager() : _scoresHistoryManager; } }
+
     }
 }

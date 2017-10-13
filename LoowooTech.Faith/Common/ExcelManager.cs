@@ -536,6 +536,7 @@ namespace LoowooTech.Faith.Common
                         {
                             GetCell(row, 7, modelrow).SetCellValue(conduct.ELName);
                         }
+                        GetCell(row, 9, modelrow).SetCellValue(conduct.LandName);
                     }
                 }
             }

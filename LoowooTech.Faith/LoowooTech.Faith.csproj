@@ -178,6 +178,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\FlowNodeController.cs" />
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -198,10 +199,12 @@
     <Compile Include="Managers\DailyManager.cs" />
     <Compile Include="Managers\EnterpriseManager.cs" />
     <Compile Include="Managers\FaithDbContext.cs" />
+    <Compile Include="Managers\FaithFileManager.cs" />
     <Compile Include="Managers\FeedManager.cs" />
     <Compile Include="Managers\FlowNodeConductManager.cs" />
     <Compile Include="Managers\FlowNodeManager.cs" />
     <Compile Include="Managers\FlowNodeViewManager.cs" />
+    <Compile Include="Managers\GradeHistoryManager.cs" />
     <Compile Include="Managers\GradeManager.cs" />
     <Compile Include="Managers\LandManager.cs" />
     <Compile Include="Managers\LandRecordManager.cs" />
@@ -214,10 +217,13 @@
     <Compile Include="Managers\RollManager.cs" />
     <Compile Include="Managers\RollViewManager.cs" />
     <Compile Include="Managers\ScoreManager.cs" />
+    <Compile Include="Managers\ScoresHistoryManager.cs" />
     <Compile Include="Managers\StandardManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\ClassDescription.cs" />
+    <Compile Include="Models\FaithFile.cs" />
+    <Compile Include="Models\GradeHistory.cs" />
     <Compile Include="Models\Letter.cs" />
     <Compile Include="Models\Conduct.cs" />
     <Compile Include="Models\ConductStandard.cs" />
@@ -240,6 +246,8 @@
     <Compile Include="Models\RollView.cs" />
     <Compile Include="Models\Score.cs" />
     <Compile Include="Models\ScoreBase.cs" />
+    <Compile Include="Models\ScoresHistory.cs" />
+    <Compile Include="Models\ScoreText.cs" />
     <Compile Include="Models\Standard.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\User.cs" />
@@ -450,6 +458,14 @@
     <Content Include="Views\Roll\DownloadBook.cshtml" />
     <Content Include="Views\Grade\ChangeDegree.cshtml" />
     <Content Include="Views\Enterprise\Modify.cshtml" />
+    <Content Include="Views\File\Create.cshtml" />
+    <Content Include="Views\File\Detail.cshtml" />
+    <Content Include="Views\File\DetailWindows.cshtml" />
+    <Content Include="Views\File\Edit.cshtml" />
+    <Content Include="Views\File\DetailOne.cshtml" />
+    <Content Include="Views\Grade\Create.cshtml" />
+    <Content Include="Views\Grade\Year.cshtml" />
+    <Content Include="Views\Grade\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

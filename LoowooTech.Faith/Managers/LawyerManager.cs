@@ -236,6 +236,11 @@ namespace LoowooTech.Faith.Managers
         {
             return Db.Lawyers.Where(e=>e.Deleted==false&&e.CityID==cityID).LongCount();
         }
+
+        public long CountEnterprise(int cityID)
+        {
+            return Db.Lawyers.Where(e => e.Deleted == false && e.CityID == cityID && e.EnterpriseID.HasValue).LongCount();
+        }
         public void Grade(int cityID)
         {
             var feeds = new List<Feed>();

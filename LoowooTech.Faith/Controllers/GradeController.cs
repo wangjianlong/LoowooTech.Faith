@@ -88,6 +88,68 @@ namespace LoowooTech.Faith.Controllers
             return File(fileContents, "application/ms-excel", "嘉兴名单列表.xls");
         }
 
+        public ActionResult Year()
+        {
+            var list = Core.GradeHistoryManager.GetList();
+            ViewBag.List = list;
+            return View();
+        }
+
+
+        public ActionResult Create(int id=0)
+        {
+            var model = Core.GradeHistoryManager.Get(id);
+            ViewBag.Model = model;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Save(GradeHistory grade)
+        {
+            if (grade.ID > 0)
+            {
+                if (!Core.GradeHistoryManager.Edit(grade))
+                {
+                    return ErrorJsonResult("未找到编辑信息");
+                }
+            }
+            else
+            {
+                var id = Core.GradeHistoryManager.Add(grade);
+                if (id > 0)
+                {
+                    Core.ScoresHistoryManager.Scores(id, City.ID);
+                }
+
+            }
+
+            return SuccessJsonResult();
+        }
+
+        public ActionResult Detail(int ELID,SystemData systemData)
+        {
+            var list = Core.ScoresHistoryManager.GetList(ELID, systemData);
+            ViewBag.List = list;
+
+            return View();
+        }
+
+        public ActionResult DetailGrade(int id)
+        {
+            var model = Core.GradeHistoryManager.Get(id);
+            ViewBag.Model = model;
+
+            return View();
+        }
+
+        public ActionResult Delete(int id)
+        {
+            if (!Core.GradeHistoryManager.Delete(id))
+            {
+                return ErrorJsonResult("未找到相关信息");
+            }
+            return SuccessJsonResult();
+        }
         
         
     }

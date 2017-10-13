@@ -11,9 +11,7 @@ namespace LoowooTech.Faith.Models
     [Table("enterprise")]
     public class Enterprise:Subject
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+       
         /// <summary>
         /// 组织机构代码
         /// </summary>

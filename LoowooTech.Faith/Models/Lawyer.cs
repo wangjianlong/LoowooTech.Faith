@@ -11,9 +11,9 @@ namespace LoowooTech.Faith.Models
     [Table("lawyer")]
     public class Lawyer:Subject
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public int ID { get; set; }
 
         public Sex Sex { get; set; }
         public string BornTime { get; set; }

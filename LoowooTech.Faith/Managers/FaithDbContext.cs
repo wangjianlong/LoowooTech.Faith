@@ -48,6 +48,13 @@ namespace LoowooTech.Faith.Managers
         public DbSet<EnterpriseScore> EnterpriseScores { get; set; }
         public DbSet<LawyerScore> LawyerScores { get; set; }
         public DbSet<City> Citys { get; set; }//城市
+
+        public DbSet<FaithFile> Files { get; set; }//文件
+
+        public DbSet<GradeHistory> GradeHistorys { get; set; }
+
+        public DbSet<ScoresHistory> ScoresHistorys { get; set; }
+        public DbSet<ScoreText> ScoreTexts { get; set; }
        // public DbSet<FlowStep> FlowSteps { get; set; }
     }
 
