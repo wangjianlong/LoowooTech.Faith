@@ -53,21 +53,28 @@ namespace LoowooTech.Faith.Common
             {
                 Directory.CreateDirectory(dir2);
             }
-            var saveFileFullPath = Path.Combine(dir,folder, file.FileName);
-            if (File.Exists(saveFileFullPath))
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName) + "-" + DateTime.Now.Ticks.ToString();
+            if (fileName.Length > 255)
             {
-                var newfile = Path.GetFileNameWithoutExtension(saveFileFullPath) + "-" + DateTime.Now.Ticks.ToString();
-                if (newfile.Length > 256)
-                {
-                    newfile = newfile.Substring(255);
-                }
-                newfile = newfile + Path.GetExtension(saveFileFullPath);
-                newfile = Path.Combine(dir, folder, newfile);
-                File.Copy(saveFileFullPath, newfile);
-                File.Delete(saveFileFullPath);
+                fileName = fileName.Substring(255);
             }
+            fileName = fileName + Path.GetExtension(file.FileName);
+            var saveFileFullPath = Path.Combine(dir, folder, fileName);
+            //if (File.Exists(saveFileFullPath))
+            //{
+                
+            //    //var newfile = Path.GetFileNameWithoutExtension(saveFileFullPath) + "-" + DateTime.Now.Ticks.ToString();
+            //    //if (newfile.Length > 256)
+            //    //{
+            //    //    newfile = newfile.Substring(255);
+            //    //}
+            //    //newfile = newfile + Path.GetExtension(saveFileFullPath);
+            //    //newfile = Path.Combine(dir, folder, newfile);
+            //    //File.Copy(saveFileFullPath, newfile);
+            //    //File.Delete(saveFileFullPath);
+            //}
             file.SaveAs(saveFileFullPath);
-            return Path.Combine(folder, file.FileName);
+            return Path.Combine(folder, fileName);
 
         }
     }
