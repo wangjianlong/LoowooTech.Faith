@@ -303,6 +303,14 @@
     <Content Include="GradeInfo.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Images\Fill 1 - 副本.png" />
+    <Content Include="Images\Fill 1.jpg" />
+    <Content Include="Images\Fill 1.png" />
+    <Content Include="Images\Fill 2 - 副本.png" />
+    <Content Include="Images\Fill 2.jpg" />
+    <Content Include="Images\Fill 2.png" />
+    <Content Include="Images\Group.png" />
+    <Content Include="Images\背景.png" />
     <Content Include="loowootech.png" />
     <Content Include="loowootech1.png" />
     <Content Include="loowootech2.png" />
