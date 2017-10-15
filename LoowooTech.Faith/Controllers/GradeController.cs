@@ -115,6 +115,7 @@ namespace LoowooTech.Faith.Controllers
             }
             else
             {
+                Core.GradeManager.Grade2(City.ID);
                 var id = Core.GradeHistoryManager.Add(grade);
                 if (id > 0)
                 {

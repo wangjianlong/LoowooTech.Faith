@@ -7,17 +7,17 @@
     $(function () {
         $("#grade-form").submit(function () {
             var data = $(this).serialize();
-            var btn = $("#grade-form button[type='submit']");
+            var btn = $("#grade-form button");
             btn.attr("disabled", "disabled");
             var href = $(this).attr("action");
-            ShowMessage("正在创建录入中，请稍等......");
+            ShowMessage("正在创建录入中，请勿关闭窗口，请稍等......");
             $.request(href, data, function (json) {
                 if (json.result == 0) {
                     ShowErrorMessage(json.content);
                     btn.removeAttr("disabled");
                 } else {
-                    alert("成功创建");
-                    location.href = "/Grade/Year";
+                    alert("成功评级");
+                    location.href = "/Grade/Index";
                     $("#Modal").modal("hide");
                 }
             });
@@ -28,7 +28,7 @@
 </script>
 
 <div class="page-header">
-    <h3 class="text-center">录入信用评级信息</h3>
+    <h3 class="text-center">计算信用评级信息</h3>
 </div>
 
 <div class="row">
@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label class="control-label col-md-3">名称：</label>
                 <div class="col-md-7">
-                    <input type="text" name="Name" class="form-control" placeholder="名称" value="@(grade!=null?grade.Name:"")" />
+                    <input type="text" name="Name" class="form-control" placeholder="名称" value="@(grade!=null?grade.Name:string.Format("{0}年度",DateTime.Now.Year))" />
                 </div>
             </div>
             <div class="form-group">

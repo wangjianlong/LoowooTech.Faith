@@ -22,7 +22,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/03/2011 14:16:38</publishTime>
     </File>
     <File Include="bin/LoowooTech.Faith.dll">
-      <publishTime>10/14/2017 23:32:42</publishTime>
+      <publishTime>10/15/2017 10:11:26</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>06/15/2015 02:06:24</publishTime>
@@ -317,6 +317,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Images/Group.png">
       <publishTime>10/14/2017 21:12:05</publishTime>
+    </File>
+    <File Include="Images/背景.jpg">
+      <publishTime>10/15/2017 09:54:21</publishTime>
     </File>
     <File Include="Images/背景.png">
       <publishTime>10/14/2017 21:12:04</publishTime>
@@ -616,7 +619,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2017 13:42:41</publishTime>
     </File>
     <File Include="Views/Lawyer/Index.cshtml">
-      <publishTime>10/14/2017 16:42:20</publishTime>
+      <publishTime>10/15/2017 10:02:26</publishTime>
     </File>
     <File Include="Views/Lawyer/Translate.cshtml">
       <publishTime>04/23/2017 13:42:41</publishTime>

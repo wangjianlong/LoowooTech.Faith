@@ -83,11 +83,12 @@
     </script>
     <style type="text/css">
         .BG{
-            background:url(../../Images/背景.png) no-repeat;
+            background:url(../../Images/背景.jpg) no-repeat;
             background-size:100%;
             height:550px;
             width:100%;
-            overflow:hidden
+            overflow:hidden;
+            top:50%;
         }
     </style>
 
@@ -112,11 +113,12 @@
             $("#form-login").submit(function () {
                 var data = $(this).serialize();
                 var $btn = $("#form-login button[type='submit']");
-                $btn.text("正在登陆...").attr("disabled", "disabled");
+                // $btn.text("正在登陆...").attr("disabled", "disabled");
+                $btn.html("<i class='glyphicon glyphicon-log-in'></i>正在登陆...").attr("disabled", "disabled");
                 $.request("/User/Login", data, function (json) {
                     if (json.result == 0) {
                         alert(json.content);
-                        $btn.text("登陆").removeAttr("disabled");
+                        $btn.html("<i class='glyphicon glyphicon-log-in'></i> 登陆").removeAttr("disabled");
                     } else {
                        // alert("成功登陆");
                         location.href = "/Home/Index";
@@ -154,7 +156,7 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit"  data-loading-text="正在登陆..." autocomplete="off" class="btn btn-primary btn-block"> 登陆</button>
+                                    <button type="submit"  data-loading-text="正在登陆..." autocomplete="off" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-log-in"></i> 登陆</button>
                                 </div>
                             </form>
                         </div>
