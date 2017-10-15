@@ -17,7 +17,11 @@
                 <input type="text" name="Key" class="form-control" placeholder="名单关键字" value="@key" />
             </div>
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>立即查询</button>
-            <a href="/Roll/Download?brenum=@(BREnum.Red)" class="btn btn-primary"><i class="glyphicon glyphicon-download-alt"></i>下载表格</a>
+            @if (Identity.IsAuthenticated && Identity.Role > UserRole.Guest)
+            {
+                <a href="/Roll/Download?brenum=@(BREnum.Red)" class="btn btn-primary"><i class="glyphicon glyphicon-download-alt"></i>下载表格</a>
+            }
+      
         </form>
         <br />
         <br />
