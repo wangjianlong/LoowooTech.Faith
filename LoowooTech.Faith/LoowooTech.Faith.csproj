@@ -475,6 +475,13 @@
     <Content Include="Views\Grade\Create.cshtml" />
     <Content Include="Views\Grade\Year.cshtml" />
     <Content Include="Views\Grade\Detail.cshtml" />
+    <Content Include="Views\Grade\StatisticEnterprise.cshtml" />
+    <Content Include="Views\Grade\StatisticLawyer.cshtml" />
+    <Content Include="Views\Grade\Statistic.cshtml" />
+    <Content Include="Views\Grade\StatisticEn.cshtml" />
+    <Content Include="Views\Grade\StatisticLa.cshtml" />
+    <Content Include="Views\Grade\StatisticYear.cshtml" />
+    <Content Include="嘉善县土地市场诚信体系建设管理系统使用说明书 .pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

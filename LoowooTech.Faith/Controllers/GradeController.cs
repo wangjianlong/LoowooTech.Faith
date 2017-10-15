@@ -152,6 +152,42 @@ namespace LoowooTech.Faith.Controllers
             return SuccessJsonResult();
         }
         
+
+        public ActionResult Statistic()
+        {
+            var enterprises= Core.EnterpriseManager.GetScores(City.ID);
+            var lawyers= Core.LawyerManager.GetScores(City.ID);
+            ViewBag.Enterprises = enterprises;
+            ViewBag.Lawyers = lawyers;
+            return View();
+        }
+
+
+        public ActionResult StatisticEnterprise()
+        {
+            var list = Core.EnterpriseManager.GetScores(City.ID);
+            ViewBag.List = list;
+            return View();
+        }
+
+        
+
+        public ActionResult StatisticLawyer()
+        {
+            var list = Core.LawyerManager.GetScores(City.ID);
+            ViewBag.List = list;
+            return View();
+        }
+
+        public ActionResult StatisticYear(int id)
+        {
+            var history = Core.GradeHistoryManager.Get(id);
+            ViewBag.Model = history;
+            return View();
+        }
+
+
+        
         
     }
 }

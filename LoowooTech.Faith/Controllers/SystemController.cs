@@ -137,6 +137,7 @@ namespace LoowooTech.Faith.Controllers
             {
                 return ErrorJsonResult("系统中已经存在相同的用户名");
             }
+            user.CityID = City.ID;
             var id = Core.UserManager.Save(user);
             if (id <= 0)
             {

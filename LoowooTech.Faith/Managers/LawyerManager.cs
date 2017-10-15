@@ -321,5 +321,11 @@ namespace LoowooTech.Faith.Managers
             }
             Db.SaveChanges();
         }
+
+
+        public List<LawyerScore> GetScores(int CityId)
+        {
+            return Db.LawyerScores.Where(e => e.CityID == CityId && e.Deleted == false).ToList();
+        }
     }
 }

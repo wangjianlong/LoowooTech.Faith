@@ -350,5 +350,11 @@ namespace LoowooTech.Faith.Managers
 
             return list;
         }
+
+
+        public List<EnterpriseScore> GetScores(int cityId)
+        {
+            return Db.EnterpriseScores.Where(e => e.CityID == cityId && e.Deleted == false).ToList();
+        }
     }
 }
