@@ -33,6 +33,8 @@ namespace LoowooTech.Faith.Models
         /// 是否删除
         /// </summary>
         public bool Delete { get; set; }
+        public int CityId { get; set; }
         public virtual List<ScoresHistory> ScoresHistorys { get; set; }
+
     }
 }

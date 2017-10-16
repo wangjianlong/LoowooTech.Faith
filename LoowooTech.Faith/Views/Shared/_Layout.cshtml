@@ -120,16 +120,22 @@
                                 @(Identity.DisplayName)<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                @if (Identity.Role == UserRole.Administrator)
+                                @if (Identity.Role >= UserRole.Common)
                                 {
                                     <li class="nav-item @(ViewBag.Controller.ToLower()=="Feed".ToLower()?"active":"")">
                                         <a class="nav-link" href="/Feed"><i class="glyphicon glyphicon-envelope"></i>&nbsp;消息管理</a>
                                     </li>
-                                    <li class="nav-item @(ViewBag.Controller.ToLower()=="System".ToLower()?"active":"")">
-                                        <a class="nav-link" href="/System"><i class="glyphicon glyphicon-cog"></i>&nbsp;系统管理</a>
-                                    </li>
+                                    if (Identity.Role == UserRole.Administrator)
+                                    {
+
+                                        <li class="nav-item @(ViewBag.Controller.ToLower()=="System".ToLower()?"active":"")">
+                                            <a class="nav-link" href="/System"><i class="glyphicon glyphicon-cog"></i>&nbsp;系统管理</a>
+                                        </li>
+
+                                    }
                                     <li role="separator" class="divider"></li>
                                 }
+                                
                                 <li><a class="dropdown-item" href="/User/LoginOut"><i class="glyphicon glyphicon-log-out"></i> 注销</a></li>
                             </ul>
                         </li>

@@ -36,14 +36,14 @@ namespace LoowooTech.Faith.Controllers
         public ActionResult History(int page=1,int rows=20)
         {
             var pg = new PageParameter(page, rows);
-            var histroy = Core.FlowNodeConductManager.SearchHistory(pg);
+            var histroy = Core.FlowNodeConductManager.SearchHistory(pg,City.ID);
             ViewBag.History = histroy;
             ViewBag.Page = pg;
             return View();
         }
         public ActionResult Create(int infoId)
         {
-            var managers = Core.UserManager.GetManager();
+            var managers = Core.UserManager.GetManager(City.ID);
             ViewBag.Managers = managers;
             var conduct = Core.ConductManager.Get(infoId);
             ViewBag.Conduct = conduct;

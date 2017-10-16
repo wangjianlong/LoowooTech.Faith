@@ -90,7 +90,7 @@ namespace LoowooTech.Faith.Controllers
 
         public ActionResult Year()
         {
-            var list = Core.GradeHistoryManager.GetList();
+            var list = Core.GradeHistoryManager.GetList(City.ID);
             ViewBag.List = list;
             return View();
         }
@@ -106,6 +106,7 @@ namespace LoowooTech.Faith.Controllers
         [HttpPost]
         public ActionResult Save(GradeHistory grade)
         {
+            grade.CityId = City.ID;
             if (grade.ID > 0)
             {
                 if (!Core.GradeHistoryManager.Edit(grade))
@@ -183,6 +184,13 @@ namespace LoowooTech.Faith.Controllers
         {
             var history = Core.GradeHistoryManager.Get(id);
             ViewBag.Model = history;
+            return View();
+        }
+
+        public ActionResult StatistGrade()
+        {
+            var list = Core.GradeHistoryManager.GetList(City.ID);
+
             return View();
         }
 

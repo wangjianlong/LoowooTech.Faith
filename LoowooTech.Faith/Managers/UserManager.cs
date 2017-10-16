@@ -149,9 +149,9 @@ namespace LoowooTech.Faith.Managers
         /// 编写时间：2017年3月7日14:50:03
         /// </summary>
         /// <returns></returns>
-        public List<User> GetManager()
+        public List<User> GetManager(int cityId)
         {
-            return Db.Users.Where(e => e.Role == UserRole.Manager).ToList();
+            return Db.Users.Where(e => e.Role == UserRole.Manager&&e.CityID==cityId).ToList();
         }
 
         /// <summary>

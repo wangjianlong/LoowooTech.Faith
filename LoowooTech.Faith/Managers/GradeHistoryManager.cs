@@ -38,9 +38,9 @@ namespace LoowooTech.Faith.Managers
             return grade.ID;
         }
 
-        public List<GradeHistory> GetList()
+        public List<GradeHistory> GetList(int CityId)
         {
-            return Db.GradeHistorys.Where(e => e.Delete == false).OrderBy(e => e.ID).ToList();
+            return Db.GradeHistorys.Where(e => e.Delete == false&&e.CityId==CityId).OrderBy(e => e.ID).ToList();
         }
 
         public bool Edit(GradeHistory grade)

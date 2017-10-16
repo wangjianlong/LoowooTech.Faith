@@ -238,7 +238,7 @@ namespace LoowooTech.Faith.Controllers
 
         public ActionResult Submit(int id)
         {
-            var manager = Core.UserManager.GetManager();
+            var manager = Core.UserManager.GetManager(City.ID);
             ViewBag.Managers = manager;
             return View();
         }
