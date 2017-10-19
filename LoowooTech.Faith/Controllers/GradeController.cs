@@ -187,10 +187,19 @@ namespace LoowooTech.Faith.Controllers
             return View();
         }
 
-        public ActionResult StatistGrade()
-        {
-            var list = Core.GradeHistoryManager.GetList(City.ID);
 
+
+        public ActionResult StatisticDegree(List<GradeHistory> list)
+        {
+            if (list != null)
+            {
+                var dict = new Dictionary<GradeDegree, Dictionary<string, int>>();
+                foreach(GradeDegree degree in Enum.GetValues(typeof(GradeDegree)))
+                {
+                    dict.Add(degree, list.ToDictionary(e => e.Name, e => e.ScoresHistorys.Where(j => j.Degree == degree).Count()));
+                }
+                ViewBag.Dict = dict;
+            }
             return View();
         }
 
