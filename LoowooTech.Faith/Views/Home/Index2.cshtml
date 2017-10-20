@@ -1,511 +1,156 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutMi.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index2</title>
-    
-
-    @*<link rel="shortcut icon" href="http://coderthemes.com/minton/green_dark/assets/images/favicon_1.ico">*@
-
-
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
-
-    <link rel="stylesheet" type="text/css" href="~/Content/Mi/switchery.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Mi/jquery.circliful.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Mi/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Mi/icons.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Mi/style.css" />
-    <script src="~/Content/Mi/jquery.min.js"></script>
-    <script src="~/Content/Mi/modernizr.min.js"></script>
-    <script src="~/Content/Mi/popper.min.js"></script>
-    <script src="~/Content/Mi/bootstrap.min.js"></script>
-    <script src="~/Content/Mi/detect.js"></script>
-    <script src="~/Content/Mi/fastclick.js"></script>
-    <script src="~/Content/Mi/jquery.slimscroll.js"></script>
-    <script src="~/Content/Mi/jquery.blockUI.js"></script>
-    <script src="~/Content/Mi/waves.js"></script>
-    <script src="~/Content/Mi/wow.min.js"></script>
-    <script src="~/Content/Mi/jquery.nicescroll.js"></script>
-    <script src="~/Content/Mi/jquery.scrollTo.min.js"></script>
-    <script src="~/Content/Mi/switchery.min.js"></script>
-    <script src="~/Content/Mi/jquery.waypoints.min.js"></script>
-    <script src="~/Content/Mi/jquery.counterup.min.js"></script>
-    <script src="~/Content/Mi/jquery.circliful.min.js"></script>
-    <script src="~/Content/Mi/jquery.sparkline.min.js"></script>
-    <script src="~/Content/Mi/skycons.min.js"></script>
-    <script src="~/Content/Mi/jquery.dashboard.js"></script>
-    <script src="~/Content/Mi/jquery.core.js"></script>
-    <script src="~/Content/Mi/jquery.app.js"></script>
-
-    <script>
-        var resizefunc = [];
-    </script>
-
-    <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $('.counter').counterUp({
-                    delay: 100,
-                    time: 1200
-                });
-                $('.circliful-chart').circliful();
-            });
-
-            // BEGIN SVG WEATHER ICON
-            if (typeof Skycons !== 'undefined'){
-                var icons = new Skycons(
-                        {"color": "#00b19d"},
-                        {"resizeClear": true}
-                        ),
-                        list  = [
-                            "clear-day", "clear-night", "partly-cloudy-day",
-                            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-                            "fog"
-                        ],
-                        i;
-
-                for(i = list.length; i--; )
-                    icons.set(list[i], list[i]);
-                icons.play();
-            };
-
-    </script>
-    <style type="text/css">
-        .jqstooltip { 
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            visibility: hidden;
-            background: rgb(0, 0, 0) transparent;
-            background-color: rgba(0,0,0,0.6);
-            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
-            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
-            color: white;
-            font: 10px arial, san serif;
-            text-align: left;
-            white-space: nowrap;
-            padding: 5px;
-            border: 1px solid white;
-            z-index: 10000;
-
-        }
-        .jqsfield { 
-            color: white;
-            font: 10px arial, san serif;
-            text-align: left;
-        }
-    </style>
-</head>
-<body class="fixed-left widescreen">
-    <div id="wrapper">
-        <div class="topbar">
-            <div class="topbar-left">
-                <div class="text-center">
-                    <a href="#" class="logo"><i class="fa fa-tree"></i><span>土地市场诚信管理系统</span></a>
-                </div>
-            </div>
-            <nav class="navbar-custom">
-                <ul class="list-inline float-right mb-0">
-                   
-                  
-                    <li class="list-inline-item dropdown notification-list">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="http://coderthemes.com/minton/green_dark/index.html#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="~/Content/Mi/avatar-1.jpg" alt="user" class="rounded-circle">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
-                            <!-- item-->
-                            <div class="dropdown-item noti-title">
-                                <h5 class="text-overflow"><small>Welcome ! John</small> </h5>
-                            </div>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-account-star-variant"></i> <span>Profile</span>
-                            </a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-settings"></i> <span>Settings</span>
-                            </a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
-                            </a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-logout"></i> <span>Logout</span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="list-inline menu-left mb-0">
-                    <li class="float-left">
-                        <button class="button-menu-mobile open-left waves-light waves-effect">
-                            <i class="mdi mdi-menu"></i>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">欢迎登陆使用 !</h4>
+            <div class="clearfix"></div>
         </div>
-
-        <div class="left side-menu">
-            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 851px;">
-                <div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 851px;">
-                    <!--- Divider -->
-                    <div id="sidebar-menu">
-                        <ul>
-
-                            <li class="menu-title">欢迎页</li>
-                            <li><a href="/Home/Index2" class="waves-effect waves-primary"><i class="fa fa-home"></i><span>首页</span></a></li>
-                            <li class="menu-title">用地主体</li>
-                            <li class="active"><a href="/Enterprise" class="waves-effect waves-primary"><i class="fa fa-briefcase"></i><span>企业管理</span></a></li>
-                            <li><a href="/Lawyer" class="waves-effect waves-primary"><i class="fa fa-user"></i><span>自然人管理</span></a></li>
-                            <li class="menu-title">诚信</li>
-                            <li><a href="/Land" class="waves-effect waves-primary"><i class="fa fa-map-marker"></i><span>供地信息管理</span></a></li>
-                            <li><a href="/LandRecord" class="waves-effect waves-primary"><i class="fa fa-legal"></i><span>违法用地管理</span></a></li>
-                            <li><a href="/Conduct" class="waves-effect waves-primary"><i class="fa fa-credit-card"></i><span>诚信行为管理</span></a></li>
-                            <li><a href="/Roll/Black" class="waves-effect waves-primary"><i class="fa fa-ban"></i><span>黑名单</span></a></li>
-                            <li><a href="/Roll/Red" class="waves-effect waves-primary"><i class="fa fa-question-circle"></i><span>异常名单</span></a></li>
-                            <li><a href="/Grade/Index" class="waves-effect waves-primary"><i class="fa fa-leaf"></i><span>信用评级计算</span></a></li>
-                            <li class="menu-title">高级</li>
-                            <li><a href="/FlowNode" class="waves-effect waves-primary"><i class="fa fa-tint"></i><span>审核管理</span></a></li>
-                            <li><a href="/Recycle" class="waves-effect waves-primary"><i class="fa fa-trash"></i><span>回收站</span></a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div><div class="slimScrollBar" style="background: rgb(152, 166, 173); width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 851px; visibility: visible;"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
-            </div>
-        </div>
-
-
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="content-page">
-            <!-- Start content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <!-- Page-Title -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="page-title-box">
-                                <h4 class="page-title">欢迎登陆使用 !</h4>
-                                <ol class="breadcrumb float-right">
-                                    <li class="breadcrumb-item"><a href="http://coderthemes.com/minton/green_dark/index.html#">Minton</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
-                                </ol>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="card-box bg-primary">
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="row">
-                                            <div class="col-6 text-center text-white" ><i class="fa fa-briefcase fa-5x"></i></div>
-                                            <div class="col-6">
-                                                <h2 class="m-t-0 text-white"><b>企业</b></h2>
-                                                <p class="text-white">企业信息管理；</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="row">
-                                            <div class="col-3 text-white">
-                                                <h4 class="text-white m-t-0">A</h4>
-                                            </div>
-                                            <div class="col-3 text-white">
-                                                <h4 class="text-white m-t-0">B</h4>
-                                            </div>
-                                            <div class="col-3 text-white">
-                                                <h4 class="text-white m-t-0">C</h4>
-                                            </div>
-                                            <div class="col-3 text-white">
-                                                <h4 class="text-white m-t-0">D</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="card-box bg-success">
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="row">
-                                            <div class="col-6 text-center text-white" ><i class="fa fa-user fa-5x"></i></div>
-                                            <div class="col-6">
-                                                <h2 class="m-t-0 text-white"><b>自然人</b></h2>
-                                                <p class="text-white">自然人信息管理；</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="row">
-                                            <div class="col-3 text-white">
-                                                <h4 class="text-white m-t-0">A</h4>
-                                            </div>
-                                            <div class="col-3 text-white">
-                                                <h4 class="text-white m-t-0">B</h4>
-                                            </div>
-                                            <div class="col-3 text-white">
-                                                <h4 class="text-white m-t-0">C</h4>
-                                            </div>
-                                            <div class="col-3 text-white">
-                                                <h4 class="text-white m-t-0">D</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="card-box widget-icon">
-                                <div>
-                                    <i class="fa fa-info-circle fa-5x text-danger"></i>
-                                    <div class="wid-icon-info text-right">
-                                        <p class="text-muted m-b-5 font-13 text-uppercase">违法用地</p>
-                                        <h4 class="m-t-0 m-b-5 font-bold">123</h4>
-                                        <small class="text-success"><b>39%</b></small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            @*<div class="card-box bg-danger">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-6 text-center text-white"><span class="fa fa-info-circle fa-5x"></span></div>
-                                            <div class="col-6">
-                                                <h2 class="m-t-0 text-white"><b>违法用地</b></h2>
-                                                <p class="text-white">违法用地信息管理；</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="card-box widget-icon">
-                                <div>
-                                    <i class="fa fa-question-circle fa-5x text-warning"></i>
-                                    <div class="wid-icon-info text-right">
-                                        <p class="text-muted m-b-5 font-13 text-uppercase">异常名单</p>
-                                        <h4 class="m-t-0 m-b-5 font-bold">123</h4>
-                                        <small class="text-success"><b>39%</b></small>
-                                    </div>
-                                </div>
-                            </div>
-                            @*<div class="card-box bg-warning">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-6 text-center text-white"><span class="fa fa-question-circle fa-5x"></span></div>
-                                            <div class="col-6">
-                                                <h2 class="m-t-0 text-white"><b>异常名单</b></h2>
-                                                <p class="text-white">信用等级评分为C的主体；</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="card-box widget-icon">
-                                <div>
-                                    <i class="fa fa-ban fa-5x text-inverse"></i>
-                                    <div class="wid-icon-info text-right">
-                                        <p class="text-muted m-b-5 font-13 text-uppercase">黑名单</p>
-                                        <h4 class="m-t-0 m-b-5 font-bold">123</h4>
-                                        <small class="text-success"><b>39%</b></small>
-                                    </div>
-                                </div>
-                            </div>
-                            @*<div class="card-box bg-inverse">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-6 text-center text-white"><span class="fa fa-ban fa-5x"></span></div>
-                                            <div class="col-6">
-                                                <h2 class="m-t-0 text-white"><b>黑名单</b></h2>
-                                                <p class="text-white">信用等级评分为D的主体；</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
-                        </div>
-                    </div>
-                    <div class="row">
-                 
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="card-box bg-primary">
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="row">
-                                            <div class="col-6 text-center text-white"><span class="fa fa-credit-card fa-5x"></span></div>
-                                            <div class="col-6">
-                                                <h2 class="m-t-0 text-white"><b>诚信行为</b></h2>
-                                                <p class="text-white">信用行为记录信息</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="card-box bg-info">
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="row">
-                                            <div class="col-6 text-center text-white"><span class="fa fa-map-marker fa-5x"></span></div>
-                                            <div class="col-6">
-                                                <h2 class="m-t-0 text-white"><b>供地信息</b></h2>
-                                                <p class="text-white">用地主体拿地记录信息；</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-
-
-                </div>
-                <!-- end container -->
-            </div>
-            <!-- end content -->
-            <footer class="footer">
-                2016 - 2017 © Minton <span class="hide-phone">- Coderthemes.com</span>
-            </footer>
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Right content here -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <div class="side-bar right-bar">
-            <div class="">
-                <ul class="nav nav-tabs tabs-bordered nav-justified">
-                    <li class="nav-item">
-                        <a href="http://coderthemes.com/minton/green_dark/index.html#home-2" class="nav-link active" data-toggle="tab" aria-expanded="false">
-                            Activity
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="http://coderthemes.com/minton/green_dark/index.html#messages-2" class="nav-link" data-toggle="tab" aria-expanded="true">
-                            Settings
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="home-2">
-                        <div class="timeline-2">
-                            <div class="time-item">
-                                <div class="item-info">
-                                    <small class="text-muted">5 minutes ago</small>
-                                    <p><strong><a href="http://coderthemes.com/minton/green_dark/index.html#" class="text-info">John Doe</a></strong> Uploaded a photo <strong>"DSC000586.jpg"</strong></p>
-                                </div>
-                            </div>
-                            <div class="time-item">
-                                <div class="item-info">
-                                    <small class="text-muted">30 minutes ago</small>
-                                    <p><a href="http://coderthemes.com/minton/green_dark/index.html" class="text-info">Lorem</a> commented your post.</p>
-                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                                </div>
-                            </div>
-                            <div class="time-item">
-                                <div class="item-info">
-                                    <small class="text-muted">59 minutes ago</small>
-                                    <p><a href="http://coderthemes.com/minton/green_dark/index.html" class="text-info">Jessi</a> attended a meeting with<a href="http://coderthemes.com/minton/green_dark/index.html#" class="text-success">John Doe</a>.</p>
-                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                                </div>
-                            </div>
-                            <div class="time-item">
-                                <div class="item-info">
-                                    <small class="text-muted">1 hour ago</small>
-                                    <p><strong><a href="http://coderthemes.com/minton/green_dark/index.html#" class="text-info">John Doe</a></strong>Uploaded 2 new photos</p>
-                                </div>
-                            </div>
-                            <div class="time-item">
-                                <div class="item-info">
-                                    <small class="text-muted">3 hours ago</small>
-                                    <p><a href="http://coderthemes.com/minton/green_dark/index.html" class="text-info">Lorem</a> commented your post.</p>
-                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                                </div>
-                            </div>
-                            <div class="time-item">
-                                <div class="item-info">
-                                    <small class="text-muted">5 hours ago</small>
-                                    <p><a href="http://coderthemes.com/minton/green_dark/index.html" class="text-info">Jessi</a> attended a meeting with<a href="http://coderthemes.com/minton/green_dark/index.html#" class="text-success">John Doe</a>.</p>
-                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="messages-2">
-                        <div class="row m-t-20">
-                            <div class="col-8">
-                                <h5 class="m-0 font-15">Notifications</h5>
-                                <p class="text-muted m-b-0"><small>Do you need them?</small></p>
-                            </div>
-                            <div class="col-4 text-right">
-                                <input type="checkbox" checked="" data-plugin="switchery" data-color="#3bafda" data-size="small" data-switchery="true" style="display: none;"><span class="switchery switchery-small" style="background-color: rgb(59, 175, 218); border-color: rgb(59, 175, 218); box-shadow: rgb(59, 175, 218) 0px 0px 0px 0px inset; transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;"><small style="left: 13px; background-color: rgb(255, 255, 255); transition: background-color 0.4s, left 0.2s;"></small></span>
-                            </div>
-                        </div>
-                        <div class="row m-t-20">
-                            <div class="col-8">
-                                <h5 class="m-0 font-15">API Access</h5>
-                                <p class="m-b-0 text-muted"><small>Enable/Disable access</small></p>
-                            </div>
-                            <div class="col-4 text-right">
-                                <input type="checkbox" checked="" data-plugin="switchery" data-color="#3bafda" data-size="small" data-switchery="true" style="display: none;"><span class="switchery switchery-small" style="background-color: rgb(59, 175, 218); border-color: rgb(59, 175, 218); box-shadow: rgb(59, 175, 218) 0px 0px 0px 0px inset; transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;"><small style="left: 13px; background-color: rgb(255, 255, 255); transition: background-color 0.4s, left 0.2s;"></small></span>
-                            </div>
-                        </div>
-                        <div class="row m-t-20">
-                            <div class="col-8">
-                                <h5 class="m-0 font-15">Auto Updates</h5>
-                                <p class="m-b-0 text-muted"><small>Keep up to date</small></p>
-                            </div>
-                            <div class="col-4 text-right">
-                                <input type="checkbox" checked="" data-plugin="switchery" data-color="#3bafda" data-size="small" data-switchery="true" style="display: none;"><span class="switchery switchery-small" style="background-color: rgb(59, 175, 218); border-color: rgb(59, 175, 218); box-shadow: rgb(59, 175, 218) 0px 0px 0px 0px inset; transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;"><small style="left: 13px; background-color: rgb(255, 255, 255); transition: background-color 0.4s, left 0.2s;"></small></span>
-                            </div>
-                        </div>
-                        <div class="row m-t-20">
-                            <div class="col-8">
-                                <h5 class="m-0 font-15">Online Status</h5>
-                                <p class="m-b-0 text-muted"><small>Show your status to all</small></p>
-                            </div>
-                            <div class="col-4 text-right">
-                                <input type="checkbox" checked="" data-plugin="switchery" data-color="#3bafda" data-size="small" data-switchery="true" style="display: none;"><span class="switchery switchery-small" style="background-color: rgb(59, 175, 218); border-color: rgb(59, 175, 218); box-shadow: rgb(59, 175, 218) 0px 0px 0px 0px inset; transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;"><small style="left: 13px; background-color: rgb(255, 255, 255); transition: background-color 0.4s, left 0.2s;"></small></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /Right-bar -->
     </div>
-</body>
-</html>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row">
+                        <div class="col-6 text-center text-primary"><i class="fa fa-briefcase fa-5x"></i></div>
+                        <div class="col-6">
+                            <h2 class="m-t-0 text-muted"><b>企业</b></h2>
+                            <p class="text-muted">企业数量：@(ViewBag.ECount)</p>
+                            <p class="clearfix"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-3">
+                            <h4 class="text-primary m-t-0">A</h4>
+                        </div>
+                        <div class="col-3">
+                            <h4 class="text-primary m-t-0">B</h4>
+                        </div>
+                        <div class="col-3">
+                            <h4 class="text-primary m-t-0">C</h4>
+                        </div>
+                        <div class="col-3">
+                            <h4 class="text-primary m-t-0">D</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row">
+                        <div class="col-6 text-center text-success"><i class="fa fa-user fa-5x"></i></div>
+                        <div class="col-6">
+                            <h2 class="m-t-0 text-muted"><b>自然人</b></h2>
+                            <p class="text-muted">自然人数量：@(ViewBag.LCount)</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-3">
+                            <h4 class="text-success m-t-0">A</h4>
+                        </div>
+                        <div class="col-3">
+                            <h4 class="text-success m-t-0">B</h4>
+                        </div>
+                        <div class="col-3">
+                            <h4 class="text-success m-t-0">C</h4>
+                        </div>
+                        <div class="col-3">
+                            <h4 class="text-success m-t-0">D</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-danger pull-left">
+                <i class="fa fa-info"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-dark m-t-10">违法用地</h3>
+                <p class="text-pink mb-0">@(ViewBag.LandRecordCount)</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-warning pull-left">
+                <i class="fa fa-question"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-dark m-t-10">异常名单</h3>
+                <p class="text-warning mb-0">@(ViewBag.Red)</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-inverse pull-left">
+                <i class="fa fa-ban"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-dark m-t-10">黑名单</h3>
+                <p class="text-inverse mb-0">@(ViewBag.Black)</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card-box bg-primary">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row">
+                        <div class="col-6 text-center text-white"><span class="fa fa-credit-card fa-5x"></span></div>
+                        <div class="col-6">
+                            <h2 class="m-t-0 text-white"><b>诚信行为</b></h2>
+                            <p class="text-white">信用行为记录信息</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card-box bg-info">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row">
+                        <div class="col-6 text-center text-white"><span class="fa fa-map-marker fa-5x"></span></div>
+                        <div class="col-6">
+                            <h2 class="m-t-0 text-white"><b>供地信息</b></h2>
+                            <p class="text-white">用地主体拿地记录信息；</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -647,6 +647,7 @@
     <Content Include="嘉善县土地市场诚信体系建设管理系统使用说明书 .pdf" />
     <Content Include="Views\Grade\StatisticDegree.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Shared\_LayoutMi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
