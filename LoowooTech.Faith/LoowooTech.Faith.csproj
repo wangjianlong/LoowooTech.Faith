@@ -473,8 +473,15 @@
     <Content Include="Images\Fill 2.jpg" />
     <Content Include="Images\Fill 2.png" />
     <Content Include="Images\Group.png" />
+    <Content Include="Images\嘉善县标.jpg" />
+    <Content Include="Images\嘉善县标1.jpg" />
+    <Content Include="Images\嘉善县标2.jpg" />
+    <Content Include="Images\地标.jpg" />
+    <Content Include="Images\地标1.jpg" />
+    <Content Include="Images\地标2.jpg" />
     <Content Include="Images\背景.jpg" />
     <Content Include="Images\背景.png" />
+    <Content Include="Images\背景1.jpg" />
     <Content Include="loowootech.png" />
     <Content Include="loowootech1.png" />
     <Content Include="loowootech2.png" />
