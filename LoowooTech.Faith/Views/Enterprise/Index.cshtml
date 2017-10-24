@@ -3,7 +3,7 @@
     ViewBag.Title = "企业管理";
     List<Enterprise> list = ViewBag.List;
     //Layout = "~/Views/Shared/_Layout.cshtml";
-    Layout = "~/Views/Shared/_LayoutMi.cshtml";
+    Layout = "~/Views/Shared/_LayoutIN.cshtml";
     EnterpriseParameter parameter = ViewBag.Parameter;
     List<string> types = ViewBag.Types;
     int serial = 1;
@@ -18,7 +18,7 @@
             <a class="btn btn-success waves-effect waves-light" href="/Enterprise/File" data-toggle="modal" data-target="#Modal"><i class="fa fa-file"></i>导入Excel文件</a>
             <a class="btn btn-info waves-effect waves-light" href="/Enterprise/Download"><i class="fa fa-download"></i>&nbsp;下载企业数据文件</a>
         }
-        <a class="btn btn-dark waves-effect waves-light" href="/Grade/StatisticEnterprise" data-toggle="modal" data-target="#Modal"><i class="fa fa-picture-o"></i>&nbsp;统计图表</a>
+        <a class="btn btn-warning waves-effect waves-light" href="/Grade/StatisticEnterprise" data-toggle="modal" data-target="#Modal"><i class="fa fa-picture-o"></i>&nbsp;统计图表</a>
     </h2>
 </div>
 
@@ -155,8 +155,8 @@
         </form>
     </div>
     <div class="col-md-10">
-        <table class="table table-hover table-striped table-condensed">
-            <thead>
+        <table class="table table-hover table-striped table-condensed table-sm">
+            <thead class="thead-default">
                 <tr>
                     <th>序号</th>
                     <th>企业名称</th>
@@ -196,10 +196,9 @@
                         <td style="padding:0px;">
                             <h3 style="margin-top:5px;">
                                 @switch (item.Degree)
-                                        {
-                                            case GradeDegree.A:
+                                {
+                                    case GradeDegree.A:
                                         <span class="badge badge-primary">@(item.Degree.ToString())</span>
-                                   
                                         break;
                                     case GradeDegree.B:
                                         <span class="badge badge-info">@(item.Degree.ToString())</span>
@@ -223,19 +222,18 @@
                         {
                             <td>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-primary btn-sm waves-effect waves-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">操作<span class="caret"></span></button>
-                                    <div class="dropdown-menu">
+                                    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle btn-sm" aria-expanded="false">操作<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
                                         @if (item.LawyerID.HasValue)
                                         {
-                                            <a class="dropdown-item" href="/Lawyer/detail?id=@(item.LawyerID.Value)"><i class="fa fa-eye"></i>&nbsp;查看自然人</a>
+                                            <li><a class="dropdown-item" href="/Lawyer/detail?id=@(item.LawyerID.Value)"><i class="fa fa-eye"></i>&nbsp;查看自然人</a></li> 
+                                            <li class="divider"></li>
                                         }
-                                        <a class="dropdown-item" href="/LandRecord/Create?systemdata=@(SystemData.Enterprise)&&elid=@(item.ID)&&name=@(item.Name)" data-toggle="modal" data-target="#Modal"><i class="fa fa-info"></i>违法用地</a>
-                                        <a class="dropdown-item" href="/Enterprise/Create?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a>
-                                        <a class="dropdown-item" href="/Enterprise/Delete?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="fa fa-remove"></i>删除</a>
-                                    </div>
+                                        <li><a class="dropdown-item" href="/LandRecord/Create?systemdata=@(SystemData.Enterprise)&&elid=@(item.ID)&&name=@(item.Name)" data-toggle="modal" data-target="#Modal"><i class="fa fa-info"></i>违法用地</a></li>
+                                        <li><a class="dropdown-item" href="/Enterprise/Create?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a></li>
+                                        <li><a class="dropdown-item" href="/Enterprise/Delete?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="fa fa-remove"></i>删除</a></li>
+                                    </ul>
                                 </div>
-
-                          
                             </td>
                         }
                       

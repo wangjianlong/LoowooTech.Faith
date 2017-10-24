@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "违法用地管理";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutIN.cshtml";
     List<LandRecordView> list = ViewBag.List;
     LandRecordViewParameter parameter = ViewBag.Parameter;
     int serial = 1;
@@ -119,9 +119,13 @@
                             @if (Identity.IsAuthenticated && Identity.Role > UserRole.Guest)
                             {
                                 <td>
-                                    <a class="btn btn-success btn-xs" href="/File/Create?sid=@(item.ID)&&Type=@(FileType.LandRecord)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;录入资料</a>
-
-                                    <a class="btn btn-primary btn-xs" href="/File/Edit?sid=@(item.ID)&&Type=@(FileType.LandRecord)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>资料管理</a>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle">资料管理<span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/File/Create?sid=@(item.ID)&&Type=@(FileType.LandRecord)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;录入资料</a></li>
+                                            <li><a href="/File/Edit?sid=@(item.ID)&&Type=@(FileType.LandRecord)" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-edit"></i>资料管理</a></li>
+                                        </ul>
+                                    </div>
                                 </td>
                                 <td>
                                     @if (item.State == LandRecordState.Enter)

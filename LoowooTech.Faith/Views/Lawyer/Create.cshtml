@@ -4,7 +4,10 @@
     string url = ViewBag.URL ?? "/Lawyer/Index";
 }
 
-<h3 class="text-center">录入自然人</h3>
+<div class="page-header">
+    <h3 class="text-center">录入自然人</h3>
+</div>
+
 <form class="form-horizontal" action="/Lawyer/create" method="post" id="Lawyer-form">
     @{ 
         Html.RenderPartial("_Message");

@@ -90,5 +90,21 @@ namespace LoowooTech.Faith.Controllers
             byte[] fileContents = ms.ToArray();
             return File(fileContents, "application/octet-stream", string.Format("{0}-{1}.docx",letter.Name,letter.Book.GetDescription()));
         }
+
+        [ChildActionOnly]
+        public ActionResult BlackWidget()
+        {
+            var list = Core.RollViewManager.GetRollList(BREnum.Black, null, City.ID);
+            ViewBag.List = list;
+            return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult RedWidget()
+        {
+            var list = Core.RollViewManager.GetRollList(BREnum.Red, null, City.ID);
+            ViewBag.List = list;
+            return View();
+        }
     }
 }

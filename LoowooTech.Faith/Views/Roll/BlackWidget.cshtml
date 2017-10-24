@@ -1,0 +1,21 @@
+﻿@{ 
+    Layout = null;
+    List<RollList> list = ViewBag.List;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <i class="fa fa-ban"></i>
+        <a href="/Roll/" class="btn btn-xs btn-primary"> &nbsp;黑名单</a>
+       <span class="label label-primary pull-right">@(list.Count)</span>
+    </div>
+
+    <ul class="list-unstyled m-t-md list-group">
+        @foreach (var item in list.Take(5))
+        {
+            <li class="list-group-item">@(item.Name)</li>
+        }
+    </ul>
+</div>
+
+

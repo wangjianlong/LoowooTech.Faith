@@ -52,6 +52,12 @@ namespace LoowooTech.Faith.Controllers
         }
 
 
+        public ActionResult Index3()
+        {
+            return View();
+        }
+
+
         public ActionResult Search()
         {
             return View();

@@ -36,6 +36,8 @@ namespace LoowooTech.Faith.Managers
             return GetList(brenum == BREnum.Black ? GradeDegree.D : GradeDegree.C, key,isStandard,cityID);
         }
 
+        
+
         public List<RollList> GetList(GradeDegree degree,string key,bool isStandard,int cityID)
         {
             var result = new List<RollList>();

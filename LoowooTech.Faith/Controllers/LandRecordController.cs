@@ -40,6 +40,19 @@ namespace LoowooTech.Faith.Controllers
             return View();
         }
 
+        public ActionResult Widget()
+        {
+            var parameter = new LandRecordViewParameter
+            {
+                CityID=City.ID,
+                Page = new PageParameter(1, 5)
+            };
+            var list = Core.LandRecordViewManager.Search(parameter);
+            ViewBag.List = list;
+            ViewBag.Parameter = parameter;
+            return View();
+        }
+
         public ActionResult Create(int id=0,SystemData? systemdata=null,int? ELID=null,string name=null)
         {
             var model = Core.LandRecordViewManager.Get(id);

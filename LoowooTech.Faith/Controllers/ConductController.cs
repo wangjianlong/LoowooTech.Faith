@@ -303,6 +303,19 @@ namespace LoowooTech.Faith.Controllers
             ViewBag.Page = parameter.Page;
             return View();
         }
+
+        [ChildActionOnly]
+        public ActionResult Widget()
+        {
+            var parameter = new ConductStandardParameter
+            {
+                CityID=City.ID,
+                Page = new PageParameter(1, 5)
+            };
+            var list = Core.ConductStandardManager.Search(parameter);
+            ViewBag.List = list;
+            return View();
+        }
         public ActionResult Relieve(int id)
         {
             var model = Core.ConductStandardManager.Get(id);

@@ -1,0 +1,29 @@
+﻿@{ 
+    Layout = null;
+    List<LandView> list = ViewBag.List;
+}
+
+<div class="widget-head-color-box lazur-bg text-center p-lg">
+    <div class="m-b-md">
+        <h2 class="font-bold no-margins">供地信息</h2>
+        <small>用地主体拿地信息记录</small>
+    </div>
+    <i class="fa fa-map-marker fa-5x"></i>
+    <div>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<div class="widget-text-box">
+    <h4 class="media-heading"></h4>
+    <ul class="list-group">
+        @foreach(var item in list)
+        {
+            <li class="list-group-item">@(item.Name)</li>
+        }
+    </ul>
+    <div class="text-right">
+        <a class="btn btn-xs btn-info"><i class="fa fa-tags"></i>&nbsp;查看</a>
+    </div>
+</div>
