@@ -34,6 +34,44 @@
             });
         });
     </script>
+    <script>
+    $(function () {
+        $("a[name='Check']").click(function () {
+            if (confirm("您确定？")) {
+                ShowMessage("正在审核，请稍等......");
+                var href = $(this).attr("href");
+                var reason = $("input[name='Reason']").val();
+                console.log(reason);
+                href = href + "&&reason=" + reason;
+                $.request(href, reason, function (json) {
+                    if (json.result == 0) {
+                        ShowErrorMessage(json.content);
+
+                    } else {
+                        ShowSuccessMessage("审核完成");
+                        location.href = "@(Request.Url.PathAndQuery)";
+                    }
+                });
+            }
+            return false;
+        });
+        $("a[name='Relieve']").click(function () {
+            var button = $(this);
+            button.text("正在解除").attr("disabled", "disabled");
+            ShowMessage("正在解除，请稍等......");
+            var href = $(this).attr("href");
+            $.request(href, null, function (json) {
+                if (json.result == 0) {
+                    ShowErrorMessage(json.content);
+                } else {
+                    ShowSuccessMessage("成功解除");
+                    location.href = "@(Request.Url.PathAndQuery)";
+                }
+            });
+            return false;
+        });
+    });
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -50,7 +88,7 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="#">注销</a></li>
+                                <li><a href="/User/LoginOut">注销</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -109,7 +147,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="/">
+                            <a href="/User/LoginOut">
                                 <i class="fa fa-sign-out"></i> 退出
                             </a>
                         </li>

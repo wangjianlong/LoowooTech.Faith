@@ -43,6 +43,20 @@ namespace LoowooTech.Faith.Controllers
             return View();
         }
 
+        [ChildActionOnly]
+        public ActionResult Widget()
+        {
+            var parameter = new LawyerParameter
+            {
+                CityID = City.ID,
+                Page = new PageParameter(1, 5)
+            };
+            var list = Core.LawyerManager.Search(parameter);
+            ViewBag.List = list;
+            ViewBag.Parameter = parameter;
+            return View();
+        }
+
         /// <summary>
         /// 作用：保存或更新自然人信息
         /// 作者：汪建龙

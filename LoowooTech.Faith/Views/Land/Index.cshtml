@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "供地信息管理";
-    Layout = "~/Views/Shared/_LayoutIN.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     List<LandView> list = ViewBag.List;
     LandViewParameter Parameter = ViewBag.Parameter;
     int serial = 1;
@@ -13,7 +13,7 @@
         @if (Identity.IsAuthenticated && Identity.Role > UserRole.Guest)
         {
             <a class="btn btn-primary" href="/Land/Create" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-plus"></i>添加供地信息</a>
-            <a class="btn btn-primary" href="/Land/File" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-file"></i>导入Excel文件</a>
+            <a class="btn btn-success" href="/Land/File" data-toggle="modal" data-target="#Modal"><i class="glyphicon glyphicon-file"></i>导入Excel文件</a>
         }
     
     </h2>
@@ -35,7 +35,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(Parameter.Name)?"success":"default")" name="Name">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(Parameter.Name)?"primary":"default")" name="Name">全部</button>
                                 </div>
                                 <input type="text" name="Name" placeholder="项目名称关键字" class="form-control" value="@(Parameter.Name)" />
                             </div>
@@ -46,7 +46,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(Parameter.sName)?"success":"default")" name="sName">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(Parameter.sName)?"primary":"default")" name="sName">全部</button>
                                 </div>
                                 <input type="text" name="sName" placeholder="受让人关键字" class="form-control" value="@(Parameter.sName)" />
                             </div>
@@ -57,7 +57,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(Parameter.Number)?"success":"default")" name="Number">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(Parameter.Number)?"primary":"default")" name="Number">全部</button>
                                 </div>
                                 <input type="text" name="Number" placeholder="电子监管号关键字" class="form-control" value="@(Parameter.Number)" />
                             </div>
@@ -68,7 +68,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(Parameter.ContractNumber)?"success":"default")" name="ContractNumber">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(Parameter.ContractNumber)?"primary":"default")" name="ContractNumber">全部</button>
                                 </div>
                                 <input type="text" name="ContractNumber" placeholder="合同编号关键字" class="form-control" value="@(Parameter.ContractNumber)" />
                             </div>

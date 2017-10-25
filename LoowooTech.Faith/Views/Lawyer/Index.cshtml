@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "自然人管理";
-    Layout = "~/Views/Shared/_LayoutIN.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     List<Lawyer> list = ViewBag.List;
     LawyerParameter parameter = ViewBag.Parameter;
 
@@ -40,7 +40,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Name)?"success":"default")" name="Name">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Name)?"primary":"default")" name="Name">全部</button>
                                 </div>
                                 <input type="text" name="Name" placeholder="姓名关键字" class="form-control"  value="@(parameter.Name)"/>
                             </div>
@@ -62,10 +62,10 @@
                         <label class="control-label">&nbsp;性别：</label>
                         <div class="col-md-12">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-sm btn-@(parameter.Sex.HasValue?"default":"success")" name="Sex">全部</button>
+                                <button type="button" class="btn btn-sm btn-@(parameter.Sex.HasValue?"default":"primary")" name="Sex">全部</button>
                                 @foreach(Sex sex in Enum.GetValues(typeof(Sex)))
                                 {
-                                    <button type="button" class="btn btn-sm btn-@(parameter.Sex.HasValue&&parameter.Sex.Value==sex?"success":"default")" name="Sex">@(sex.GetDescription())</button>
+                                    <button type="button" class="btn btn-sm btn-@(parameter.Sex.HasValue&&parameter.Sex.Value==sex?"primary":"default")" name="Sex">@(sex.GetDescription())</button>
                                 }
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Number)?"success":"default")" name="Number">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Number)?"primary":"default")" name="Number">全部</button>
                                 </div>
                                 <input type="text" name="Number" placeholder="证件编号" class="form-control" value="@(parameter.Number)" />
                             </div>
@@ -108,7 +108,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.TelPhone)?"success":"default")" name="TelPhone">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.TelPhone)?"primary":"default")" name="TelPhone">全部</button>
                                 </div>
                                 <input type="text" name="TelPhone" placeholder="联系电话" class="form-control" value="@(parameter.TelPhone)" />
                             </div>

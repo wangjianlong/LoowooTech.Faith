@@ -6,13 +6,13 @@
 <div class="panel panel-warning">
     <div class="panel-heading">
         <i class="fa fa-question"></i>
-        <a href="" class="btn btn-xs btn-warning">异常名单</a> 
+        <a href="/Roll/Red" class="btn btn-xs btn-warning">异常名单</a> 
         <span class="label label-warning pull-right">@(list.Count)</span>
     </div>
     <ul class="list-unstyled m-t-md list-group">
         @foreach (var item in list.Take(5))
         {
-            <li class="list-group-item">@(item.Name)</li>
+            <li class="list-group-item"><a href="@(item.SystemData==SystemData.Enterprise?"/Enterprise/Detail?id="+item.DataId:"/Lawyer/Detail?id="+item.DataId)" class="text-muted">@(item.Name)</a> </li>
         }
     </ul>
 </div>

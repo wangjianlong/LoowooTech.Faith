@@ -3,7 +3,7 @@
     ViewBag.Title = "企业管理";
     List<Enterprise> list = ViewBag.List;
     //Layout = "~/Views/Shared/_Layout.cshtml";
-    Layout = "~/Views/Shared/_LayoutIN.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     EnterpriseParameter parameter = ViewBag.Parameter;
     List<string> types = ViewBag.Types;
     int serial = 1;
@@ -38,7 +38,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Name)?"success":"default") waves-effect waves-light" name="Name">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Name)?"primary":"default") " name="Name">全部</button>
                                 </div>
                                 <input type="text" name="Name" placeholder="企业关键字" class="form-control" value="@(parameter.Name)" />
                             </div>
@@ -61,7 +61,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.OIBC)?"success":"default")" name="OIBC">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.OIBC)?"primary":"default")" name="OIBC">全部</button>
                                 </div>
                                 <input type="text" name="OIBC" placeholder="组织机构代码" class="form-control" value="@(parameter.OIBC)" />
                             </div>
@@ -72,7 +72,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.USCC)?"success":"default")" name="USCC">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.USCC)?"primary":"default")" name="USCC">全部</button>
                                 </div>
                                 <input type="text" name="USCC" placeholder="统一社会信息代码" class="form-control" value="@(parameter.USCC)" />
                             </div>
@@ -83,7 +83,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Lawyer)?"success":"default")" name="Lawyer">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Lawyer)?"primary":"default")" name="Lawyer">全部</button>
                                 </div>
                                 <input type="text" name="Lawyer" placeholder="企业法人" class="form-control" value="@(parameter.Lawyer)" />
                             </div>
@@ -94,7 +94,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Number)?"success":"default")" name="Number">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Number)?"primary":"default")" name="Number">全部</button>
                                 </div>
                                 <input type="text" name="Number" placeholder="营业执照/注册号" class="form-control" value="@(parameter.Number)" />
                             </div>
@@ -134,7 +134,7 @@
                         <div class="col-md-12">
                             <div class="input-group input-group-sm" role="group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Contact)?"success":"default")" name="Contact">全部</button>
+                                    <button type="button" class="btn btn-@(string.IsNullOrEmpty(parameter.Contact)?"primary":"default")" name="Contact">全部</button>
                                 </div>
                                 <input type="text" name="Contact" placeholder="联系人" class="form-control" value="@(parameter.Contact)" />
                             </div>
@@ -229,9 +229,9 @@
                                             <li><a class="dropdown-item" href="/Lawyer/detail?id=@(item.LawyerID.Value)"><i class="fa fa-eye"></i>&nbsp;查看自然人</a></li> 
                                             <li class="divider"></li>
                                         }
-                                        <li><a class="dropdown-item" href="/LandRecord/Create?systemdata=@(SystemData.Enterprise)&&elid=@(item.ID)&&name=@(item.Name)" data-toggle="modal" data-target="#Modal"><i class="fa fa-info"></i>违法用地</a></li>
-                                        <li><a class="dropdown-item" href="/Enterprise/Create?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>编辑</a></li>
-                                        <li><a class="dropdown-item" href="/Enterprise/Delete?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="fa fa-remove"></i>删除</a></li>
+                                        <li><a class="dropdown-item" href="/LandRecord/Create?systemdata=@(SystemData.Enterprise)&&elid=@(item.ID)&&name=@(item.Name)" data-toggle="modal" data-target="#Modal"><i class="fa fa-info"></i>&nbsp;违法用地</a></li>
+                                        <li><a class="dropdown-item" href="/Enterprise/Create?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="fa fa-edit"></i>&nbsp;编辑</a></li>
+                                        <li><a class="dropdown-item" href="/Enterprise/Delete?id=@(item.ID)" data-toggle="modal" data-target="#Modal"><i class="fa fa-remove"></i>&nbsp;删除</a></li>
                                     </ul>
                                 </div>
                             </td>

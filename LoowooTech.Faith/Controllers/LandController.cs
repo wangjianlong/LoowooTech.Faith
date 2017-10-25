@@ -44,6 +44,7 @@ namespace LoowooTech.Faith.Controllers
             };
             var list = Core.LandManager.Search(parameter);
             ViewBag.List = list;
+            ViewBag.Parameter = parameter;
             return View();
         }
 

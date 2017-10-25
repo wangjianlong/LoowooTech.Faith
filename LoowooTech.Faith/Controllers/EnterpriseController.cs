@@ -103,6 +103,20 @@ namespace LoowooTech.Faith.Controllers
             return SuccessJsonResult(enterprise.ID);
         }
 
+        [ChildActionOnly]
+        public ActionResult Widget()
+        {
+            var parameter = new EnterpriseParameter
+            {
+                CityID = City.ID,
+                Page = new PageParameter(1, 5)
+            };
+            var list = Core.EnterpriseManager.Search(parameter);
+            ViewBag.List = list;
+            ViewBag.Parameter = parameter;
+            return View();
+        }
+
         public ActionResult File()
         {
             return View();
