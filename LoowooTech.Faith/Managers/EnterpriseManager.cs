@@ -356,5 +356,15 @@ namespace LoowooTech.Faith.Managers
         {
             return Db.EnterpriseScores.Where(e => e.CityID == cityId && e.Deleted == false).ToList();
         }
+
+        public List<Enterprise> Get(GradeDegree degree,string key,int cityId)
+        {
+            var query = Db.Enterprises.Where(e => e.Deleted == false && e.Degree == degree && e.CityID == cityId).AsQueryable();
+            if (!string.IsNullOrEmpty(key))
+            {
+                query = query.Where(e => e.Name.ToLower().Contains(key.ToLower()));
+            }
+            return query.ToList();
+        }
     }
 }

@@ -3,7 +3,10 @@
     Standard standard = ViewBag.Model;
 }
 
-<h3 class="text-center">&nbsp; 录入诚信类型</h3>
+<div class="page-header">
+    <h3 class="text-center">&nbsp; 录入诚信类型</h3>
+</div>
+
 <form class="form-horizontal" method="post" action="/System/CreateStandard" id="Standard-form">
     <div class="row">
 
@@ -38,7 +41,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4">名称注释：</label>
                 <div class="col-md-7">
-                    <textarea name="Summary" rows="3" class="form-control">@(standard.Summary)</textarea>
+                    <textarea name="Summary" rows="3" class="form-control">@(standard!=null? standard.Summary:"")</textarea>
                 </div>
             </div>
             <div class="form-group">

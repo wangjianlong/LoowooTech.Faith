@@ -92,7 +92,7 @@ namespace LoowooTech.Faith.Common
         /// </summary>
         /// <param name="rollViews"></param>
         /// <returns></returns>
-        public static IWorkbook SaveRoll(List<RollList> list)
+        public static IWorkbook SaveRoll(List<Enterprise> enterprise,List<Lawyer> lawyers)
         {
             if (!System.IO.File.Exists(_modelExcelPath))
             {
@@ -106,17 +106,13 @@ namespace LoowooTech.Faith.Common
             ISheet sheet = workbook.GetSheetAt(0);
             if (sheet != null)
             {
-                var modelrow = sheet.GetRow(2);
-                WriteTime(ref sheet);
-                Write(list, ref sheet, modelrow);
+                WriteEnterprise(enterprise, ref sheet);
             }
-            //ISheet sheet2 = workbook.GetSheetAt(1);
-            //if (sheet2 != null)
-            //{
-            //    var modelrow = sheet2.GetRow(2);
-            //    WriteTime(ref sheet2);
-            //    Write(rollViews.Where(e => e.BREnum == BREnum.Black).ToList(), ref sheet2, modelrow);
-            //}
+            var sheet2 = workbook.GetSheetAt(1);
+            if (sheet2 != null)
+            {
+                WriteLawyer(lawyers, ref sheet2);
+            }
             return workbook;
         }
         /// <summary>
@@ -138,6 +134,37 @@ namespace LoowooTech.Faith.Common
                 cell = row.CreateCell(3);
             }
             cell.SetCellValue(DateTime.Now.ToString("yyyy-MM-dd"));
+        }
+
+        private static void WriteBase(List<string[]> list,ref ISheet sheet,IRow modelRow)
+        {
+            var startline = 3;
+            var serial = 1;
+            foreach(var item in list)
+            {
+                var row = sheet.GetRow(startline) ?? sheet.CreateRow(startline);
+                row.Height = modelRow.Height;
+                startline++;
+                var cell = ExcelManager.GetCell(row, 0, modelRow);
+                cell.SetCellValue(serial++);
+                for(var i = 0; i < item.Length; i++)
+                {
+                    ExcelManager.GetCell(row, i + 1, modelRow).SetCellValue(item[i]);
+                }
+            }
+        }
+        private static void WriteLawyer(List<Lawyer> list,ref ISheet sheet)
+        {
+            var modelrow = sheet.GetRow(3);
+            WriteBase(list.Select(e => new string[] { e.Name, e.Sex.GetDescription(), e.BornTime, e.Address, e.Credential.GetDescription(), e.Number, e.TelPhone, e.EMail }).ToList(), ref sheet, modelrow);
+        }
+
+        private static void WriteEnterprise(List<Enterprise> list,ref ISheet sheet)
+        {
+            var modelrow = sheet.GetRow(3);
+            WriteBase(list.Select(e => new string[] {
+                e.Name,e.Address,e.OIBC,e.USCC,e.Lawyer,
+                e.LawNumber,Math.Round(e.Money,2).ToString(),e.Scope,e.Type,e.ContactWay,e.Contact,e.TelPhone}).ToList(), ref sheet, modelrow);
         }
 
         private static void Write(List<RollList> list,ref ISheet sheet,IRow modelRow)

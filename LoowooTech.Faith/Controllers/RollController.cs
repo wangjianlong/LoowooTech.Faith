@@ -36,7 +36,6 @@ namespace LoowooTech.Faith.Controllers
         [UserAuthorize(false)]
         public ActionResult List(BREnum bREnum,string key)
         {
-            // var list = Core.RollViewManager.GetList(bREnum,key);
             var list = Core.RollViewManager.GetRollList(bREnum, key,City.ID);
             ViewBag.List = list;
             return View();
@@ -46,8 +45,11 @@ namespace LoowooTech.Faith.Controllers
         [UserAuthorize]
         public ActionResult DownLoad(BREnum brenum,string key)
         {
-            var list = Core.RollViewManager.GetRollList(brenum, key,City.ID);
-            IWorkbook workbook = RollExcelManager.SaveRoll(list);
+            GradeDegree degree = brenum == BREnum.Black ? GradeDegree.D : GradeDegree.C;
+            var enterprise = Core.EnterpriseManager.Get(degree, key, City.ID);
+            var lawyers = Core.LawyerManager.Get(degree, key, City.ID);
+            //var list = Core.RollViewManager.GetRollList(brenum, key,City.ID);
+            IWorkbook workbook = RollExcelManager.SaveRoll(enterprise,lawyers);
             MemoryStream ms = new MemoryStream();
             workbook.Write(ms);
             ms.Flush();

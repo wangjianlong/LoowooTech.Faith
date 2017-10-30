@@ -61,6 +61,7 @@ namespace LoowooTech.Faith.Managers
             return result;
         }
 
+
         public List<RollList> GetEnterprise(GradeDegree degree,string key,int cityID)
         {
             var query = Db.Enterprises.Where(e => e.Deleted == false && e.Degree == degree&&e.CityID==cityID).AsQueryable();
