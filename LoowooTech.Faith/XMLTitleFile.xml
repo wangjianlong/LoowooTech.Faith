@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Faiths Title="土地市场诚信管理系统">
-  <District Name="嘉善县" Department="嘉善县国土资源局" Number="善土"></District>
-  <!--<District Name="海宁市" Department="海宁市国土资源局" Number="海土"></District>-->
+  <!--<District Name="嘉善县" Department="嘉善县国土资源局" Number="善土"></District>-->
+  <District Name="海宁市" Department="海宁市国土资源局" Number="海土"></District>
   <!--<District Name="秀洲区" Department="嘉兴市国土资源局秀洲区分局" Number="秀土"></District>-->
   <!--<District Name="秀洲区"></District>-->
   <!--<District Name="海盐县" Department="海盐县国土资源局" Number="盐土"></District>-->
