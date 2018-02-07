@@ -10,6 +10,7 @@ namespace LoowooTech.Faith.Controllers
     [UserAuthorize(false)]
     public class UserController : ControllerBase
     {
+        
         public ActionResult Login()
         {
             return View();
