@@ -42,7 +42,7 @@ namespace LoowooTech.Faith.Models
         /// </summary>
         public string LandNumber { get; set; }
         /// <summary>
-        /// 
+        ///  供应方式
         /// </summary>
         public SoldWay? Way { get; set; }
         /// <summary>
@@ -64,11 +64,11 @@ namespace LoowooTech.Faith.Models
         /// <summary>
         /// 签订时间
         /// </summary>
-        public DateTime SignTime { get; set; }
+        public DateTime? SignTime { get; set; }
         /// <summary>
         /// 批准时间
         /// </summary>
-        public DateTime ApproveTime { get; set; }
+        public DateTime? ApproveTime { get; set; }
         /// <summary>
         /// 是否回收
         /// </summary>
@@ -79,7 +79,20 @@ namespace LoowooTech.Faith.Models
         public string Location { get; set; }
         public DateTime CreateTime { get; set; }
 
-        
+        /// <summary>
+        /// 投资主体性质
+        /// </summary>
+        public string Nature { get; set; }
+        /// <summary>
+        /// 行业分类
+        /// </summary>
+        public string Classification { get; set; }
+        /// <summary>
+        /// 土地用途
+        /// </summary>
+        public string Use { get; set; }
+
+
     }
 
     [Table("landView")]
@@ -131,11 +144,11 @@ namespace LoowooTech.Faith.Models
         /// <summary>
         /// 签订时间
         /// </summary>
-        public DateTime SignTime { get; set; }
+        public DateTime? SignTime { get; set; }
         /// <summary>
         /// 批准时间
         /// </summary>
-        public DateTime ApproveTime { get; set; }
+        public DateTime? ApproveTime { get; set; }
         /// <summary>
         /// 是否回收
         /// </summary>
@@ -145,6 +158,18 @@ namespace LoowooTech.Faith.Models
         /// </summary>
         public string Location { get; set; }
         public DateTime CreateTime { get; set; }
+        /// <summary>
+        /// 投资主体性质
+        /// </summary>
+        public string Nature { get; set; }
+        /// <summary>
+        /// 行业分类
+        /// </summary>
+        public string Classification { get; set; }
+        /// <summary>
+        /// 土地用途
+        /// </summary>
+        public string Use { get; set; }
         public int CityID { get; set; }
     }
 

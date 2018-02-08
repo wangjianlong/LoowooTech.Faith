@@ -57,6 +57,7 @@ namespace LoowooTech.Faith.Models
     public enum SystemEnum
     {
         Standard,
-        User
+        User,
+        Table
     }
 }

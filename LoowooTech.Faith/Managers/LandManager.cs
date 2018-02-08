@@ -118,6 +118,7 @@ namespace LoowooTech.Faith.Managers
         {
             var daily = new List<Daily>();
             var inputs = new List<Land>();
+            var updates = new List<Land>();
             foreach(var item in list)
             {
                 var enterprise = Core.EnterpriseManager.Get(item.ELName,cityID);
@@ -147,7 +148,16 @@ namespace LoowooTech.Faith.Managers
                     });
                     continue;
                 }
-                inputs.Add(item);
+                var land = GetByContractNumber(item.ContractNumber);//判断系统是否存在相同合同编号
+                if (land == null)//不存在导入
+                {
+                    inputs.Add(item);
+                }
+                else//存在 更新相关字段信息
+                {
+                    updates.Add(item);
+                }
+               
             }
             if (inputs.Count > 0)
             {
@@ -158,7 +168,42 @@ namespace LoowooTech.Faith.Managers
             {
                 Core.DailyManager.AddRange(daily);
             }
+            if (updates.Count > 0)
+            {
+                Updates(updates);
+            }
             
+        }
+
+        public void Updates(List<Land> list)
+        {
+            foreach(var item in list)
+            {
+                var model = Db.Lands.FirstOrDefault(e => e.ContractNumber.ToLower() == item.ContractNumber.ToLower());
+                if (model != null)
+                {
+                    model.Number = item.Number;
+                    model.LandNumber = item.LandNumber;
+                    model.Way = item.Way;
+                    model.Area = item.Area;
+                    model.ReplaceArea = item.ReplaceArea;
+                    model.Money = item.Money;
+                    model.Code = item.Code;
+                    model.SignTime = item.SignTime;
+                    model.ApproveTime = item.ApproveTime;
+                    model.Recycle = item.Recycle;
+                    model.Location = item.Location;
+                    model.Nature = item.Nature;
+                    model.Classification = item.Classification;
+                    model.Use = item.Use;
+                    Db.SaveChanges();
+                }
+            }
+        }
+
+        public Land GetByContractNumber(string contractNumber)
+        {
+            return Db.Lands.FirstOrDefault(e => e.ContractNumber.ToLower() == contractNumber.ToLower());
         }
         /// <summary>
         /// 作用：查询

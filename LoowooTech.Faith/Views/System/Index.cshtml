@@ -12,6 +12,7 @@
             <ul class="nav nav-pills nav-stacked" role="tablist">
                 <li role="presentation" class="@(systemEnum==SystemEnum.Standard?"active":"")"><a href="#Standard" role="tab" data-toggle="tab">诚信类型管理</a></li>
                 <li role="presentation" class="@(systemEnum==SystemEnum.User?"active":"")"><a href="#User" role="tab" data-toggle="tab">用户管理</a></li>
+                @*<li role="presentation" class="@(systemEnum==SystemEnum.Table?"active":"")"><a href="#Table" role="tab" data-toggle="tab">表格字段管理</a></li>*@
             </ul>
         </div>
         <div class="col-md-9">
@@ -25,6 +26,9 @@
                 <div role="tabpanel" class="tab-pane @(systemEnum==SystemEnum.User?"active":"")" id="User">
                     @{ Html.RenderAction("UserList");}
                 </div>
+                @*<div role="tabpanel" class="tab-pane @(systemEnum==SystemEnum.User?"active":"")" id="Table">
+                    @{ Html.RenderAction("UserList");}
+                </div>*@
             </div>
         </div>
     </div>

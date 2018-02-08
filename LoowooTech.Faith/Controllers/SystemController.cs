@@ -148,6 +148,11 @@ namespace LoowooTech.Faith.Controllers
             return SuccessJsonResult();
         }
         
+
+        public ActionResult TableList()
+        {
+            return View();
+        }
         
 
     }

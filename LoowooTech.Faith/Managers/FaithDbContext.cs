@@ -55,6 +55,11 @@ namespace LoowooTech.Faith.Managers
 
         public DbSet<ScoresHistory> ScoresHistorys { get; set; }
         public DbSet<ScoreText> ScoreTexts { get; set; }
+
+
+        //public DbSet<Form> Forms { get; set; }
+        //public DbSet<Field> Fields { get; set; }
+        //public DbSet<FieldValue> FieldValues { get; set; }
        // public DbSet<FlowStep> FlowSteps { get; set; }
     }
 

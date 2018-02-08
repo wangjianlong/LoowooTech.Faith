@@ -45,6 +45,34 @@
             <th>批准文号</th>
             <td>@(land.Code)</td>
         </tr>
+        <tr>
+            <th>土地坐落</th>
+            <td>@(land.Location)</td>
+            <th>土地用途</th>
+            <td>@(land.Use)</td>
+        </tr>
+        <tr>
+            <th>投资主体性质</th>
+            <td>@(land.Nature)</td>
+            <th>行业分类</th>
+            <td>@(land.Classification)</td>
+        </tr>
+        <tr>
+            <th>批准时间</th>
+            <td>
+                @if (land.ApproveTime.HasValue)
+                {
+                    <text>@(land.ApproveTime.Value.ToString())</text> 
+                }
+            </td>
+            <th>签订时间</th>
+            <td>
+                @if (land.SignTime.HasValue)
+                {
+                    <text>@(land.SignTime.Value.ToString())</text> 
+                }
+            </td>
+        </tr>
     </tbody>
 </table>
 

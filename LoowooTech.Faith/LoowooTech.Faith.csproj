@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -164,6 +165,7 @@
     <Compile Include="Common\ConductHelper.cs" />
     <Compile Include="Common\EncryptExtensions.cs" />
     <Compile Include="Common\EnumHelper.cs" />
+    <Compile Include="Common\ExcelExtensions.cs" />
     <Compile Include="Common\ExcelManager.cs" />
     <Compile Include="Common\FileManager.cs" />
     <Compile Include="Common\GradeHelper.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="Managers\FlowNodeConductManager.cs" />
     <Compile Include="Managers\FlowNodeManager.cs" />
     <Compile Include="Managers\FlowNodeViewManager.cs" />
+    <Compile Include="Managers\FormManager.cs" />
     <Compile Include="Managers\GradeHistoryManager.cs" />
     <Compile Include="Managers\GradeManager.cs" />
     <Compile Include="Managers\LandManager.cs" />
@@ -223,6 +226,9 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\ClassDescription.cs" />
     <Compile Include="Models\FaithFile.cs" />
+    <Compile Include="Models\Field.cs" />
+    <Compile Include="Models\FieldValue.cs" />
+    <Compile Include="Models\Form.cs" />
     <Compile Include="Models\GradeHistory.cs" />
     <Compile Include="Models\Letter.cs" />
     <Compile Include="Models\Conduct.cs" />
@@ -591,6 +597,8 @@
     <Content Include="Images\Fill 2.jpg" />
     <Content Include="Images\Fill 2.png" />
     <Content Include="Images\Group.png" />
+    <Content Include="Images\haining.jpg" />
+    <Content Include="Images\haiNingGroup.png" />
     <Content Include="Images\Lawyer.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logo1.png" />

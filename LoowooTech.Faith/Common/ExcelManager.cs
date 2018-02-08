@@ -89,6 +89,17 @@ namespace LoowooTech.Faith.Common
             }
             return cells;
         }
+        private static NPOI.SS.UserModel.ICell[] GetCells2(IRow row,int startline,int endline)
+        {
+            var cells = new NPOI.SS.UserModel.ICell[endline - startline + 1];
+            var j = 0;
+            for (var i = startline; i <= endline; i++)
+            {
+                var cell = row.GetCell(i);
+                cells[j++] = cell;
+            }
+            return cells;
+        }
         private static string[] GetString(IRow row,int startline,int endline)
         {
             var results = new string[endline - startline+1];
@@ -170,11 +181,7 @@ namespace LoowooTech.Faith.Common
         }
         private static Land AnalyzeLand(IRow row)
         {
-            var cells = GetCells(row, 0, 6);
-            if (cells == null)
-            {
-                return null;
-            }
+            var cells = GetCells2(row, 0, 17);
             var elName = cells[0].ToString().Trim();
             var name = cells[2].ToString().Trim();
             if (string.IsNullOrEmpty(elName)||string.IsNullOrEmpty(name))
@@ -198,15 +205,75 @@ namespace LoowooTech.Faith.Common
                 //Recycle=cells[13].ToString().Trim()=="否"?false:true,
                 Location=cells[6].ToString().Trim()
             };
-            //var area = cells[8].ToString().Trim();
-            //if (!string.IsNullOrEmpty(area))
-            //{
-            //    if(double.TryParse(area,out a))
-            //    {
-            //        land.ReplaceArea = a;
-            //    }
-            //}
-            var way = cells[4].ToString().Trim();
+            if (cells[7] != null)//电子监管号
+            {
+                land.Number = cells[7].ToString().Trim();
+            }
+            if (cells[8] != null)//宗地编号
+            {
+                land.LandNumber = cells[8].ToString().Trim();
+            }
+            if (cells[9] != null)//代征面积
+            {
+                var area = cells[9].ToString().Trim();
+                if (!string.IsNullOrEmpty(area))
+                {
+                    if (double.TryParse(area, out a))
+                    {
+                        land.ReplaceArea = a;
+                    }
+                }
+            }
+            if (cells[10] != null)//金额
+            {
+                if(double.TryParse(cells[10].ToString().Trim(),out a))
+                {
+                    land.Money = a;
+                }
+            }
+
+            if (cells[11] != null)//批复文号
+            {
+                land.Code = cells[11].ToString().Trim();
+            }
+            if (cells[12] != null)//签订时间
+            {
+                if (DateTime.TryParse(cells[12].ToString().Trim(), out time))
+                {
+                    land.SignTime = time;
+                }
+                else
+                {
+                    land.SignTime = cells[12].DateCellValue;
+                }
+
+            }
+            if (cells[13] != null)//用地批准时间
+            {
+                if(DateTime.TryParse(cells[13].ToString().Trim(),out time))
+                {
+                    land.ApproveTime = time;
+                }
+                else
+                {
+                    land.ApproveTime = cells[13].DateCellValue;
+                }
+            }
+
+            if (cells[14] != null)//投资主体性质
+            {
+                land.Nature = cells[14].ToString().Trim();
+            }
+            if (cells[15] != null)//行业分类
+            {
+                land.Classification = cells[15].ToString().Trim();
+            }
+            if (cells[16] != null)//土地用途
+            {
+                land.Use = cells[16].ToString().Trim();
+            }
+
+            var way = cells[4].ToString().Trim();//供应方式
             if (!string.IsNullOrEmpty(way))
             {
                 try
